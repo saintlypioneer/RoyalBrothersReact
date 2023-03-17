@@ -11,7 +11,7 @@ import Home from './Components/Pages/Home';
 import Payment from './Components/Pages/Payment'
 
 
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar2';
 
 //clear everything before pushing and merging the codes on github
@@ -31,7 +31,7 @@ function App() {
         <Route path='*' element={<>404</>} />
       </Routes>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

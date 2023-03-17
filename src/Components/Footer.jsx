@@ -52,12 +52,12 @@ function Footer() {
                 <div className="followUs">
                     <h5>DOWNLOAD OUR APP</h5>
                     <hr style={{ marginTop: "5px" }} />
-                    <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start"}}>
-                        <img style={{width: "100%", maxWidth: "100px"}}
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                        <img style={{ width: "100%", maxWidth: "100px" }}
                             src="https://d36g7qg6pk2cm7.cloudfront.net/assets/icons/app_store-4407bc8ced0d52a50ff042ce51e32d51de3e11717955798ec54c6a28e7926c7c.png"
                             alt="App Store"
                         />
-                        <img style={{width: "100%", maxWidth: "100px"}}
+                        <img style={{ width: "100%", maxWidth: "100px" }}
                             src="https://d36g7qg6pk2cm7.cloudfront.net/assets/icons/play_store-057f9061b4cd0fd4953a485569c15e63fdf8d89b0bcc025c04cfb34d9e8cd571.png"
                             alt="Play Store"
                         />
@@ -127,14 +127,14 @@ function Footer() {
             </div>
             <div style={{ padding: "10px", display: "flex", alignItems: "center", }} id="tail">
                 <p style={{ fontSize: "1.3rem" }}>
-                    Made with
+                    Made with{" "}
                     <img style={{
                         display: "inline"
                     }}
                         src="https://d36g7qg6pk2cm7.cloudfront.net/assets/icons/like-b8b570f724101252e5c39d8bd66246607fb226e93e3ba17b0516209b20832345.png"
                         alt=""
-                    />
-                    by team Royal Brothers [without Harshada]
+                    />{" "}
+                    by team Royal Brothers
                 </p>
             </div>
 

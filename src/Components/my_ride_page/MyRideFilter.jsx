@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { GrSearch } from "react-icons/gr";
-import  MyRideOverflow from './MyRideOverflow'
+import MyRideOverflow from "./MyRideOverflow";
 import TagComp from "./TagComp";
 import { useDispatch, useSelector } from "react-redux";
 import BikeOptions from "./BikeOptions";
@@ -22,10 +22,7 @@ import BikeTags from "./BikeTags";
 import { ADD_MYRIDES } from "./redux/myride/actiontype";
 import { useSearchParams } from "react-router-dom";
 import { getMyRide } from "./redux/myride/actionmyride";
-// import {
-//   findingDfferenceFunction,
-//   rentalDateAndTimeFunction,
-// } from "../../Redux/search/action";
+
 
 export default function MyRideFilter() {
   const locationTags = useSelector((store) => store.myRideReducer.locationTags);
@@ -34,119 +31,132 @@ export default function MyRideFilter() {
   const dispatch = useDispatch();
   const [locationFilterData, SetLocationFilterData] = useState([]);
   const [statusFilterData, SetstatusFilterData] = useState([]);
-  const [sortData,setSortData]=useState([])
-  //const [searchParams, setSearchParams] = useSearchParams();
-
-  
-
-    
-
-    
-
-
-
+  const [sortData, setSortData] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const filterlocation = () => {
     // console.log(locationTags);
     let filted = data.filter((ele) => {
-      for (let i = 0; i < locationTags.length; i++) {
-        if (ele.location.includes(locationTags[i])) {
-          return true;
+      if(bikeTags.length>0 && locationTags.length>0){
+        for (let i = 0; i < locationTags.length; i++) {
+          if (ele.location.includes(locationTags[i])) {
+            return true;
+          }
+        }
+      }else if(locationTags.length>0){
+        for (let i = 0; i < locationTags.length; i++) {
+          if (ele.location.includes(locationTags[i])) {
+            return true;
+          }
+        }
+      }else if(bikeTags.length>0){
+        for (let i = 0; i < bikeTags.length; i++) {
+          if (ele.vehicle.includes(bikeTags[i])) {
+            return true;
+          }
         }
       }
       return false;
     });
+    console.log('filter',filted);
     SetLocationFilterData(filted);
   };
 
-  function sortHigh(a,b){
-    return b.price - a.price
+  function sortHigh(a, b) {
+    return b.price - a.price;
   }
-  function sortLow(a,b){
+  function sortLow(a, b) {
     return a.price - b.price;
   }
 
   const filterStatus = (status) => {
-  
     dispatch(getMyRide(`?status=${status}`));
   };
 
+  const sortLowToHigh = () => {
+    dispatch(getMyRide(`?_sort=amount&_order=asc`));
+  };
+  const sortHighToLow = () => {
+    dispatch(getMyRide(`?_sort=amount&_order=desc`));
+  };
+  const sortAll = () => {
+    dispatch(getMyRide(``));
+  };
 
 
-  const sortLowToHigh=()=>{
-    dispatch(getMyRide(`?_sort=amount&_order=asc`))
-  }
-  const sortHighToLow=()=>{
-    dispatch(getMyRide(`?_sort=amount&_order=desc`))
-  }
-  const sortAll=()=>{
-    dispatch(getMyRide(``))
-  }
-
-
-  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleClick = () => {
     dispatch({ type: ADD_MYRIDES, payload: locationFilterData });
-    // setSearchParams({
-    //   location: locationTags,
-    // });
+    setSearchParams({
+      location: locationTags,
+    });
 
 
   };
 
-  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function Ends>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
   useEffect(() => {
     filterlocation();
-  }, [locationTags]);
+  }, [locationTags,bikeTags]);
 
 
-  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   return (
     <Stack
-    fontFamily={"Mulish"}
+      fontFamily={"Mulish"}
       p="5px 15px"
-     // display={["none", "none", "none", "block"]}
-      
+      // display={["none", "none", "none", "block"]}
     >
       <Box pl={2}>
-          <Flex justify={"space-between"}>
-            <Text
-          fontSize={"20px"}
-          fontWeight="bold"
-        
-          fontFamily={"Mulish"}
-            >
-             Sort
-            </Text>
-          
-          </Flex>
-          <Flex rowGap={5} wrap={"wrap"} justifyContent={"space-between"}>
-            <Button fontSize={'sm'} colorScheme={"yellow"} height={8} onClick={()=>{
-             sortAll()
-            }}>All</Button>
-            <Button fontSize={'sm'} colorScheme={"yellow"} height={8} onClick={()=>{
-             sortLowToHigh()
-            }}>Price low to high</Button>
-            <Button fontSize={'sm'} colorScheme={"yellow"}height={8} onClick={()=>{
-             sortHighToLow()
-            }}>Price hight to low</Button>
-          </Flex>
-        
+        <Flex justify={"space-between"}>
+          <Text fontSize={"20px"} fontWeight="bold" fontFamily={"Mulish"}>
+            Sort
+          </Text>
+        </Flex>
+        <Flex rowGap={5} wrap={"wrap"} justifyContent={"space-between"}>
+          <Button
+            fontSize={"sm"}
+            colorScheme={"yellow"}
+            height={8}
+            onClick={() => {
+              sortAll();
+            }}
+          >
+            All
+          </Button>
+          <Button
+            fontSize={"sm"}
+            colorScheme={"yellow"}
+            height={8}
+            onClick={() => {
+              sortLowToHigh();
+            }}
+          >
+            Price low to high
+          </Button>
+          <Button
+            fontSize={"sm"}
+            colorScheme={"yellow"}
+            height={8}
+            onClick={() => {
+              sortHighToLow();
+            }}
+          >
+            Price hight to low
+          </Button>
+        </Flex>
+      </Box>
 
-        </Box>
-      
       <Divider />
-      <Stack textAlign={"left"} p={"0px 15px"} height={"500px"} overflow="auto" gap={2}>
-      <Text
-      mt={5}
-        fontSize={"20px"}
-        fontWeight="bold"
-  
-        fontFamily={"Mulish"}
+      <Stack
+        textAlign={"left"}
+        p={"0px 15px"}
+        height={"500px"}
+        overflow="auto"
+        gap={2}
       >
-        Filter
-      </Text>
-      <Box>
+        <Text mt={5} fontSize={"20px"} fontWeight="bold" fontFamily={"Mulish"}>
+          Filter
+        </Text>
+        <Box>
           <Flex justify={"space-between"}>
             <Text
               fontSize={"14px"}
@@ -157,40 +167,59 @@ export default function MyRideFilter() {
               Filter By Status
             </Text>
             <Tag
-                h={"10px"}
-                key={"xs"}
-                w="70px"
-                borderRadius="full"
-                variant="solid"
-                bg="#f2f2f2"
-                color={"black"}
+              h={"10px"}
+              key={"xs"}
+              w="70px"
+              borderRadius="full"
+              variant="solid"
+              bg="#f2f2f2"
+              color={"black"}
+            >
+              <TagLabel
+                fontSize={"10px"}
+                ml="5px"
+                fontFamily={"Mulish"}
+                fontWeight="light"
               >
-                <TagLabel
-                  fontSize={"10px"}
-                  ml="5px"
-                  fontFamily={"Mulish"}
-                  fontWeight="light"
-                >
-                  Clear
-                </TagLabel>
-                <TagCloseButton fontSize={"15px"} />
-              </Tag>
+                Clear
+              </TagLabel>
+              <TagCloseButton fontSize={"15px"} />
+            </Tag>
           </Flex>
           <Flex rowGap={5} wrap={"wrap"} justifyContent={"space-between"}>
-            <Button fontSize={"sm"} h={8} colorScheme={"yellow"} onClick={()=>{
-              filterStatus('pending')
-            }}>Pending</Button>
-            <Button fontSize={'sm'} h={8} colorScheme={"yellow"} onClick={()=>{
-              filterStatus('booked')
-            }}>Completed</Button>
-            <Button fontSize={'sm'} h={8} colorScheme={"yellow"} onClick={()=>{
-              filterStatus('cancelled')
-            }}>Cancelled</Button>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                filterStatus("pending");
+              }}
+            >
+              Pending
+            </Button>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                filterStatus("booked");
+              }}
+            >
+              Completed
+            </Button>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                filterStatus("cancelled");
+              }}
+            >
+              Cancelled
+            </Button>
           </Flex>
-        
-
         </Box>
-       
+
         <Box>
           <Flex justify={"space-between"}>
             <Text

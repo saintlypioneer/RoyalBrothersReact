@@ -27,26 +27,26 @@ export default function Filter() {
   const locationTags = useSelector((store) => store.searchReducer.locationTags);
   const bikeTags = useSelector((store) => store.searchReducer.bikeTags);
   const data = useSelector((store) => store.searchReducer.cityData);
-  const durationOfRent = useSelector((store)=>store.searchReducer.rentalDetails)
-  const differenceInHours = useSelector((store)=>store.searchReducer.duration)
-  const bikeFilter = useSelector((store)=>store.searchReducer.bikeTags)
+  const durationOfRent = useSelector((store) => store.searchReducer.rentalDetails)
+  const differenceInHours = useSelector((store) => store.searchReducer.duration)
+  const bikeFilter = useSelector((store) => store.searchReducer.bikeTags)
   const dispatch = useDispatch();
   const [locationFilterData, SetLocationFilterData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [dateValue, setDateValue] = useState("");
   const [dropDate, setDropDate] = useState("");
-  const [pickTime,setPickTime] = useState("");
-  const [dropTime,setDropTime] = useState("");
-  const [inputLocation,setInputLocation] = useState("");
+  const [pickTime, setPickTime] = useState("");
+  const [dropTime, setDropTime] = useState("");
+  const [inputLocation, setInputLocation] = useState("");
 
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Taking input search location data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  const handleSearchLocationInput = (event)=>{
-    const {value,name} = event.target;
-    if(name==='searchLocation'){
+  const handleSearchLocationInput = (event) => {
+    const { value, name } = event.target;
+    if (name === 'searchLocation') {
 
     }
-    else if(name==="bikeSearch"){
+    else if (name === "bikeSearch") {
 
     }
   }
@@ -54,16 +54,16 @@ export default function Filter() {
   //>>>>>>>>>>>>>>>>>>>Finding data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-  // let date = new Date();
-  // let todayDate = date.getDate();
-  // let month = date.getMonth() + 1;
-  // if (month < 10) month = "0" + month;
-  // let year = date.getUTCFullYear();
-  // let min = year + "-" + month + "-" + todayDate;
+  let date = new Date();
+  let todayDate = date.getDate();
+  let month = date.getMonth() + 1;
+  if (month < 10) month = "0" + month;
+  let year = date.getUTCFullYear();
+  let min = year + "-" + month + "-" + todayDate;
   // let timeHours = date.getHours();
   // let minutes = date.getMinutes();
-  
-  
+
+
   // let timeNow = timeHours+":"+minutes;
   // console.log(timeNow)
   //>>>>>>>>>>>>>>>>>>>End Finding data
@@ -87,43 +87,43 @@ export default function Filter() {
     // Format the output date string in the desired format
     const outputDate = `${day} ${monthAbbreviation}, ${year}`;
     event.target.type = "text";
-    if(event.target.name==="pickupDate"){
+    if (event.target.name === "pickupDate") {
       setDateValue(outputDate)
     }
-    else if(event.target.name==="dropDate"){
+    else if (event.target.name === "dropDate") {
       setDropDate(outputDate)
     } // Output: "17 Mar, 2023"
   };
-   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Converting the Time into String value Begins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  const handleTimeChange = (event)=>{
+  const handleTimeChange = (event) => {
     let timeNow = event.target.value;
     var timeArray = timeNow.split(":");
     var hours = parseInt(timeArray[0]);
     var minutes = timeArray[1];
     var meridiem = "am";
-    
+
     if (hours > 12) {
       hours = hours - 12;
       meridiem = "pm";
     }
-    
+
     if (hours === 0) {
       hours = 12;
     }
-     event.target.type = "text";
-     if(event.target.name==="pickTime"){
+    event.target.type = "text";
+    if (event.target.name === "pickTime") {
       setPickTime(hours + ":" + minutes + " " + meridiem)
-     }
-    else if(event.target.name==="dropTime"){
+    }
+    else if (event.target.name === "dropTime") {
       setDropTime(hours + ":" + minutes + " " + meridiem)
     }
   }
 
-   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
 
- 
+
   const filterlocation = () => {
     // console.log(locationTags);
     let filted = data.filter((ele) => {
@@ -136,7 +136,7 @@ export default function Filter() {
     });
     SetLocationFilterData(filted);
   };
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleClick = () => {
     dispatch({ type: FILTER_DATA, payload: locationFilterData });
     // setSearchParams({
@@ -145,18 +145,18 @@ export default function Filter() {
     dispatch(filterbyBikeModel(bikeFilter))
 
     dispatch(rentalDateAndTimeFunction({
-      pickupDate:dateValue,
-      pickupTime:pickTime,
-      dropoffDate:dropDate,
-      dropoffTime:dropTime
+      pickupDate: dateValue,
+      pickupTime: pickTime,
+      dropoffDate: dropDate,
+      dropoffTime: dropTime
     }))
   };
 
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function Ends>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function Ends>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   useEffect(() => {
     filterlocation();
     dispatch(findingDfferenceFunction(durationOfRent))
-  }, [locationTags,durationOfRent]);
+  }, [locationTags, durationOfRent]);
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< To display symbol of date on clicking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleFocusDate = (event) => {
@@ -201,7 +201,7 @@ export default function Filter() {
                 size={"xs"}
                 type="text"
                 placeholder=""
-                // min={min}
+                min={min}
                 name="pickupDate"
                 value={dateValue}
                 borderBottom={"1px solid #c1c1c1"}
@@ -220,7 +220,7 @@ export default function Filter() {
                 placeholder=""
                 onFocus={handleFocusTime}
                 value={pickTime}
-                // min={timeNow}
+                //min={timeNow}
                 name="pickTime"
                 borderBottom={"1px solid #c1c1c1"}
                 onChange={handleTimeChange}
@@ -237,7 +237,7 @@ export default function Filter() {
                 size={"xs"}
                 type="text"
                 placeholder=""
-                // min={min}
+                min={min}
                 name="dropDate"
                 value={dropDate}
                 onFocus={handleFocusDate}
@@ -275,10 +275,10 @@ export default function Filter() {
             Search Duration
           </Text>
           {
-            !isNaN (differenceInHours.days) && <Flex gap={2} fontSize={'14px'}>
-              <Text>{differenceInHours.days!==0 ? differenceInHours.days+" Days" : ""}</Text>
-              <Text>{differenceInHours.hours!==0 ? differenceInHours.hours+" Hours" : ""}</Text>
-              <Text>{differenceInHours.minutes!==0 ? differenceInHours.minutes+"Minutes" : ""}</Text>
+            !isNaN(differenceInHours.days) && <Flex gap={2} fontSize={'14px'}>
+              <Text>{differenceInHours.days !== 0 ? differenceInHours.days + " Days" : ""}</Text>
+              <Text>{differenceInHours.hours !== 0 ? differenceInHours.hours + " Hours" : ""}</Text>
+              <Text>{differenceInHours.minutes !== 0 ? differenceInHours.minutes + "Minutes" : ""}</Text>
             </Flex>
           }
         </Box>

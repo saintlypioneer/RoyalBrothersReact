@@ -1,15 +1,31 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Checkout from '../Components/Checkout';
 import Summary from '../Components/Summary';
 
 function Check() {
-   
+    const [total, setTotal] = useState()
+
+    const [state, setState] = useState({})
+
+    const checkData = useSelector((store) => {
+        console.log("check")
+        return store.searchReducer.paramsObject;
+
+    })
+    console.log("check", checkData)
+
+    useEffect(() => {
+        axios.get(`https://updatedroyalbrothers-api.onrender.com/banglore/${checkData.id}`).then((res) => setState(res.data))
+    }, [state])
     return (
 
         <div className="App">
             <Container>
-                <Summary />
-                <Checkout />
+                <Summary {...state} location={checkData.location} total={total} setTotal={setTotal} />
+                <Checkout total={total} />
             </Container>
 
         </div>

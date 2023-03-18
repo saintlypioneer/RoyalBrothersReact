@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Button, Flex, Box } from '@chakra-ui/react'
 import styled from '@emotion/styled';
 
-function Checkout() {
+function Checkout({ total }) {
 
     return (
         <Card m={['10px', '20px']} w={['100%', 500]} p="10px" borderRadius="5px" h={'fit-content'} boxShadow="rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px" >
@@ -14,15 +14,15 @@ function Checkout() {
                 </Box>
                 <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                     <Text>Booking Fees</Text>
-                    <Text>₹ 2565.00 </Text>
+                    <Text>₹ {total} </Text>
                 </Box>
                 <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                     <Text>CGST (14%) </Text>
-                    <Text>₹	359.10</Text>
+                    <Text>₹	 {Math.round(total * 0.14)}</Text>
                 </Box>
                 <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                     <Text>SGST  (14%) </Text>
-                    <Text>₹	359.10</Text>
+                    <Text>₹	 {Math.round(total * 0.14)}</Text>
                 </Box>
                 <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                     <Text>Refundable Deposit  </Text>
@@ -30,7 +30,7 @@ function Checkout() {
                 </Box>
                 <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                     <Text>Total Payable Amount   </Text>
-                    <Text>₹ 3283.20</Text>
+                    <Text>₹{total + 2 * Math.round(total * 0.14)}</Text>
                 </Box>
             </Flex>
             <CardFooter>

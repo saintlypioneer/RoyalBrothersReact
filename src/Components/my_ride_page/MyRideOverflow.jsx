@@ -22,9 +22,11 @@ export default function MyRideOverflow() {
     }
   }
 
+  const uniLocation=[...new Set(locationData.map(item=>item.location))];
+
   return (
     <Stack h={"100px"} overflow="auto" border={'1px solid #c1c1c1'}p="5px 0px">
-      {locationData.map((ele,idx) => {
+      {uniLocation.map((ele,idx) => {
         return (
           <Flex
             alignItems={"center"}
@@ -40,8 +42,8 @@ export default function MyRideOverflow() {
             fontFamily={"Mulish"}
             fontWeight='light'
           >
-            <Checkbox border={"grey"} bg={"white"} size={"sm"} onChange={(e)=>handleClick(e,ele.location)}></Checkbox>
-            {ele.location}
+            <Checkbox border={"grey"} bg={"white"} size={"sm"} onChange={(e)=>handleClick(e,ele)}></Checkbox>
+            {ele}
           </Flex>
         );
       })}

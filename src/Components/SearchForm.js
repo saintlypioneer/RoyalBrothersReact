@@ -32,15 +32,9 @@ function SearchForm(props) {
                         onChange={setPickupDate}
                         icon={<IconCalendar size="1.1rem" stroke={1.5} />}
                     />
-                    <TimeInput
-                        placeholder="Time"
-                        miw={"45%"}
-                        maw={"400px"}
-                        mx="auto" 
-                        icon={<IconClock size="1rem" stroke={1.5} />}
-                        value={pickupTime}
-                        onChange={setPickupTime}
-                     />
+                    <input value={pickupTime} onChange={(e)=>{
+                        setPickupTime(e.target.value)
+                    }} className="timeSelector" type={"time"} />
                     </div>
                 </DateTime>
                 <DateTime>
@@ -57,7 +51,10 @@ function SearchForm(props) {
                         onChange={setDropoffDate}
                         icon={<IconCalendar size="1.1rem" stroke={1.5} />}
                     />
-                    <TimeInput
+                    <input value={dropoffTime} onChange={(e)=>{
+                        setDropoffTime(e.target.value)
+                    }}  className="timeSelector" type={"time"} />
+                    {/* <TimeInput
                         placeholder="Time"
                         miw={"45%"}
                         maw={400}
@@ -65,7 +62,7 @@ function SearchForm(props) {
                         icon={<IconClock size="1rem" stroke={1.5} />}
                         value={dropoffTime}
                         onChange={setDropoffTime}
-                     />
+                     /> */}
                     </div>
                 </DateTime>
                 <button className="submit">Search</button>
@@ -81,6 +78,14 @@ const Container = styled.div`
     height: fit-content;
     padding: 20px;
     border-radius: 5px;
+
+    .timeSelector{
+        width: 100%;
+        /* background-color: olive; */
+        border: 1px solid rgb(206, 212, 218);
+        border-radius: 5px;
+        padding-left: 5px;
+    }
 
     @media (max-width:600px) {
         width: 100%;

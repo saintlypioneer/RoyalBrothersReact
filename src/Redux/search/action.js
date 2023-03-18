@@ -20,7 +20,6 @@ export const getData = () => (dispatch) => {
         type: GET_DATA_SUCCESS,
         payload: res.data,
       });
-      console.log(res);
     })
     .catch((e) => dispatch({ type: GET_DATA_FAILURE }));
 };
@@ -68,3 +67,10 @@ export const findingDfferenceFunction = (payload) => (dispatch) => {
   }
   dispatch({type:SET_DURATION,payload:durationDetails})
 };
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Filter by Bike model >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+export const filterbyBikeModel = (payload)=>(dispatch)=>{
+  axios.get(`${url}?${payload}`)
+  .then((res)=>console.log(res.data))
+  .catch((e)=>console.log(e))
+}

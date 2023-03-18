@@ -12,6 +12,8 @@ import {
   RENTAL_DETAILS_REQUEST,
   RENTAL_DETAILS_SUCCESS,
   SET_DURATION,
+  FILTER_DATA,
+  CHECKOUT_OBJECT,
 } from "./actionType";
 
 
@@ -34,11 +36,14 @@ let initialData = {
   locationTags: [],
   bikeTags: [],
   rentalDetails: {},
-  duration:{}
+  duration:{},
+  filterData:[],
+  paramsObject:{}
 };
 
 
 export default function searchReducer(state = initialData, { type, payload }) {
+  console.log(payload)
   switch (type) {
     case GET_DATA_REQUEST:
       return {
@@ -103,6 +108,16 @@ export default function searchReducer(state = initialData, { type, payload }) {
       return{
         ...state,
           duration:payload,
+      }
+    case FILTER_DATA:
+      return {
+        ...state,
+        filterData:payload
+      }
+    case CHECKOUT_OBJECT:
+      return {
+        ...state,
+        paramsObject:payload
       }
     default:
       return state;

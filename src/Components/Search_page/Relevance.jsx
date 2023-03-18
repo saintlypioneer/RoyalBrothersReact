@@ -5,17 +5,21 @@ import {useDispatch, useSelector} from 'react-redux'
 import { getData } from "../../Redux/search/action";
 import SkeletonComp from "./SkeletonComp";
 import { useSearchParams } from "react-router-dom";
+import { filterbyBikeModel } from "../../Redux/search/action";
 // import { sortingFunction } from "../../Redux/search/action";
 
 export default function Relevance() {
   const cityData = useSelector((store)=> store.searchReducer.cityData)
   const loading = useSelector((store)=> store.searchReducer.isLoading)
   const duration = useSelector((store)=>store.searchReducer.rentalDetails)
+  const filterData = useSelector((store)=>store.searchReducer.filterData)
+  
+  
   const dispatch = useDispatch();
 // console.log(duration);
   useEffect(()=>{
     dispatch(getData())
-  },[dispatch,duration])
+  },[dispatch,duration,filterData,])
   return (
     <Stack>
       <Text textAlign={"center"} mb='1rem'>
@@ -24,7 +28,9 @@ export default function Relevance() {
       </Text>
       <Grid templateColumns={["repeat(1,1fr)","repeat(2,1fr)","repeat(2,1fr)","repeat(3,1fr)"]} gap={6}>
         {loading && <SkeletonComp/>}
-        {cityData.map((ele) => {
+        { filterData.length>0 ? filterData.map((ele)=>{
+          return <CardComp {...ele} key={ele.id} {...duration}/>
+        }) : cityData.map((ele) => {
           return <CardComp {...ele} key={ele.id} {...duration}/>;
         })}
       </Grid>

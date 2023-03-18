@@ -54,12 +54,12 @@ export default function Filter() {
   //>>>>>>>>>>>>>>>>>>>Finding data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 
-  // let date = new Date();
-  // let todayDate = date.getDate();
-  // let month = date.getMonth() + 1;
-  // if (month < 10) month = "0" + month;
-  // let year = date.getUTCFullYear();
-  // let min = year + "-" + month + "-" + todayDate;
+  let date = new Date();
+  let todayDate = date.getDate();
+  let month = date.getMonth() + 1;
+  if (month < 10) month = "0" + month;
+  let year = date.getUTCFullYear();
+  let min = year + "-" + month + "-" + todayDate;
   // let timeHours = date.getHours();
   // let minutes = date.getMinutes();
   
@@ -201,7 +201,7 @@ export default function Filter() {
                 size={"xs"}
                 type="text"
                 placeholder=""
-                // min={min}
+                min={min}
                 name="pickupDate"
                 value={dateValue}
                 borderBottom={"1px solid #c1c1c1"}
@@ -237,7 +237,7 @@ export default function Filter() {
                 size={"xs"}
                 type="text"
                 placeholder=""
-                // min={min}
+                min={min}
                 name="dropDate"
                 value={dropDate}
                 onFocus={handleFocusDate}

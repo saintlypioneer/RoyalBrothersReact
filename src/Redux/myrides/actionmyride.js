@@ -17,12 +17,12 @@ const handleSave=(data)=>{
         }
 }
 
-export const getMyRide=(sub)=>(dispatch)=>{
+export const getMyRide=(params={})=>(dispatch)=>{
     dispatch(handleLoading())
-    axios.get(`https://royalapi-kq51.onrender.com/history${sub}`)
+    axios.get(`https://royalapi-kq51.onrender.com/history`,params)
     .then(res=>{
         dispatch(handleSave(res.data))
-        console.log(res.data)
+      //  console.log(res.data)
     })
     .catch(res=>{
         dispatch(handleError())

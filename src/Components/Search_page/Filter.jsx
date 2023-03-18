@@ -19,9 +19,9 @@ import TagComp from "./TagComp";
 import { useDispatch, useSelector } from "react-redux";
 import BikeOptions from "./BikeOptions";
 import BikeTags from "./BikeTags";
-import { GET_DATA_SUCCESS } from "../../Redux/search/actionType";
+import { FILTER_DATA, GET_DATA_SUCCESS } from "../../Redux/search/actionType";
 import { useSearchParams } from "react-router-dom";
-import { findingDfferenceFunction, rentalDateAndTimeFunction } from "../../Redux/search/action";
+import { filterbyBikeModel, findingDfferenceFunction, rentalDateAndTimeFunction } from "../../Redux/search/action";
 
 export default function Filter() {
   const locationTags = useSelector((store) => store.searchReducer.locationTags);
@@ -29,6 +29,7 @@ export default function Filter() {
   const data = useSelector((store) => store.searchReducer.cityData);
   const durationOfRent = useSelector((store)=>store.searchReducer.rentalDetails)
   const differenceInHours = useSelector((store)=>store.searchReducer.duration)
+  const bikeFilter = useSelector((store)=>store.searchReducer.bikeTags)
   const dispatch = useDispatch();
   const [locationFilterData, SetLocationFilterData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,19 +37,34 @@ export default function Filter() {
   const [dropDate, setDropDate] = useState("");
   const [pickTime,setPickTime] = useState("");
   const [dropTime,setDropTime] = useState("");
+  const [inputLocation,setInputLocation] = useState("");
+
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Taking input search location data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const handleSearchLocationInput = (event)=>{
+    const {value,name} = event.target;
+    if(name==='searchLocation'){
+
+    }
+    else if(name==="bikeSearch"){
+
+    }
+  }
 
   //>>>>>>>>>>>>>>>>>>>Finding data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  let date = new Date();
-  let todayDate = date.getDate();
-  let month = date.getMonth() + 1;
-  if (month < 10) month = "0" + month;
-  let year = date.getUTCFullYear();
-  let min = year + "-" + month + "-" + todayDate;
-  let timeHours = date.getHours();
-  let minutes = date.getMinutes();
+
+
+  // let date = new Date();
+  // let todayDate = date.getDate();
+  // let month = date.getMonth() + 1;
+  // if (month < 10) month = "0" + month;
+  // let year = date.getUTCFullYear();
+  // let min = year + "-" + month + "-" + todayDate;
+  // let timeHours = date.getHours();
+  // let minutes = date.getMinutes();
   
   
-  let timeNow = timeHours+":"+minutes;
+  // let timeNow = timeHours+":"+minutes;
   // console.log(timeNow)
   //>>>>>>>>>>>>>>>>>>>End Finding data
 
@@ -122,10 +138,11 @@ export default function Filter() {
   };
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleClick = () => {
-    dispatch({ type: GET_DATA_SUCCESS, payload: locationFilterData });
-    setSearchParams({
-      location: locationTags,
-    });
+    dispatch({ type: FILTER_DATA, payload: locationFilterData });
+    // setSearchParams({
+    //   location: locationTags,
+    // });
+    dispatch(filterbyBikeModel(bikeFilter))
 
     dispatch(rentalDateAndTimeFunction({
       pickupDate:dateValue,
@@ -184,7 +201,7 @@ export default function Filter() {
                 size={"xs"}
                 type="text"
                 placeholder=""
-                min={min}
+                // min={min}
                 name="pickupDate"
                 value={dateValue}
                 borderBottom={"1px solid #c1c1c1"}
@@ -203,7 +220,7 @@ export default function Filter() {
                 placeholder=""
                 onFocus={handleFocusTime}
                 value={pickTime}
-                min={timeNow}
+                // min={timeNow}
                 name="pickTime"
                 borderBottom={"1px solid #c1c1c1"}
                 onChange={handleTimeChange}
@@ -220,7 +237,7 @@ export default function Filter() {
                 size={"xs"}
                 type="text"
                 placeholder=""
-                min={min}
+                // min={min}
                 name="dropDate"
                 value={dropDate}
                 onFocus={handleFocusDate}
@@ -236,7 +253,7 @@ export default function Filter() {
                 variant="flushed"
                 size={"xs"}
                 type="text"
-                min={timeNow}
+                // min={timeNow}
                 name="dropTime"
                 value={dropTime}
                 placeholder=""
@@ -307,9 +324,11 @@ export default function Filter() {
             <Input
               variant={"flushed"}
               placeholder="Search Location"
+              name="searchLocation"
               size={"xs"}
               fontSize={"14px"}
               borderBottom={"1px solid #c1c1c1"}
+              onChange={handleSearchLocationInput}
             />
             <InputRightElement
               pointerEvents="none"
@@ -366,7 +385,9 @@ export default function Filter() {
               placeholder="Search Bike Model"
               fontSize={"14px"}
               size={"xs"}
+              name="bikeSearch"
               borderBottom={"1px solid #c1c1c1"}
+              onChange={handleSearchLocationInput}
             />
             <InputRightElement
               pointerEvents="none"

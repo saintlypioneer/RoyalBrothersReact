@@ -9,7 +9,10 @@ import {IconCalendar, IconClock} from '@tabler/icons-react'
 
 function SearchForm(props) {
 
-    const [value, setValue] = useState(null);
+    const [pickupDate, setPickupDate] = useState(null);
+    const [dropoffDate, setDropoffDate] = useState(null);
+    const [pickupTime, setPickupTime] = useState(new Date());
+    const [dropoffTime, setDropoffTime] = useState(new Date());
 
     return (
         <Container>
@@ -25,16 +28,18 @@ function SearchForm(props) {
                         maw={400}
                         miw={"45%"}
                         mx="auto"
-                        value={value}
-                        onChange={setValue}
+                        value={pickupDate}
+                        onChange={setPickupDate}
                         icon={<IconCalendar size="1.1rem" stroke={1.5} />}
                     />
                     <TimeInput
                         placeholder="Time"
                         miw={"45%"}
-                        maw={400}
+                        maw={"400px"}
                         mx="auto" 
                         icon={<IconClock size="1rem" stroke={1.5} />}
+                        value={pickupTime}
+                        onChange={setPickupTime}
                      />
                     </div>
                 </DateTime>
@@ -48,8 +53,8 @@ function SearchForm(props) {
                         maw={400}
                         miw={"45%"}
                         mx="auto"
-                        value={value}
-                        onChange={setValue}
+                        value={dropoffDate}
+                        onChange={setDropoffDate}
                         icon={<IconCalendar size="1.1rem" stroke={1.5} />}
                     />
                     <TimeInput
@@ -58,6 +63,8 @@ function SearchForm(props) {
                         maw={400}
                         mx="auto" 
                         icon={<IconClock size="1rem" stroke={1.5} />}
+                        value={dropoffTime}
+                        onChange={setDropoffTime}
                      />
                     </div>
                 </DateTime>

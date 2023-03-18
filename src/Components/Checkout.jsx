@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Button, Flex, Box } from '@chakra-ui/react'
 import styled from '@emotion/styled';
+import { Link, Navigate } from 'react-router-dom';
 
 function Checkout({ total }) {
 
@@ -34,7 +35,7 @@ function Checkout({ total }) {
                 </Box>
             </Flex>
             <CardFooter>
-                <Button bg={'#fed250'} colorScheme="brand.500" w={400} m="auto" color={'black'}> Make Payment</Button>
+                <Link style={{margin: "auto", width: "100%"}} to="/payment"><Button bg={'#fed250'} colorScheme="brand.500" w={"100%"} color={'black'}> Make Payment</Button></Link>
                 {/* <Button1>Make Payment</Button1> */}
             </CardFooter>
         </Card>

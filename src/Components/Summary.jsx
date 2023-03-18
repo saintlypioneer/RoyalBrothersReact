@@ -1,9 +1,52 @@
 import { Box, Flex, Image, Text, Select, Input, Button } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Stack, StackDivider } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 
 function Summary() {
     const options = ["1", "2"]
+    const [prices, setPrices] = useState([1269, 1269]);
+
+    // const [total, setTotal] = useState(2565)
+    const [total, setTotal] = useState(prices.reduce((acc, curr) => acc + curr));
+
+
+
+    const [selectedOption, setSelectedOption] = useState("1");
+
+    useEffect(() => {
+        setTotal(prices.reduce((acc, curr) => acc + curr));
+    }, [prices]);
+
+
+    const handleOptionChange = (option) => {
+        setSelectedOption(option);
+        if (option === "2") {
+            setPrices(prices.map(price => price * 2));
+
+            console.log("hi harsh")
+        } else {
+            setPrices([1269, 1269]);
+        }
+    }
+
+
+
+
+
+    const handleApplyCoupon = () => {
+        const couponInput = document.getElementById('couponInput')
+        if (couponInput.value === 'masai10') {
+            setTotal(total - 100)
+            couponInput.value = ''
+        }
+        else {
+            alert('Coupon not valid');
+        }
+    }
+
+
+
 
     return (
         <Card p={'20px'} m={'20px'} boxShadow={" rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px"}>
@@ -50,20 +93,25 @@ function Summary() {
                                 <Text pt="2" fontSize="sm">
                                     <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                                         <Text>Weekday - 70.5 hrs * rupee18.0/hr </Text>
-                                        <Text>₹ 1269.0 </Text>
+                                        <Text>₹ {prices[0]} </Text>
                                     </Box>
                                     <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                                         <Text>Weekend - 72 hrs * rupee18.0/hr </Text>
-                                        <Text>₹ 1269.0 </Text>
+                                        <Text>₹ {prices[1]} </Text>
                                     </Box>
                                     <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                                         <Text>Total</Text>
-                                        <Text>₹ 2565</Text>
+                                        <Text>₹ {total}</Text>
                                     </Box>
 
                                     <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                                         <Text>Number of Helmets (?)</Text>
-                                        <Select size='sm' w={20} >
+                                        {/* <Select size='sm' w={20} >
+                                            {options.map(option => (
+                                                <option key={option} value={option}>{option}</option>
+                                            ))}
+                                        </Select> */}
+                                        <Select size='sm' w={20} value={selectedOption} onChange={(e) => handleOptionChange(e.target.value)}>
                                             {options.map(option => (
                                                 <option key={option} value={option}>{option}</option>
                                             ))}
@@ -71,8 +119,8 @@ function Summary() {
                                     </Box>
 
                                     <Box my={4} display='flex' justifyContent='space-between' w='100%'>
-                                        <Input type="text" mr={2} borderBottom={'1px'} placeholder={'Apply Coupon'} outline={'none'} focusBorderColor={'transparent'} />
-                                        <Button bg="brand.500" colorScheme={"brand.500"} color={'black'} w={200}>Apply</Button>
+                                        <Input type="text" mr={2} borderBottom={'1px'} placeholder={'Apply Coupon'} outline={'none'} focusBorderColor={'transparent'} id='couponInput' />
+                                        <Button bg="brand.500" colorScheme={"brand.500"} color={'black'} w={200} onClick={handleApplyCoupon}>Apply</Button>
                                     </Box>
 
                                 </Text>

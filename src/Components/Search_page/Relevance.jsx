@@ -18,8 +18,8 @@ export default function Relevance() {
   const dispatch = useDispatch();
 // console.log(duration);
   useEffect(()=>{
-    dispatch(getData())
-  },[dispatch,duration,filterData,])
+    dispatch(getData());
+  },[dispatch,duration,filterData])
   return (
     <Stack>
       <Text textAlign={"center"} mb='1rem'>

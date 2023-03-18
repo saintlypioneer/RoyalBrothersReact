@@ -15,10 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMyRide } from "./redux/myride/actionmyride";
 import axios from "axios";
 import SkeletonComp from "./SkeletonComp";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 function MyRides(props) {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
+  const [searchParams]=useSearchParams()
+  const routeLocation=useLocation()
 
   const loading = useSelector((store)=> {return store.myRideReducer.loading})
   //const [dataArr,setDataArr]=useState([])
@@ -26,15 +29,27 @@ function MyRides(props) {
   const dataArr = useSelector((store) => {
     return store.myRideReducer.vehicles;
   });
+
+  const obj={
+    params:{
+      location:searchParams.getAll("location"),
+      vehicle:searchParams.getAll("vehicle"),
+      status:searchParams.get('status'),
+      _sort:searchParams.get("_sort"),
+      _order:searchParams.get('_order')
+    }
+  }
   const handleData = () => {
-    dispatch(getMyRide(""));
-    console.log(dataArr);
+    dispatch(getMyRide(obj));
+    console.log('params',obj);
 
   };
 
+
   useEffect(() => {
     handleData();
-  }, [dispatch]);
+  
+  }, [dispatch,routeLocation.search]);
 
 
   return (

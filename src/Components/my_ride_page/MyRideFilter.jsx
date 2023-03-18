@@ -19,85 +19,71 @@ import TagComp from "./TagComp";
 import { useDispatch, useSelector } from "react-redux";
 import BikeOptions from "./BikeOptions";
 import BikeTags from "./BikeTags";
-import { ADD_MYRIDES } from "./redux/myride/actiontype";
+import {
+  ADD_MYRIDES,
+  BIKE_TAG_CLEAR,
+  LOCATION_TAG_CLEAR,
+  STATUS_ALL,
+  STATUS_CANCEL,
+  STATUS_COMPLETE,
+  STATUS_PENDING,
+} from "./redux/myride/actiontype";
 import { useSearchParams } from "react-router-dom";
 import { getMyRide } from "./redux/myride/actionmyride";
-
 
 export default function MyRideFilter() {
   const locationTags = useSelector((store) => store.myRideReducer.locationTags);
   const bikeTags = useSelector((store) => store.myRideReducer.bikeTags);
+  const fStatus = useSelector((store) => store.myRideReducer.fstatus);
   const data = useSelector((store) => store.myRideReducer.vehicles);
   const dispatch = useDispatch();
-  const [locationFilterData, SetLocationFilterData] = useState([]);
-  const [statusFilterData, SetstatusFilterData] = useState([]);
-  const [sortData, setSortData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const filterlocation = () => {
-    // console.log(locationTags);
-    let filted = data.filter((ele) => {
-      if(bikeTags.length>0 && locationTags.length>0){
-        for (let i = 0; i < locationTags.length; i++) {
-          if (ele.location.includes(locationTags[i])) {
-            return true;
-          }
-        }
-      }else if(locationTags.length>0){
-        for (let i = 0; i < locationTags.length; i++) {
-          if (ele.location.includes(locationTags[i])) {
-            return true;
-          }
-        }
-      }else if(bikeTags.length>0){
-        for (let i = 0; i < bikeTags.length; i++) {
-          if (ele.vehicle.includes(bikeTags[i])) {
-            return true;
-          }
-        }
-      }
-      return false;
+  const filterStatus = (st) => {
+    dispatch({ type: st });
+    setSearchParams({
+      location: locationTags,
+      vehicle: bikeTags,
+      status: fStatus,
     });
-    console.log('filter',filted);
-    SetLocationFilterData(filted);
-  };
-
-  function sortHigh(a, b) {
-    return b.price - a.price;
-  }
-  function sortLow(a, b) {
-    return a.price - b.price;
-  }
-
-  const filterStatus = (status) => {
-    dispatch(getMyRide(`?status=${status}`));
   };
 
   const sortLowToHigh = () => {
-    dispatch(getMyRide(`?_sort=amount&_order=asc`));
+    //  dispatch(getMyRide(`?_sort=amount&_order=asc`));
+    setSearchParams({
+      location: locationTags,
+      vehicle: bikeTags,
+      status: fStatus,
+      _sort: "amount",
+      _order: "asc",
+    });
   };
   const sortHighToLow = () => {
-    dispatch(getMyRide(`?_sort=amount&_order=desc`));
+    //  dispatch(getMyRide(`?_sort=amount&_order=desc`));
+    setSearchParams({
+      location: locationTags,
+      vehicle: bikeTags,
+      status: fStatus,
+      _sort: "amount",
+      _order: "desc",
+    });
   };
   const sortAll = () => {
     dispatch(getMyRide(``));
   };
 
-
   const handleClick = () => {
-    dispatch({ type: ADD_MYRIDES, payload: locationFilterData });
+    // dispatch({ type: ADD_MYRIDES, payload: locationFilterData });
     setSearchParams({
       location: locationTags,
+      vehicle: bikeTags,
     });
-
-
   };
 
- 
   useEffect(() => {
-    filterlocation();
-  }, [locationTags,bikeTags]);
-
+    //  setSLocation(locationTags)
+    // filterlocation();
+  }, [locationTags, bikeTags, fStatus]);
 
   return (
     <Stack
@@ -111,17 +97,7 @@ export default function MyRideFilter() {
             Sort
           </Text>
         </Flex>
-        <Flex rowGap={5} wrap={"wrap"} justifyContent={"space-between"}>
-          <Button
-            fontSize={"sm"}
-            colorScheme={"yellow"}
-            height={8}
-            onClick={() => {
-              sortAll();
-            }}
-          >
-            All
-          </Button>
+        <Flex gap={5} wrap={"wrap"} >
           <Button
             fontSize={"sm"}
             colorScheme={"yellow"}
@@ -166,25 +142,7 @@ export default function MyRideFilter() {
             >
               Filter By Status
             </Text>
-            <Tag
-              h={"10px"}
-              key={"xs"}
-              w="70px"
-              borderRadius="full"
-              variant="solid"
-              bg="#f2f2f2"
-              color={"black"}
-            >
-              <TagLabel
-                fontSize={"10px"}
-                ml="5px"
-                fontFamily={"Mulish"}
-                fontWeight="light"
-              >
-                Clear
-              </TagLabel>
-              <TagCloseButton fontSize={"15px"} />
-            </Tag>
+           
           </Flex>
           <Flex rowGap={5} wrap={"wrap"} justifyContent={"space-between"}>
             <Button
@@ -192,7 +150,21 @@ export default function MyRideFilter() {
               h={8}
               colorScheme={"yellow"}
               onClick={() => {
-                filterStatus("pending");
+                dispatch({ type: STATUS_ALL });
+                setSearchParams({
+                  location: locationTags,
+                  vehicle: bikeTags,
+                });
+              }}
+            >
+              All
+            </Button>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                filterStatus(STATUS_PENDING);
               }}
             >
               Pending
@@ -202,7 +174,7 @@ export default function MyRideFilter() {
               h={8}
               colorScheme={"yellow"}
               onClick={() => {
-                filterStatus("booked");
+                filterStatus(STATUS_COMPLETE);
               }}
             >
               Completed
@@ -212,7 +184,7 @@ export default function MyRideFilter() {
               h={8}
               colorScheme={"yellow"}
               onClick={() => {
-                filterStatus("cancelled");
+                filterStatus(STATUS_CANCEL);
               }}
             >
               Cancelled
@@ -230,27 +202,7 @@ export default function MyRideFilter() {
             >
               Search by Location
             </Text>
-            {locationTags.length > 0 && (
-              <Tag
-                h={"10px"}
-                key={"xs"}
-                w="70px"
-                borderRadius="full"
-                variant="solid"
-                bg="#f2f2f2"
-                color={"black"}
-              >
-                <TagLabel
-                  fontSize={"10px"}
-                  ml="5px"
-                  fontFamily={"Mulish"}
-                  fontWeight="light"
-                >
-                  Clear
-                </TagLabel>
-                <TagCloseButton fontSize={"15px"} />
-              </Tag>
-            )}
+           
           </Flex>
           <Flex gap={4} mb={2}>
             {locationTags &&
@@ -287,27 +239,7 @@ export default function MyRideFilter() {
             >
               Search by bike model
             </Text>
-            {bikeTags.length > 0 && (
-              <Tag
-                h={"10px"}
-                key={"xs"}
-                w="70px"
-                borderRadius="full"
-                variant="solid"
-                bg="#f2f2f2"
-                color={"black"}
-              >
-                <TagLabel
-                  fontSize={"10px"}
-                  ml="5px"
-                  fontFamily={"Mulish"}
-                  fontWeight="light"
-                >
-                  Clear
-                </TagLabel>
-                <TagCloseButton fontSize={"15px"} />
-              </Tag>
-            )}
+            
           </Flex>
           <Flex gap={4} mb={2}>
             {bikeTags &&
@@ -335,7 +267,12 @@ export default function MyRideFilter() {
           <BikeOptions />
         </Box>
       </Stack>
-      <Box p={"10px"} boxShadow="md">
+      <Flex
+        gap={5}
+        flexDirection={["column", "column", "column", "row", "row"]}
+        p={"10px"}
+        boxShadow="md"
+      >
         <Button
           width={"100%"}
           bg="#fed250"
@@ -349,7 +286,24 @@ export default function MyRideFilter() {
         >
           Apply Filters
         </Button>
-      </Box>
+        <Button
+          width={"100%"}
+          bg="#fed250"
+          _hover={{
+            background: "yellow.400",
+            boxShadow:
+              "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+          }}
+          fontFamily={"Mulish"}
+          onClick={() => {
+            setSearchParams({});
+            dispatch({ type: BIKE_TAG_CLEAR });
+            dispatch({ type: LOCATION_TAG_CLEAR });
+          }}
+        >
+          Clear Filters
+        </Button>
+      </Flex>
     </Stack>
   );
 }

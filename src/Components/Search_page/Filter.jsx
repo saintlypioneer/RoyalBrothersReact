@@ -21,7 +21,7 @@ import BikeOptions from "./BikeOptions";
 import BikeTags from "./BikeTags";
 import { FILTER_DATA, GET_DATA_SUCCESS } from "../../Redux/search/actionType";
 import { useSearchParams } from "react-router-dom";
-import { filterbyBikeModel, findingDfferenceFunction, rentalDateAndTimeFunction } from "../../Redux/search/action";
+import { findingDfferenceFunction, rentalDateAndTimeFunction } from "../../Redux/search/action";
 
 export default function Filter() {
   const locationTags = useSelector((store) => store.searchReducer.locationTags);
@@ -142,7 +142,7 @@ export default function Filter() {
     // setSearchParams({
     //   location: locationTags,
     // });
-    dispatch(filterbyBikeModel(bikeFilter))
+    // dispatch(filterbyBikeModel(bikeFilter))
 
     dispatch(rentalDateAndTimeFunction({
       pickupDate: dateValue,

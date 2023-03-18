@@ -43,7 +43,6 @@ let initialData = {
 
 
 export default function searchReducer(state = initialData, { type, payload }) {
-  console.log(payload)
   switch (type) {
     case GET_DATA_REQUEST:
       return {

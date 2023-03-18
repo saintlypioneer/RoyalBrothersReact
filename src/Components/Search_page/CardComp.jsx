@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import {
   Card,
   CardBody,
@@ -29,6 +29,7 @@ export default function CardComp({
   );
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  
   const takeLocation = (event) => {
     setSearchParams({
       id: id,
@@ -57,6 +58,7 @@ export default function CardComp({
       console.log(params)
       dispatch({type:CHECKOUT_OBJECT,payload:params})
     }
+   
 
   }, [searchParams]);
 

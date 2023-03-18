@@ -69,8 +69,8 @@ export const findingDfferenceFunction = (payload) => (dispatch) => {
 };
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Filter by Bike model >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-export const filterbyBikeModel = (payload)=>(dispatch)=>{
-  axios.get(`${url}?${payload}`)
-  .then((res)=>console.log(res.data))
-  .catch((e)=>console.log(e))
-}
+// export const filterbyBikeModel = (payload)=>(dispatch)=>{
+//   axios.get(`${url}?${payload}`)
+//   .then((res)=>console.log(res.data))
+//   .catch((e)=>console.log(e))
+// }

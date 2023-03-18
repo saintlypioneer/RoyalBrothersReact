@@ -26,7 +26,7 @@ function Check() {
 
     useEffect(() => {
         axios.get(`https://updatedroyalbrothers-api.onrender.com/banglore/${checkData.id}`).then((res) => setState(res.data))
-    }, [state])
+    }, [])
     return (
 
         <div className="App">

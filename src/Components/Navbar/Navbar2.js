@@ -6,6 +6,7 @@ import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, D
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useDisclosure } from "@chakra-ui/react";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 import {
     Modal, ModalOverlay, ModalContent
@@ -92,12 +93,17 @@ function Navbar(props) {
                     Bangalore
                 </Button>
                 <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
+                <Link to='/login'>
                 <Button className="authButton" borderColor={"transparent"} color="gray.500" colorScheme='brand.500' variant='outline'>
                     LogIn
                 </Button>
+                </Link>
+                
+                <Link to='/signUp'>
                 <Button className="authButton" bg={"brand.500"} color="black" colorScheme='brand.500' variant='solid'>
                     SignUp
                 </Button>
+                </Link>
             </Right>
         </Container>
     );

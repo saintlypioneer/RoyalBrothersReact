@@ -17,6 +17,13 @@ function Check() {
     })
     console.log("check", checkData)
 
+    const rentalData = useSelector((store) => {
+        console.log("RentalData")
+        return store.searchReducer.rentalDetails;
+
+    })
+    console.log("rental", rentalData)
+
     useEffect(() => {
         axios.get(`https://updatedroyalbrothers-api.onrender.com/banglore/${checkData.id}`).then((res) => setState(res.data))
     }, [state])
@@ -24,7 +31,7 @@ function Check() {
 
         <div className="App">
             <Container>
-                <Summary {...state} location={checkData.location} total={total} setTotal={setTotal} />
+                <Summary {...state} location={checkData.location} total={total} setTotal={setTotal} rentalData={rentalData} />
                 <Checkout total={total} />
             </Container>
 

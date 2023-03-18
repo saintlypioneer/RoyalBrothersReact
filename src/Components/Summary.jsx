@@ -3,7 +3,7 @@ import { Card, CardHeader, CardBody, CardFooter, Heading, Stack, StackDivider } 
 import { useEffect, useState } from 'react';
 
 
-function Summary({ model, price, img, location, total, setTotal }) {
+function Summary({ model, price, img, location, total, setTotal, rentalData }) {
 
 
     const [prices, setPrice] = useState(price)
@@ -88,13 +88,14 @@ function Summary({ model, price, img, location, total, setTotal }) {
                         <Stack divider={<StackDivider />} spacing="4">
                             <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                                 <Text>
-                                    10:00 am <br />
-                                    22 Mar 2023
+                                    {rentalData.pickupTime}
+                                    <br />
+                                    {rentalData.pickupDate}
                                 </Text>
                                 <Text>to</Text>
                                 <Text>
-                                    10:00 am<br />
-                                    22 Mar 2023
+                                    {rentalData.dropoffTime}<br />
+                                    {rentalData.dropoffDate}
                                 </Text>
                             </Box>
                             <Box>

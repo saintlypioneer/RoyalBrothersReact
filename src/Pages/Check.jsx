@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import Checkout from '../Components/Checkout';
 import Summary from '../Components/Summary';
 
@@ -6,13 +7,22 @@ function Check() {
     return (
 
         <div className="App">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Container>
                 <Summary />
                 <Checkout />
-            </div>
+            </Container>
 
         </div>
     );
 }
+const Container = styled.div`
+    display: flex;
 
+    @media (max-width: 800px) {
+        flex-direction: column;
+        align-items:center;
+        
+    }
+
+`;
 export default Check;

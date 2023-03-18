@@ -5,15 +5,17 @@ import LoginHeader from './Components/Login/LoginHeader';
 import Blogs from './Components/Blogs'
 import Footer from './Components/Footer';
 
+
 import Check from './Pages/Check';
 
 import Home from './Components/Pages/Home';
 import Payment from './Components/Pages/Payment'
 
 
-import {Routes, Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar2';
 import Checkout from "./Components/Checkout";
+import Profile_Page from "./Components/Login/ProfilePage";
 
 //clear everything before pushing and merging the codes on github
 
@@ -22,7 +24,7 @@ function App() {
     <div className="App">
 
 
-      <Navbar />
+       <Navbar /> 
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/payment' element={<Payment />} />
@@ -30,10 +32,15 @@ function App() {
         <Route path='/blogs' element={<Blogs />} />
         <Route path='/search' element={<Search />} />
         <Route path='/search/:id' element={<Check />}/>
+        <Route path='/login' element={<LoginHeader/>}/>
+        <Route path='/profile' element={<Profile_Page/>}/>
         <Route path='*' element={<>404</>} />
       </Routes>
 
-      <Footer/>
+
+   
+      <Footer />
+
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar2';
 import Checkout from "./Components/Checkout";
 import Profile_Page from "./Components/Login/ProfilePage";
+import SignUP from "./Components/Login/signup";
 
 //clear everything before pushing and merging the codes on github
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/blogs' element={<Blogs />} />
         <Route path='/search' element={<Search />} />
         <Route path='/search/:id' element={<Check />}/>
+        <Route path='/signUp' element={<SignUP/>}/>
         <Route path='/login' element={<LoginHeader/>}/>
         <Route path='/profile' element={<Profile_Page/>}/>
         <Route path='*' element={<>404</>} />

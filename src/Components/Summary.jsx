@@ -61,6 +61,13 @@ function Summary({ model, price, img, location, total, setTotal, rentalData }) {
             })
             couponInput.value = ''
         }
+        else if (couponInput.value === 'free') {
+            console.log("hello harsh")
+            setTotal((prev) => {
+                return 0
+            })
+            couponInput.value = ''
+        }
         else {
             alert('Coupon not valid');
         }

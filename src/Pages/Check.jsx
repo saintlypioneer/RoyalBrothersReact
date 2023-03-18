@@ -3,6 +3,7 @@ import Checkout from '../Components/Checkout';
 import Summary from '../Components/Summary';
 
 function Check() {
+   
     return (
 
         <div className="App">

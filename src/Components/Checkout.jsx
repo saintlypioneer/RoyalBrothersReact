@@ -34,7 +34,7 @@ function Checkout() {
                 </Box>
             </Flex>
             <CardFooter>
-                <Button colorScheme='orange' w={400} m="auto" color={'black'}> Make Payment</Button>
+                <Button bg={'#fed250'} colorScheme="brand.500" w={400} m="auto" color={'black'}> Make Payment</Button>
                 {/* <Button1>Make Payment</Button1> */}
             </CardFooter>
         </Card>

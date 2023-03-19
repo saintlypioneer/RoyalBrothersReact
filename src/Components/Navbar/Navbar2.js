@@ -217,3 +217,4 @@ const Right = styled.div`
 const CustomButton = styled.button``;
 
 export default Navbar;
+// updated navbar

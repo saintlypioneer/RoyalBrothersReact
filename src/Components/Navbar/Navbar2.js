@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IconMenu2 } from "@tabler/icons-react";
 import styled from "styled-components";
 import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Text, Divider } from "@chakra-ui/react";
@@ -21,6 +21,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Navbar(props) {
 
+    const [selectedCity, setSelectedCity] = useState("Bangalore")
+
+
+
     const isUserLoggedIn = useSelector((storeData) => {
         return storeData.LoginSignupRed.isLoggedIn
 
@@ -29,6 +33,9 @@ function Navbar(props) {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+
+    // useEffect(() => { onModalClose(true) }, [])
+
     const btnRef = React.useRef()
 
     const isDark = useSelector(state => state.themeReducer.dark);
@@ -95,7 +102,7 @@ function Navbar(props) {
                     </ModalContainer>
                 </ModalContent>
             </Modal> */}
-            <CityModal isOpen={isModalOpen} setIsOpen={onModalClose} />
+            <CityModal isOpen={isModalOpen} setIsOpen={onModalClose} setSelectedCity={setSelectedCity} />
             {/* <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 Hello Modal
             </Modal> */}
@@ -116,7 +123,7 @@ function Navbar(props) {
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
                 } bg={"#fed250"} colorScheme="#fed250" variant='outline' onClick={onModalOpen}>
-                    Bangalore
+                    {selectedCity}
                 </Button>
                 <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
                 <Box>

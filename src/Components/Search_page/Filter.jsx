@@ -21,38 +21,43 @@ import BikeOptions from "./BikeOptions";
 import BikeTags from "./BikeTags";
 import { FILTER_DATA, GET_DATA_SUCCESS } from "../../Redux/search/actionType";
 import { useSearchParams } from "react-router-dom";
-import { filterbyBikeModel, findingDfferenceFunction, rentalDateAndTimeFunction } from "../../Redux/search/action";
+import {
+  findingDfferenceFunction,
+  rentalDateAndTimeFunction,
+} from "../../Redux/search/action";
 
 export default function Filter() {
   const locationTags = useSelector((store) => store.searchReducer.locationTags);
   const bikeTags = useSelector((store) => store.searchReducer.bikeTags);
   const data = useSelector((store) => store.searchReducer.cityData);
-  const durationOfRent = useSelector((store)=>store.searchReducer.rentalDetails)
-  const differenceInHours = useSelector((store)=>store.searchReducer.duration)
-  const bikeFilter = useSelector((store)=>store.searchReducer.bikeTags)
+  const durationOfRent = useSelector(
+    (store) => store.searchReducer.rentalDetails
+  );
+  const differenceInHours = useSelector(
+    (store) => store.searchReducer.duration
+  );
+  const bikeFilter = useSelector((store) => store.searchReducer.bikeTags);
+  const rentalTime = useSelector((store)=>store.searchReducer.rentalDetails)
   const dispatch = useDispatch();
   const [locationFilterData, SetLocationFilterData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [dateValue, setDateValue] = useState("");
-  const [dropDate, setDropDate] = useState("");
-  const [pickTime,setPickTime] = useState("");
-  const [dropTime,setDropTime] = useState("");
-  const [inputLocation,setInputLocation] = useState("");
-
+  const [dateValue, setDateValue] = useState(rentalTime.pickupDate);
+  const [dropDate, setDropDate] = useState(rentalTime.dropoffDate);
+  const [pickTime, setPickTime] = useState(rentalTime.pickupTime);
+  const [dropTime, setDropTime] = useState(rentalTime.dropoffTime);
+  const [inputLocation, setInputLocation] = useState();
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Taking input search location data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  const handleSearchLocationInput = (event)=>{
-    const {value,name} = event.target;
-    if(name==='searchLocation'){
-
+  const handleSearchLocationInput = (event) => {
+    const { value, name } = event.target;
+    if (name === "searchLocation") {
+      console.log("test");
+    } else if (name === "bikeSearch") {
+      console.log("test");
     }
-    else if(name==="bikeSearch"){
-
-    }
-  }
+  };
 
   //>>>>>>>>>>>>>>>>>>>Finding data <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 
   let date = new Date();
   let todayDate = date.getDate();
@@ -62,8 +67,7 @@ export default function Filter() {
   let min = year + "-" + month + "-" + todayDate;
   // let timeHours = date.getHours();
   // let minutes = date.getMinutes();
-  
-  
+
   // let timeNow = timeHours+":"+minutes;
   // console.log(timeNow)
   //>>>>>>>>>>>>>>>>>>>End Finding data
@@ -75,6 +79,7 @@ export default function Filter() {
     const day = parts[2];
     const month = parts[1];
     const year = parts[0];
+    console.log(day, month, year);
 
     // Create a new Date object with the input date
     const dateObj = new Date(year, month - 1, day);
@@ -87,43 +92,40 @@ export default function Filter() {
     // Format the output date string in the desired format
     const outputDate = `${day} ${monthAbbreviation}, ${year}`;
     event.target.type = "text";
-    if(event.target.name==="pickupDate"){
-      setDateValue(outputDate)
-    }
-    else if(event.target.name==="dropDate"){
-      setDropDate(outputDate)
+    if (event.target.name === "pickupDate") {
+      setDateValue(outputDate);
+    } else if (event.target.name === "dropDate") {
+      setDropDate(outputDate);
     } // Output: "17 Mar, 2023"
   };
-   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Converting the Time into String value Begins <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-  const handleTimeChange = (event)=>{
+  const handleTimeChange = (event) => {
     let timeNow = event.target.value;
     var timeArray = timeNow.split(":");
     var hours = parseInt(timeArray[0]);
     var minutes = timeArray[1];
     var meridiem = "am";
-    
+
     if (hours > 12) {
       hours = hours - 12;
       meridiem = "pm";
     }
-    
+
     if (hours === 0) {
       hours = 12;
     }
-     event.target.type = "text";
-     if(event.target.name==="pickTime"){
-      setPickTime(hours + ":" + minutes + " " + meridiem)
-     }
-    else if(event.target.name==="dropTime"){
-      setDropTime(hours + ":" + minutes + " " + meridiem)
+    event.target.type = "text";
+    if (event.target.name === "pickTime") {
+      setPickTime(hours + ":" + minutes + " " + meridiem);
+    } else if (event.target.name === "dropTime") {
+      setDropTime(hours + ":" + minutes + " " + meridiem);
     }
-  }
+  };
 
-   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
 
- 
   const filterlocation = () => {
     // console.log(locationTags);
     let filted = data.filter((ele) => {
@@ -136,27 +138,29 @@ export default function Filter() {
     });
     SetLocationFilterData(filted);
   };
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleClick = () => {
     dispatch({ type: FILTER_DATA, payload: locationFilterData });
     // setSearchParams({
     //   location: locationTags,
     // });
-    dispatch(filterbyBikeModel(bikeFilter))
+    // dispatch(filterbyBikeModel(bikeFilter))
 
-    dispatch(rentalDateAndTimeFunction({
-      pickupDate:dateValue,
-      pickupTime:pickTime,
-      dropoffDate:dropDate,
-      dropoffTime:dropTime
-    }))
+    dispatch(
+      rentalDateAndTimeFunction({
+        pickupDate: dateValue,
+        pickupTime: pickTime,
+        dropoffDate: dropDate,
+        dropoffTime: dropTime,
+      })
+    );
   };
 
-//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function Ends>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function Ends>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   useEffect(() => {
     filterlocation();
-    dispatch(findingDfferenceFunction(durationOfRent))
-  }, [locationTags,durationOfRent]);
+    dispatch(findingDfferenceFunction(durationOfRent));
+  }, [locationTags, durationOfRent,rentalTime]);
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< To display symbol of date on clicking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleFocusDate = (event) => {
@@ -220,7 +224,7 @@ export default function Filter() {
                 placeholder=""
                 onFocus={handleFocusTime}
                 value={pickTime}
-                // min={timeNow}
+                //min={timeNow}
                 name="pickTime"
                 borderBottom={"1px solid #c1c1c1"}
                 onChange={handleTimeChange}
@@ -274,13 +278,25 @@ export default function Filter() {
           >
             Search Duration
           </Text>
-          {
-            !isNaN (differenceInHours.days) && <Flex gap={2} fontSize={'14px'}>
-              <Text>{differenceInHours.days!==0 ? differenceInHours.days+" Days" : ""}</Text>
-              <Text>{differenceInHours.hours!==0 ? differenceInHours.hours+" Hours" : ""}</Text>
-              <Text>{differenceInHours.minutes!==0 ? differenceInHours.minutes+"Minutes" : ""}</Text>
+          {!isNaN(differenceInHours.days) && (
+            <Flex gap={2} fontSize={"14px"}>
+              <Text>
+                {differenceInHours.days !== 0
+                  ? differenceInHours.days + " Days"
+                  : ""}
+              </Text>
+              <Text>
+                {differenceInHours.hours !== 0
+                  ? differenceInHours.hours + " Hours"
+                  : ""}
+              </Text>
+              <Text>
+                {differenceInHours.minutes !== 0
+                  ? differenceInHours.minutes + " Minutes"
+                  : ""}
+              </Text>
             </Flex>
-          }
+          )}
         </Box>
         <Box>
           <Flex justify={"space-between"}>

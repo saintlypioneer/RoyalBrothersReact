@@ -17,7 +17,7 @@ import React from "react";
 
 function RideCard({ data }) {
   return (
-    <Box>
+    <Box w={"100%"}>
       <Card
         w={"100%"}
         m="auto"
@@ -26,7 +26,7 @@ function RideCard({ data }) {
         }
       >
         <CardHeader p={2} pt={6}>
-          <Text fontWeight={700} size="md"  fontFamily={'Mulish'}>
+          <Text fontWeight={700} size="md" fontFamily={"Mulish"}>
             {data.vehicle}
           </Text>
         </CardHeader>
@@ -37,27 +37,39 @@ function RideCard({ data }) {
             </Stack>
             <Divider h={1} bg="blackAlpha.100"></Divider>
             <Box py={1} px={2}>
-              <Text fontSize={"smaller"} color={"blackAlpha.600"}  fontFamily={'Mulish'}>
+              <Text
+                fontSize={"smaller"}
+                color={"blackAlpha.600"}
+                fontFamily={"Mulish"}
+              >
                 Location
               </Text>
-              <Text  fontFamily={'Mulish'} fontSize={"sm"}>{data.location}</Text>
+              <Text fontFamily={"Mulish"} fontSize={"sm"}>
+                {data.location}
+              </Text>
             </Box>
             <Divider h={1} bg="blackAlpha.100"></Divider>
             <Flex py={1} px={10} justify={"space-between"} alignItems="center">
               <Box textAlign={"left"}>
-                <Text  fontFamily={'Mulish'} fontSize={"sm"} fontWeight={700}>
+                <Text fontFamily={"Mulish"} fontSize={"sm"} fontWeight={700}>
                   {data.timefrom}
                 </Text>
-                <Text  fontFamily={'Mulish'} fontSize={"smaller"}>{data.datefrom}</Text>
+                <Text fontFamily={"Mulish"} fontSize={"smaller"}>
+                  {data.datefrom}
+                </Text>
               </Box>
               <Circle size="35px" bg="black" color="white">
-                <Text  fontFamily={'Mulish'} fontSize={"sm"}>to</Text>
+                <Text fontFamily={"Mulish"} fontSize={"sm"}>
+                  to
+                </Text>
               </Circle>
               <Box textAlign={"right"}>
-                <Text  fontFamily={'Mulish'} fontSize={"sm"} fontWeight={700}>
+                <Text fontFamily={"Mulish"} fontSize={"sm"} fontWeight={700}>
                   {data.timeto}
                 </Text>
-                <Text  fontFamily={'Mulish'} fontSize={"smaller"}>{data.dateto}</Text>
+                <Text fontFamily={"Mulish"} fontSize={"smaller"}>
+                  {data.dateto}
+                </Text>
               </Box>
             </Flex>
             <Divider h={1} bg="blackAlpha.100"></Divider>
@@ -67,18 +79,24 @@ function RideCard({ data }) {
                 flexDirection={"column"}
                 alignItems={"center"}
               >
-                <Text  fontFamily={'Mulish'} fontWeight={500}>₹ {data.amount}</Text>
+                <Text fontFamily={"Mulish"} fontWeight={500}>
+                  ₹ {data.amount}
+                </Text>
                 <Badge
                   variant="subtle"
-                  colorScheme={data.status === "completed" ? "green" : "yellow"}
-                  fontFamily={'Mulish'}
+                  colorScheme={data.status === "booked" ? "green" : "yellow"}
+                  fontFamily={"Mulish"}
                 >
-                  {data.status === "completed" ? "COMPLETED" : "PENDING"}
+                  {data.status === "booked" ? "COMPLETED" : "PENDING"}
                 </Badge>
               </Flex>
               <Flex alignItems={"center"} width={"50%"}>
-                <Button  fontFamily={'Mulish'} width={"100%"} colorScheme={"yellow"}>
-                  {data.status === "completed" ? "Feedback" : "Cancel"}
+                <Button
+                  fontFamily={"Mulish"}
+                  width={"100%"}
+                  colorScheme={"yellow"}
+                >
+                  {data.status === "booked" ? "Feedback" : "Cancel"}
                 </Button>
               </Flex>
             </Flex>

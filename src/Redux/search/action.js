@@ -27,6 +27,7 @@ export const getData = () => (dispatch) => {
 //put request to change pickup and drop off time
 
 export const rentalDateAndTimeFunction = (payload) => (dispatch) => {
+  console.log(payload);
   dispatch({ type: RENTAL_DETAILS_REQUEST });
   axios
     .put(`${url}/rentalDetails`, payload)
@@ -35,6 +36,7 @@ export const rentalDateAndTimeFunction = (payload) => (dispatch) => {
         type: RENTAL_DETAILS_SUCCESS,
         payload: res.data,
       });
+      console.log(res.data);
     })
     .catch((e) => dispatch({ type: RENTAL_DETAILS_ERROR }));
 };
@@ -69,8 +71,8 @@ export const findingDfferenceFunction = (payload) => (dispatch) => {
 };
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Filter by Bike model >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-export const filterbyBikeModel = (payload)=>(dispatch)=>{
-  axios.get(`${url}?${payload}`)
-  .then((res)=>console.log(res.data))
-  .catch((e)=>console.log(e))
-}
+// export const filterbyBikeModel = (payload)=>(dispatch)=>{
+//   axios.get(`${url}?${payload}`)
+//   .then((res)=>console.log(res.data))
+//   .catch((e)=>console.log(e))
+// }

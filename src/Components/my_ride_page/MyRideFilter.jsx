@@ -12,114 +12,186 @@ import {
   TagLabel,
   TagCloseButton,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GrSearch } from "react-icons/gr";
 import MyRideOverflow from "./MyRideOverflow";
-import MyRideTag from "./MyRideTag";
+import TagComp from "./TagComp";
+import { useDispatch, useSelector } from "react-redux";
+import BikeOptions from "./BikeOptions";
+import BikeTags from "./BikeTags";
+import {
+  ADD_MYRIDES,
+  BIKE_TAG_CLEAR,
+  LOCATION_TAG_CLEAR,
+  STATUS_ALL,
+  STATUS_CANCEL,
+  STATUS_COMPLETE,
+  STATUS_PENDING,
+} from "./redux/myride/actiontype";
+import { useSearchParams } from "react-router-dom";
+import { getMyRide } from "./redux/myride/actionmyride";
 
 export default function MyRideFilter() {
-  const handleFocusDate = (event) => {
-    event.target.type = "date";
+  const locationTags = useSelector((store) => store.myRideReducer.locationTags);
+  const bikeTags = useSelector((store) => store.myRideReducer.bikeTags);
+  const fStatus = useSelector((store) => store.myRideReducer.fstatus);
+  const data = useSelector((store) => store.myRideReducer.vehicles);
+  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const filterStatus = (st) => {
+    dispatch({ type: st });
+    setSearchParams({
+      location: locationTags,
+      vehicle: bikeTags,
+      status: fStatus,
+    });
   };
-  const handleFocusTime = (event) => {
-    event.target.type = "time";
+
+  const sortLowToHigh = () => {
+    //  dispatch(getMyRide(`?_sort=amount&_order=asc`));
+    setSearchParams({
+      location: locationTags,
+      vehicle: bikeTags,
+      status: fStatus,
+      _sort: "amount",
+      _order: "asc",
+    });
   };
+  const sortHighToLow = () => {
+    //  dispatch(getMyRide(`?_sort=amount&_order=desc`));
+    setSearchParams({
+      location: locationTags,
+      vehicle: bikeTags,
+      status: fStatus,
+      _sort: "amount",
+      _order: "desc",
+    });
+  };
+  const sortAll = () => {
+    dispatch(getMyRide(``));
+  };
+
+  const handleClick = () => {
+    // dispatch({ type: ADD_MYRIDES, payload: locationFilterData });
+    setSearchParams({
+      location: locationTags,
+      vehicle: bikeTags,
+    });
+  };
+
+  useEffect(() => {
+    //  setSLocation(locationTags)
+    // filterlocation();
+  }, [locationTags, bikeTags, fStatus]);
+
   return (
     <Stack
-      width={"450px"}
+      fontFamily={"Mulish"}
       p="5px 15px"
-      display={["none", "none", "none", "block"]}
+      // display={["none", "none", "none", "block"]}
     >
-      <Text
-        fontSize={"20px"}
-        fontWeight="bold"
-        p={"0px 15px"}
-        fontFamily={"Mulish"}
-      >
-        Filter
-      </Text>
+      <Box pl={2}>
+        <Flex justify={"space-between"}>
+          <Text fontSize={"20px"} fontWeight="bold" fontFamily={"Mulish"}>
+            Sort
+          </Text>
+        </Flex>
+        <Flex gap={5} wrap={"wrap"} >
+          <Button
+            fontSize={"sm"}
+            colorScheme={"yellow"}
+            height={8}
+            onClick={() => {
+              sortLowToHigh();
+            }}
+          >
+            Price low to high
+          </Button>
+          <Button
+            fontSize={"sm"}
+            colorScheme={"yellow"}
+            height={8}
+            onClick={() => {
+              sortHighToLow();
+            }}
+          >
+            Price hight to low
+          </Button>
+        </Flex>
+      </Box>
+
       <Divider />
-      <Stack p={"0px 15px"} height={"500px"} overflow="auto" gap={4}>
+      <Stack
+        textAlign={"left"}
+        p={"0px 15px"}
+        height={"500px"}
+        overflow="auto"
+        gap={2}
+      >
+        <Text mt={5} fontSize={"20px"} fontWeight="bold" fontFamily={"Mulish"}>
+          Filter
+        </Text>
         <Box>
-          <Text
-            fontSize={"14px"}
-            fontWeight="bold"
-            mb={2}
-            fontFamily={"Mulish"}
-          >
-            Select Date & Time
-          </Text>
-          <Flex gap={4} justify="space-between" mb={"15px"}>
-            <Box>
-              <Text fontSize={"14px"} w={"200px"} fontFamily={"Mulish"}>
-                Pickup date
-              </Text>
-              <Input
-                variant="flushed"
-                size={"xs"}
-                type="text"
-                placeholder=""
-                borderBottom={"1px solid #c1c1c1"}
-                onFocus={handleFocusDate}
-              />
-            </Box>
-            <Box>
-              <Text fontSize={"14px"} fontFamily={"Mulish"}>
-                Time
-              </Text>
-              <Input
-                variant="flushed"
-                size={"xs"}
-                type="text"
-                placeholder=""
-                onFocus={handleFocusTime}
-                borderBottom={"1px solid #c1c1c1"}
-              />
-            </Box>
+          <Flex justify={"space-between"}>
+            <Text
+              fontSize={"14px"}
+              fontWeight="bold"
+              mb={2}
+              fontFamily={"Mulish"}
+            >
+              Filter By Status
+            </Text>
+           
           </Flex>
-          <Flex gap={4} justify="space-between" mb={"15px"}>
-            <Box>
-              <Text fontSize={"14px"} w={"200px"} fontFamily={"Mulish"}>
-                Dropoff date
-              </Text>
-              <Input
-                variant="flushed"
-                size={"xs"}
-                type="text"
-                placeholder=""
-                onFocus={handleFocusDate}
-                borderBottom={"1px solid #c1c1c1"}
-              />
-            </Box>
-            <Box>
-              <Text fontSize={"14px"} fontFamily={"Mulish"}>
-                Time
-              </Text>
-              <Input
-                variant="flushed"
-                size={"xs"}
-                type="text"
-                placeholder=""
-                onFocus={handleFocusTime}
-                borderBottom={"1px solid #c1c1c1"}
-              />
-            </Box>
+          <Flex rowGap={5} wrap={"wrap"} justifyContent={"space-between"}>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                dispatch({ type: STATUS_ALL });
+                setSearchParams({
+                  location: locationTags,
+                  vehicle: bikeTags,
+                });
+              }}
+            >
+              All
+            </Button>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                filterStatus(STATUS_PENDING);
+              }}
+            >
+              Pending
+            </Button>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                filterStatus(STATUS_COMPLETE);
+              }}
+            >
+              Completed
+            </Button>
+            <Button
+              fontSize={"sm"}
+              h={8}
+              colorScheme={"yellow"}
+              onClick={() => {
+                filterStatus(STATUS_CANCEL);
+              }}
+            >
+              Cancelled
+            </Button>
           </Flex>
         </Box>
-        <Box>
-          <Text
-            fontSize={"14px"}
-            fontWeight="bold"
-            mb={2}
-            mt={-3}
-            fontFamily={"Mulish"}
-          >
-            Search Duration
-          </Text>
-          <Text fontSize={"14px"} fontFamily={"Mulish"}>
-            2 hours 30 minutes
-          </Text>
-        </Box>
+
         <Box>
           <Flex justify={"space-between"}>
             <Text
@@ -130,29 +202,13 @@ export default function MyRideFilter() {
             >
               Search by Location
             </Text>
-            <Tag
-              h={"10px"}
-              key={"xs"}
-              w="70px"
-              borderRadius="full"
-              variant="solid"
-              bg="#f2f2f2"
-              color={"black"}
-            >
-              <TagLabel
-                fontSize={"10px"}
-                ml="5px"
-                fontFamily={"Mulish"}
-                fontWeight="light"
-              >
-                Clear
-              </TagLabel>
-              <TagCloseButton fontSize={"15px"} />
-            </Tag>
+           
           </Flex>
           <Flex gap={4} mb={2}>
-            <MyRideTag />
-            <MyRideTag />
+            {locationTags &&
+              locationTags.map((ele, idx) => {
+                return <TagComp key={idx} tag={ele} />;
+              })}
           </Flex>
           <InputGroup>
             <Input
@@ -183,29 +239,13 @@ export default function MyRideFilter() {
             >
               Search by bike model
             </Text>
-            <Tag
-              h={"10px"}
-              key={"xs"}
-              w="70px"
-              borderRadius="full"
-              variant="solid"
-              bg="#f2f2f2"
-              color={"black"}
-            >
-              <TagLabel
-                fontSize={"10px"}
-                ml="5px"
-                fontFamily={"Mulish"}
-                fontWeight="light"
-              >
-                Clear
-              </TagLabel>
-              <TagCloseButton fontSize={"15px"} />
-            </Tag>
+            
           </Flex>
           <Flex gap={4} mb={2}>
-            <MyRideTag />
-            <MyRideTag />
+            {bikeTags &&
+              bikeTags.map((ele, idx) => {
+                return <BikeTags key={idx} bikeTag={ele} />;
+              })}
           </Flex>
           <InputGroup>
             <Input
@@ -224,10 +264,15 @@ export default function MyRideFilter() {
           </InputGroup>
         </Box>
         <Box>
-          <MyRideOverflow />
+          <BikeOptions />
         </Box>
       </Stack>
-      <Box p={"10px"} boxShadow="md">
+      <Flex
+        gap={5}
+        flexDirection={["column", "column", "column", "row", "row"]}
+        p={"10px"}
+        boxShadow="md"
+      >
         <Button
           width={"100%"}
           bg="#fed250"
@@ -237,10 +282,28 @@ export default function MyRideFilter() {
               "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
           }}
           fontFamily={"Mulish"}
+          onClick={handleClick}
         >
           Apply Filters
         </Button>
-      </Box>
+        <Button
+          width={"100%"}
+          bg="#fed250"
+          _hover={{
+            background: "yellow.400",
+            boxShadow:
+              "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+          }}
+          fontFamily={"Mulish"}
+          onClick={() => {
+            setSearchParams({});
+            dispatch({ type: BIKE_TAG_CLEAR });
+            dispatch({ type: LOCATION_TAG_CLEAR });
+          }}
+        >
+          Clear Filters
+        </Button>
+      </Flex>
     </Stack>
   );
 }

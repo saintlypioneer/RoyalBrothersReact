@@ -8,7 +8,7 @@ export default function Banner() {
         setDisplay(!display)
     }
   return (
-    <Flex bg={"#fed250"} justify='space-between' alignItems={'center'} display={!display ? "flex" : "none"}>
+    <Flex bg={"#fed250"} justify='space-between' alignItems={'center'} display={(!display) ? "flex" : "none"}>
       <Box ml={'600px'}>
         <Text fontFamily={'Mulish'} fontSize='12px' fontWeight={'bold'} color='blackAlpha.700'>Our delay policy has been changed <Link color={'blue.600'}>Know more</Link></Text>
       </Box>

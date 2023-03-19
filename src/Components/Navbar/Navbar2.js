@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { IconMenu2 } from "@tabler/icons-react";
 import styled from "styled-components";
-import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Text, Divider } from "@chakra-ui/react";
-import { ChevronDownIcon, MoonIcon } from '@chakra-ui/icons'
+import {
+  Button,
+  Box,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  Input,
+  DrawerFooter,
+  Text,
+  Divider,
+} from "@chakra-ui/react";
+import { ChevronDownIcon, MoonIcon } from "@chakra-ui/icons";
 import { useDisclosure, IconButton } from "@chakra-ui/react";
 import { useRef } from "react";
 import NavWithLogin from "./Nav_with_Login";
 import NavWithoutLogin from "./Nav_with_out_Login";
 import { setLightMode, setDarkMode } from "../../Redux/themeMode/action";
-import {
-    Modal, ModalOverlay, ModalContent
-} from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent } from "@chakra-ui/react";
 
 import { Link } from "react-router-dom";
 import CityModal from "../CityModal";
 
-
 import { useDispatch, useSelector } from "react-redux";
 import ProfileMenu from "../Login/ProfileMenu";
-
 
 function Navbar(props) {
 
@@ -50,51 +59,51 @@ function Navbar(props) {
             dispatchTheme(setDarkMode());
         }
     }
+  }
 
-    return (
+  return (
+    <Container isDark={isDark}>
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader></DrawerHeader>
 
-        <Container isDark={isDark}>
-            <Drawer
-                isOpen={isOpen}
-                placement='left'
-                onClose={onClose}
-                finalFocusRef={btnRef}
-            >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader></DrawerHeader>
+          <DrawerBody>
+            {/* <Input placeholder='Type here...' /> */}
+            <DrawerButtons>
+              <DrawerCard>Tarrif</DrawerCard>
+              <DrawerCard>Store</DrawerCard>
+              <DrawerCard>Partner With U</DrawerCard>
+              <DrawerCard>Blog</DrawerCard>
+              <DrawerCard>Indian Bike Routes</DrawerCard>
+              <DrawerCard>About Us</DrawerCard>
+              <DrawerCard>Terms & Condition</DrawerCard>
+              <DrawerCard>Bike Tour</DrawerCard>
+              <DrawerCard>Privacy Policy</DrawerCard>
+              <DrawerCard>FAQ</DrawerCard>
+              <DrawerCard>Reach Us</DrawerCard>
+            </DrawerButtons>
+          </DrawerBody>
 
-                    <DrawerBody>
-                        {/* <Input placeholder='Type here...' /> */}
-                        <DrawerButtons>
-                            <DrawerCard>Tarrif</DrawerCard>
-                            <DrawerCard>Store</DrawerCard>
-                            <DrawerCard>Partner With U</DrawerCard>
-                            <DrawerCard>Blog</DrawerCard>
-                            <DrawerCard>Indian Bike Routes</DrawerCard>
-                            <DrawerCard>About Us</DrawerCard>
-                            <DrawerCard>Terms & Condition</DrawerCard>
-                            <DrawerCard>Bike Tour</DrawerCard>
-                            <DrawerCard>Privacy Policy</DrawerCard>
-                            <DrawerCard>FAQ</DrawerCard>
-                            <DrawerCard>Reach Us</DrawerCard>
-                        </DrawerButtons>
-                    </DrawerBody>
+          <DrawerFooter></DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+      {/* Modal */}
 
-                    <DrawerFooter>
-
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
-            {/* Modal */}
-
-            {/* <Modal isOpen={isModalOpen} onClose={onModalClose}>
+      {/* <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalContainer>
                         <ModalNavbar>
+                            
                             <img src="https://d36g7qg6pk2cm7.cloudfront.net/assets/landing_page/royal_brothers_logo-229959d7727f356b2e4fc3bd9c0c527c60127d009c93989a93e2daa0b1c2d556.svg" alt="" />
+                                                      
                             <Box borderLeft="1px solid #000000" height="100%" />
                             <Text>Bike Rentals</Text>
                         </ModalNavbar>
@@ -145,84 +154,81 @@ function Navbar(props) {
 }
 
 const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: ${props => props.isDark ? "#2C3333" : "white"};
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: ${(props) => (props.isDark ? "#2C3333" : "white")};
 `;
 
 const ModalContainer = styled.div``;
 const ModalNavbar = styled.div`
-    &>img{
-        width: 100px;
-    }
+  & > img {
+    width: 100px;
+  }
 `;
 const ModalSearch = styled.div``;
 const ModalBody = styled.div``;
 
 const DrawerButtons = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 const DrawerCard = styled.div`
-    width: 100%;
-    background-color: white;
-    padding: 10px 0 10px 5px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    font-size: 0.9rem;
+  width: 100%;
+  background-color: white;
+  padding: 10px 0 10px 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 0.9rem;
 
-    &:hover{
-        background-color: rgba(0,0,0,0.05);
-    }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 `;
-
 
 const Left = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 
-    &>img{
-        width: 120px;
-    }
+  & > img {
+    width: 120px;
+  }
 `;
 
-const MenuBtn = styled.div`
-    
-`;
+const MenuBtn = styled.div``;
 
 const Center = styled.div`
-    display: flex;
-    gap: 20px;
-    font-size: 0.8rem;
-    color: ${props => props.isDark ? "#2C3333" : "white"};
+  display: flex;
+  gap: 20px;
+  font-size: 0.8rem;
+  color: ${(props) => (props.isDark ? "#2C3333" : "white")};
 
-    @media (max-width: 850px){
-        display: none;
-    }
+  @media (max-width: 850px) {
+    display: none;
+  }
 `;
 
 const Right = styled.div`
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 
-    .authButton{
-        @media (max-width: 850px){
-            display: none;
-        }
+  .authButton {
+    @media (max-width: 850px) {
+      display: none;
     }
+  }
 
-    .loginButton{
-        color: ${props => props.isDark ? "white" : "#2C3333"};
-    }
+  .loginButton {
+    color: ${(props) => (props.isDark ? "white" : "#2C3333")};
+  }
 
-    .divider{
-        @media (max-width: 850px){
-            display: none;
-        }
+  .divider {
+    @media (max-width: 850px) {
+      display: none;
     }
+  }
 `;
 
 const CustomButton = styled.button``;

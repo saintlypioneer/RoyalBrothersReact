@@ -77,10 +77,16 @@ function Navbar(props) {
           <DrawerBody>
             {/* <Input placeholder='Type here...' /> */}
             <DrawerButtons>
-              <DrawerCard>Tarrif</DrawerCard>
-              <DrawerCard>Store</DrawerCard>
-              <DrawerCard>Partner With U</DrawerCard>
-              <DrawerCard>Blog</DrawerCard>
+              <DrawerCard>
+              <Link to="/tarrif">Tarrif</Link>
+                </DrawerCard>
+              <DrawerCard>
+              <Link to="/search">Search</Link>
+              </DrawerCard>
+              <DrawerCard>Partner With You</DrawerCard>
+              <DrawerCard>
+                <Link to="/blogs">Blog</Link>
+              </DrawerCard>
               <DrawerCard>Indian Bike Routes</DrawerCard>
               <DrawerCard>About Us</DrawerCard>
               <DrawerCard>Terms & Condition</DrawerCard>
@@ -120,10 +126,12 @@ function Navbar(props) {
                 <MenuBtn ref={btnRef} onClick={onOpen}>
                     <IconMenu2 size={"32px"} color={isDark ? 'white' : 'black'} />
                 </MenuBtn>
-                <img src="https://d36g7qg6pk2cm7.cloudfront.net/assets/landing_page/royal_brothers_logo-229959d7727f356b2e4fc3bd9c0c527c60127d009c93989a93e2daa0b1c2d556.svg" alt="" />
+                <Link to='/'><img src="https://d36g7qg6pk2cm7.cloudfront.net/assets/landing_page/royal_brothers_logo-229959d7727f356b2e4fc3bd9c0c527c60127d009c93989a93e2daa0b1c2d556.svg" alt="" /></Link>
             </Left>
             <Center>
-                <CustomButton>Tarrif</CustomButton>
+                <CustomButton>
+                    <Link to={"/tarrif"}>Tarrif</Link>
+                </CustomButton>
                 <CustomButton>What's New?</CustomButton>
                 <CustomButton>Partner with us</CustomButton>
             </Center>
@@ -142,12 +150,12 @@ function Navbar(props) {
                    }
 
                 </Box>
-                <IconButton
+                {/* <IconButton
                     colorScheme={!isDark ? 'blackAlpha' : 'whiteAlpha'}
                     aria-label='Search database'
                     icon={<MoonIcon />}
                     onClick={updateTheme}
-                />
+                /> */}
             </Right>
         </Container >
     );
@@ -193,7 +201,7 @@ const Left = styled.div`
   align-items: center;
   gap: 5px;
 
-  & > img {
+  img {
     width: 120px;
   }
 `;
@@ -204,7 +212,7 @@ const Center = styled.div`
   display: flex;
   gap: 20px;
   font-size: 0.8rem;
-  color: ${(props) => (props.isDark ? "#2C3333" : "white")};
+  color: black;
 
   @media (max-width: 850px) {
     display: none;

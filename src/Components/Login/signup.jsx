@@ -13,12 +13,11 @@ function SignUP() {
     const dispatch = useDispatch();
 
     const toast = useToast()
-
     // states for collecting data 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
+    const [name, setName] = useState("Vishwajeet");
+    const [email, setEmail] = useState("vishwajeet@gmail.com");
+    const [phone, setPhone] = useState("9876543210");
+    const [password, setPassword] = useState("royal");
 
     const UserDetailsObj = { name, email, phone, password }
 

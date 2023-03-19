@@ -27,10 +27,10 @@ function ProfilePage() {
                                     boxSize='90px' />
                             </Center>
                             <Flex direction='column'>
-                                <Heading mb='15px' size='sm' color='#696969'>Shivam Yadav</Heading>
-                                <Text mb='10px' fontSize='sm'>91 1234567890</Text>
+                                <Heading mb='15px' size='sm' color='#696969'>{storedData.name}</Heading>
+                                <Text mb='10px' fontSize='sm'>+91 {storedData.phone}</Text>
                                 <Flex mb='10px' gap='20px'>
-                                    <Text fontSize='sm'>shivamyadavskd87@gmail.com</Text>
+                                    <Text fontSize='sm'>{storedData.email}</Text>
                                     <MdOutlineModeEditOutline />
                                 </Flex>
                                 <Text fontSize='sm'>Available Travel Credits : 0</Text>

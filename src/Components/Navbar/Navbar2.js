@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IconMenu2 } from "@tabler/icons-react";
 import styled from "styled-components";
 import {
@@ -27,30 +27,37 @@ import { Link } from "react-router-dom";
 import CityModal from "../CityModal";
 
 import { useDispatch, useSelector } from "react-redux";
+import ProfileMenu from "../Login/ProfileMenu";
 
 function Navbar(props) {
-  const isUserLoggedIn = useSelector((storeData) => {
-    return storeData.LoginSignupRed.isLoggedIn;
-  });
-  console.log(isUserLoggedIn);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const {
-    isOpen: isModalOpen,
-    onOpen: onModalOpen,
-    onClose: onModalClose,
-  } = useDisclosure();
-  const btnRef = React.useRef();
+    const [selectedCity, setSelectedCity] = useState("Bangalore")
 
-  const isDark = useSelector((state) => state.themeReducer.dark);
-  const dispatchTheme = useDispatch();
 
-  function updateTheme() {
-    console.log(isDark);
-    if (isDark) {
-      dispatchTheme(setLightMode());
-    } else {
-      dispatchTheme(setDarkMode());
+
+    const isUserLoggedIn = useSelector((storeData) => {
+        return storeData.LoginSignupRed.isLoggedIn
+
+    })
+    console.log(isUserLoggedIn)
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+
+    // useEffect(() => { onModalClose(true) }, [])
+
+    const btnRef = React.useRef()
+
+    const isDark = useSelector(state => state.themeReducer.dark);
+    const dispatchTheme = useDispatch();
+
+    function updateTheme() {
+        console.log(isDark)
+        if (isDark) {
+            dispatchTheme(setLightMode());
+        } else {
+            dispatchTheme(setDarkMode());
+        }
     }
   }
 
@@ -105,71 +112,45 @@ function Navbar(props) {
                     </ModalContainer>
                 </ModalContent>
             </Modal> */}
-      <CityModal isOpen={isModalOpen} setIsOpen={onModalClose} />
-      {/* <Modal isOpen={isModalOpen} onClose={onModalClose}>
+            <CityModal isOpen={isModalOpen} setIsOpen={onModalClose} setSelectedCity={setSelectedCity} />
+            {/* <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 Hello Modal
             </Modal> */}
-      <Left>
-        <MenuBtn ref={btnRef} onClick={onOpen}>
-          <IconMenu2 size={"32px"} color={isDark ? "white" : "black"} />
-        </MenuBtn>
-        <img
-          src="https://d36g7qg6pk2cm7.cloudfront.net/assets/landing_page/royal_brothers_logo-229959d7727f356b2e4fc3bd9c0c527c60127d009c93989a93e2daa0b1c2d556.svg"
-          alt=""
-        />
-      </Left>
-      <Center>
-        <CustomButton>Tarrif</CustomButton>
-        <CustomButton>What's New?</CustomButton>
-        <CustomButton>Partner with us</CustomButton>
-      </Center>
-      <Right isDark={isDark}>
-        <Button
-          rightIcon={<ChevronDownIcon />}
-          leftIcon={
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-              />
-            </svg>
-          }
-          bg={"#fed250"}
-          colorScheme="#fed250"
-          variant="outline"
-          onClick={onModalOpen}
-        >
-          Bangalore
-        </Button>
-        <Box
-          className="divider"
-          borderLeft="1px solid rgba(0,0,0,0.2)"
-          height="100%"
-        />
+            <Left>
+                <MenuBtn ref={btnRef} onClick={onOpen}>
+                    <IconMenu2 size={"32px"} color={isDark ? 'white' : 'black'} />
+                </MenuBtn>
+                <img src="https://d36g7qg6pk2cm7.cloudfront.net/assets/landing_page/royal_brothers_logo-229959d7727f356b2e4fc3bd9c0c527c60127d009c93989a93e2daa0b1c2d556.svg" alt="" />
+            </Left>
+            <Center>
+                <CustomButton>Tarrif</CustomButton>
+                <CustomButton>What's New?</CustomButton>
+                <CustomButton>Partner with us</CustomButton>
+            </Center>
+            <Right isDark={isDark}>
+                <Button rightIcon={<ChevronDownIcon />} leftIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                } bg={"#fed250"} colorScheme="#fed250" variant='outline' onClick={onModalOpen}>
+                    {selectedCity}
+                </Button>
+                <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
+                <Box>
+                   {
+                    (isUserLoggedIn) ? <ProfileMenu/> : <NavWithoutLogin/>
+                   }
 
-        <Box>{isUserLoggedIn ? <NavWithLogin /> : <NavWithoutLogin />}</Box>
-        <IconButton
-          colorScheme={!isDark ? "blackAlpha" : "whiteAlpha"}
-          aria-label="Search database"
-          icon={<MoonIcon />}
-          onClick={updateTheme}
-        />
-      </Right>
-    </Container>
-  );
+                </Box>
+                <IconButton
+                    colorScheme={!isDark ? 'blackAlpha' : 'whiteAlpha'}
+                    aria-label='Search database'
+                    icon={<MoonIcon />}
+                    onClick={updateTheme}
+                />
+            </Right>
+        </Container >
+    );
 }
 
 const Container = styled.div`

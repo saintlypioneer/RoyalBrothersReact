@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 
 
 import { useDispatch, useSelector } from "react-redux";
+import ProfileMenu from "../Login/ProfileMenu";
 
 
 function Navbar(props) {
@@ -121,7 +122,7 @@ function Navbar(props) {
                 <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
                 <Box>
                    {
-                    (isUserLoggedIn) ? <NavWithLogin/> : <NavWithoutLogin/>
+                    (isUserLoggedIn) ? <ProfileMenu/> : <NavWithoutLogin/>
                    }
                 </Box>
                 <IconButton

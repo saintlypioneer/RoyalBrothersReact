@@ -18,6 +18,7 @@ import Checkout from "./Components/Checkout";
 import ProfilePage from "./Components/Login/ProfilePage";
 import SignUP from "./Components/Login/signup";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import ProfileMenu from "./Components/Login/ProfileMenu";
 
 //clear everything before pushing and merging the codes on github
 
@@ -36,6 +37,7 @@ function App() {
         <Route path='/login' element={<LoginHeader/>}/>
         <Route path='/signUp' element={<LoginHeader/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/profilemenu' element={<ProfileMenu/>}/>
         <Route path='*' element={<>404</>} />
       </Routes>
 

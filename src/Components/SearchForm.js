@@ -10,8 +10,10 @@ import { rentalDateAndTimeFunction } from "../Redux/search/action";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../Redux/search/action";
 import { findingDfferenceFunction } from "../Redux/search/action";
+import { useSelector } from "react-redux";
 
 function SearchForm(props) {
+  const isDark = useSelector(state=>state.themeReducer.dark);
   const [pickupDate, setPickupDate] = useState(null);
   const [dropoffDate, setDropoffDate] = useState(null);
   const [pickupTime, setPickupTime] = useState(null);
@@ -89,7 +91,7 @@ function SearchForm(props) {
 
 
   return (
-    <Container>
+    <Container isDark={isDark}>
       <h1>Search your next ride</h1>
       <form onSubmit={handleSubmit}>
         <DateTime>
@@ -158,12 +160,13 @@ function SearchForm(props) {
 }
 
 const Container = styled.div`
-  background-color: white;
+  background-color: ${props=>props.isDark?'#2C3333':'white'};
   width: fit-content;
   min-width: 400px;
   height: fit-content;
   padding: 20px;
   border-radius: 5px;
+  color: ${props=>props.isDark?"white":"#2C3333"};
 
   .timeSelector {
     width: 100%;

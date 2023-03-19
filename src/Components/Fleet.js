@@ -4,13 +4,16 @@ import { useState } from "react";
 
 import { Grid, GridItem, Heading, StackDivider, VStack } from '@chakra-ui/react'
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { useSelector } from "react-redux";
 
 function Fleet(props) {
 
-    const [duration, setDuration] = useState('1 Month')
+    const [duration, setDuration] = useState('1 Month');
+    const isDark = useSelector(state=>state.themeReducer.dark);
+
 
     return (
-        <Container>
+        <Container isDark={isDark}>
             <h3>Our Fleet</h3>
             <Duration>
                 <span>Duration</span>
@@ -134,6 +137,8 @@ function Fleet(props) {
 const Container = styled.div`
     width: 100%;
     padding: 10px;
+    background-color: ${props=>props.isDark?'#2C3333':'white'};
+    color: ${props=>props.isDark?'white':'#2C3333'};
 
     h3{
         padding-top: 30px;

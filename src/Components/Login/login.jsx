@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {
     Box, Center, FormControl, FormLabel, Input, Flex,
     InputLeftAddon, InputGroup, VStack, InputRightElement,
-    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useToast,
+    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useToast, Text,
 } from '@chakra-ui/react'
 import ReCAPTCHA from "react-google-recaptcha";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
@@ -16,14 +16,18 @@ function Login() {
     // states for collecting data 
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [phoneError, setPhoneError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [isCaptchCheckedIn, setIsCaptchaCheckedIn] = useState(false);
+
     const nav = useNavigate()
 
-    const [isLoggedIn,setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() =>{
+    useEffect(() => {
         setIsLoggedIn(true)
-        
-    },[Login])
+
+    }, [Login])
 
 
 
@@ -39,41 +43,40 @@ function Login() {
     // it is for captcha implementation
     function onChange(value) {
         // console.log("Captcha value:", value);
+        setIsCaptchaCheckedIn(true)
     }
-   
+
 
     const CheakUserDetails = () => {
-        if (phone, password) {
-            if (phone === storedData.phone && password === storedData.password) {
-               
-                // console.log(storedData.isLoggedIn)
-                dispatch({
-                    type:"ISLOGGEDIN",
-                    payload:isLoggedIn
-                })
-                nav('/')
-                return toast({
-                    position: 'top',
-                    title: 'LoggedIn successfully.',
-                    // description: "Welcome to RoyalBrothers.com.",
-                    status: 'success',
-                    duration: 2000,
-                    isClosable: true,
-                })
 
-            } else {
-                return toast({
-                    position: 'top-right',
-                    title: 'Invalid phone/password combination',
-                    // description: "Welcome to RoyalBrothers.com.",
-                    status: 'error',
-                    duration: 2000,
-                    isClosable: true,
+        if (phone === storedData.phone && password === storedData.password
+            && (isCaptchCheckedIn)) {
 
-                })
-            }
-        } 
-        else {
+            // console.log(storedData.isLoggedIn)
+            dispatch({
+                type: "ISLOGGEDIN",
+                payload: isLoggedIn
+            })
+            nav('/')
+            return toast({
+                position: 'top',
+                title: 'LoggedIn successfully.',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+            })
+
+        } else if (phone.length == 10 && password.length < 6 && (!isCaptchCheckedIn)) {
+            return toast({
+                position: 'top-right',
+                title: 'Please verify capthca',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+        } else if (phone.length == 0 && password.length == 0(!isCaptchCheckedIn)) {
             return toast({
                 position: 'top-right',
                 title: 'Enter user details',
@@ -84,14 +87,46 @@ function Login() {
 
             })
         }
+        else {
+            return toast({
+                position: 'top-right',
+                title: 'Invalid phone/password combination',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+
+            })
+        }
+
+
     }
 
+    const handlePhone = (e) => {
+        let phone = e.target.value
+        if (phone.length == 10) {
+            setPhoneError(false)
+        } else {
+            setPhoneError(true)
+        }
+        setPhone(phone)
+    }
+
+    const handlePassword = (e) => {
+        let password = e.target.value
+        if (password.length < 6) {
+            setPasswordError(true)
+        } else {
+            setPasswordError(false)
+        }
+        setPassword(password);
+    }
     return (
         <Center >
 
             <Box w={'375px'} h={'515px'} boxShadow='2xl'>
 
-                <FormControl isRequired>
+                <form>
 
                     <FormLabel>
                         <Box mt='20px' pl='25px' justify='right'>Phone</Box>
@@ -100,22 +135,28 @@ function Login() {
                     <Flex direction='column' p='0px 25px 0px 25px'>
 
                         <InputGroup>
-                            <Flex mb='30px'>
+                            <Flex>
                                 <InputLeftAddon children='+91' />
                                 <Input type="tle" width='263px'
-                                    value={phone} onChange={(e) => { setPhone(e.target.value) }}
+                                    value={phone} onChange={handlePhone}
                                 />
                             </Flex>
                         </InputGroup>
+                        {/* it is for showing phone number error */}
+                        <Box mb='30px'>
+                            {
+                                (phoneError) ? <Text fontSize='xs' color='red'>Phone number must have 10 digits</Text> : ""
+                            }
+                        </Box>
 
-                        <InputGroup size='md' mb='13px'>
+                        <InputGroup size='md'>
 
                             <Input
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
                                 variant='filled'
                                 placeholder='Enter password'
-                                value={password} onChange={(e) => { setPassword(e.target.value) }}
+                                value={password} onChange={handlePassword}
                             />
 
                             <InputRightElement width='4.5rem'>
@@ -125,6 +166,12 @@ function Login() {
                             </InputRightElement>
 
                         </InputGroup>
+                        {/* it is for showing password error */}
+                        <Box mb='13px'>
+                            {
+                                (passwordError) ? <Text fontSize='xs' color='red'>Password must be greater than 5 digits</Text> : ""
+                            }
+                        </Box>
 
                         <Flex mb='27px'>
                             <Box><Checkbox>Remember password?</Checkbox></Box>
@@ -143,8 +190,8 @@ function Login() {
 
                         <Box mb='8px' as='button' h='50px' w='325px'
                             bg='#fed250' borderRadius='4px'
-                            onClick={CheakUserDetails }
-                            >
+                            onClick={CheakUserDetails}
+                        >
                             <Center h='50px'><Heading size='sm'>Login with Password</Heading></Center>
                         </Box>
 
@@ -155,7 +202,7 @@ function Login() {
                             <Center h='50px'><Heading size='sm'>Login with OTP</Heading></Center>
                         </Box>
                     </Center>
-                </FormControl>
+                </form>
 
             </Box>
 

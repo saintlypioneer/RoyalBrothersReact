@@ -59,7 +59,7 @@ function Navbar(props) {
             dispatchTheme(setDarkMode());
         }
     }
-  }
+  
 
   return (
     <Container isDark={isDark}>

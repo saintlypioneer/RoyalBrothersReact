@@ -15,6 +15,7 @@ import Checkout from "./Components/Checkout";
 import ProfilePage from "./Components/Login/ProfilePage";
 import SignUP from "./Components/Login/signup";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import ProfileMenu from "./Components/Login/ProfileMenu";
 import Banner from "./Components/Banner/Banner";
 
 //clear everything before pushing and merging the codes on github

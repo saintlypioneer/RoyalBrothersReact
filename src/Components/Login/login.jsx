@@ -46,7 +46,7 @@ function Login() {
         if (phone, password) {
             if (phone === storedData.phone && password === storedData.password) {
                
-                console.log(storedData.isLoggedIn)
+                // console.log(storedData.isLoggedIn)
                 dispatch({
                     type:"ISLOGGEDIN",
                     payload:isLoggedIn

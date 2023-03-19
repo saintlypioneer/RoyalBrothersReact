@@ -2,14 +2,21 @@ import React from "react";
 import { IconMenu2 } from "@tabler/icons-react";
 import styled from "styled-components";
 import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Text, Divider } from "@chakra-ui/react";
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, MoonIcon } from '@chakra-ui/icons'
 import { useDisclosure, IconButton } from "@chakra-ui/react";
 import { useRef } from "react";
+import NavWithLogin from "./Nav_with_Login";
+import NavWithoutLogin from "./Nav_with_out_Login";
+import { setLightMode, setDarkMode } from "../../Redux/themeMode/action";
+import {
+    Modal, ModalOverlay, ModalContent
+} from '@chakra-ui/react'
+
 import { Link } from "react-router-dom";
 
 
 
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 function Navbar(props) {
@@ -24,12 +31,12 @@ function Navbar(props) {
     const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
     const btnRef = React.useRef()
 
-    const isDark = useSelector(state=>state.themeReducer.dark);
+    const isDark = useSelector(state => state.themeReducer.dark);
     const dispatchTheme = useDispatch();
 
-    function updateTheme(){
+    function updateTheme() {
         console.log(isDark)
-        if (isDark){
+        if (isDark) {
             dispatchTheme(setLightMode());
         } else {
             dispatchTheme(setDarkMode());
@@ -94,7 +101,7 @@ function Navbar(props) {
             </Modal> */}
             <Left>
                 <MenuBtn ref={btnRef} onClick={onOpen}>
-                    <IconMenu2 size={"32px"} color={isDark?'white':'black'} />
+                    <IconMenu2 size={"32px"} color={isDark ? 'white' : 'black'} />
                 </MenuBtn>
                 <img src="https://d36g7qg6pk2cm7.cloudfront.net/assets/landing_page/royal_brothers_logo-229959d7727f356b2e4fc3bd9c0c527c60127d009c93989a93e2daa0b1c2d556.svg" alt="" />
             </Left>
@@ -112,18 +119,13 @@ function Navbar(props) {
                     Bangalore
                 </Button>
                 <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
-                <Link to='/login'>
-                
-                </Link>
-
-                <Link to='/signUp'>
-                    <Button className="authButton" bg={"brand.500"} color="black" colorScheme='brand.500' variant='solid'>
-
-                        SignUp
-                    </Button>
-                </Link>
+                <Box>
+                   {
+                    (isUserLoggedIn) ? <NavWithLogin/> : <NavWithoutLogin/>
+                   }
+                </Box>
                 <IconButton
-                    colorScheme={!isDark?'blackAlpha':'whiteAlpha'}
+                    colorScheme={!isDark ? 'blackAlpha' : 'whiteAlpha'}
                     aria-label='Search database'
                     icon={<MoonIcon />}
                     onClick={updateTheme}
@@ -186,7 +188,7 @@ const Center = styled.div`
     display: flex;
     gap: 20px;
     font-size: 0.8rem;
-    color: ${props=>props.isDark?"#2C3333":"white"};
+    color: ${props => props.isDark ? "#2C3333" : "white"};
 
     @media (max-width: 850px){
         display: none;
@@ -204,7 +206,7 @@ const Right = styled.div`
     }
 
     .loginButton{
-        color: ${props=>props.isDark?"white":"#2C3333"};
+        color: ${props => props.isDark ? "white" : "#2C3333"};
     }
 
     .divider{
@@ -217,4 +219,3 @@ const Right = styled.div`
 const CustomButton = styled.button``;
 
 export default Navbar;
-// updated navbar

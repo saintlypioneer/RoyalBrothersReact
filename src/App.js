@@ -24,7 +24,6 @@ function App() {
   return (
     <div className="App">
 
-
        <Navbar /> 
       <Routes>
         <Route path='/' element={<Home />} />
@@ -34,7 +33,7 @@ function App() {
         <Route path='/search' element={<Search />} />
         <Route path='/search/:id' element={<Check />}/>
         <Route path='/login' element={<LoginHeader/>}/>
-        <Route path='/signUp' element={<SignUP/>}/>
+        <Route path='/signUp' element={<LoginHeader/>}/>
         <Route path='/profile' element={<Profile_Page/>}/>
         <Route path='*' element={<>404</>} />
       </Routes>

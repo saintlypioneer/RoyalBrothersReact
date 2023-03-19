@@ -1,8 +1,7 @@
 import React from "react";
-
 import { IconMenu2 } from "@tabler/icons-react";
 import styled from "styled-components";
-import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Text } from "@chakra-ui/react";
+import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Text, Divider } from "@chakra-ui/react";
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useDisclosure } from "@chakra-ui/react";
 import { useRef } from "react";
@@ -11,14 +10,23 @@ import { Link } from "react-router-dom";
 import {
     Modal, ModalOverlay, ModalContent
 } from '@chakra-ui/react'
+import { useSelector } from "react-redux";
+
 
 function Navbar(props) {
+
+    const isUserLoggedIn = useSelector((storeData) =>{
+        return storeData.LoginSignupRed.isLoggedIn
+
+    })
+    console.log(isUserLoggedIn)
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
     const btnRef = React.useRef()
 
     return (
+
         <Container>
             <Drawer
                 isOpen={isOpen}
@@ -81,7 +89,7 @@ function Navbar(props) {
             </Left>
             <Center>
                 <CustomButton>Tarrif</CustomButton>
-                <CustomButton>What's New? <ChevronDownIcon /> </CustomButton>
+                <CustomButton>What's New?</CustomButton>
                 <CustomButton>Partner with us</CustomButton>
             </Center>
             <Right>
@@ -92,6 +100,7 @@ function Navbar(props) {
                 } bg={"#fed250"} colorScheme="#fed250" variant='outline' onClick={onModalOpen}>
                     Bangalore
                 </Button>
+
                 <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
                 <Link to='/login'>
                 <Button className="authButton" borderColor={"transparent"} color="gray.500" colorScheme='brand.500' variant='outline'>
@@ -101,6 +110,7 @@ function Navbar(props) {
                 
                 <Link to='/signUp'>
                 <Button className="authButton" bg={"brand.500"} color="black" colorScheme='brand.500' variant='solid'>
+
                     SignUp
                 </Button>
                 </Link>

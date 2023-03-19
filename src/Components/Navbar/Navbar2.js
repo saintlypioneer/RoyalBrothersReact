@@ -1,10 +1,17 @@
 import { IconMenu2 } from "@tabler/icons-react";
 import styled from "styled-components";
-import { Button, Divider } from "@chakra-ui/react";
+import { Box, Button, Divider, Link } from "@chakra-ui/react";
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import { NavLink } from "react-router-dom";
+import NavWithoutLogin from "./Nav_with_out_Login";
+import NavWithLogin from "./Nav_with_Login";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function Navbar(props) {
+   
     return (
+        
         <Container>
             <Left>
                 <MenuBtn>
@@ -13,7 +20,7 @@ function Navbar(props) {
                 <img src="https://d36g7qg6pk2cm7.cloudfront.net/assets/landing_page/royal_brothers_logo-229959d7727f356b2e4fc3bd9c0c527c60127d009c93989a93e2daa0b1c2d556.svg" alt="" />
             </Left>
             <Center>
-                <CustomButton>Tarrif</CustomButton>
+                <NavLink to='/'>Tarrif</NavLink>
                 <CustomButton>What's New?</CustomButton>
                 <CustomButton>Partner with us</CustomButton>
             </Center>
@@ -26,12 +33,9 @@ function Navbar(props) {
                     Bangalore
                 </Button>
                 <Divider orientation="vertical" height={"40px"} ml="5px" mr="5px" colorScheme="gray" />
-                <Button colorScheme='teal' variant='outline'>
-                    LogIn
-                </Button>
-                <Button colorScheme='teal' variant='solid'>
-                    SignUp
-                </Button>
+                <Box border='1px'>
+                  
+                </Box>
             </Right>
         </Container>
     );

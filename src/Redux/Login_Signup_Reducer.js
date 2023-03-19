@@ -2,7 +2,8 @@ const userDetails = {
     name:"",
     email:"",
     phone:"",
-    password:""
+    password:"",
+    isLoggedIn:false,
 }
 
 const Login_Singup_Reducer = (state={userDetails},action) =>{
@@ -13,6 +14,11 @@ const Login_Singup_Reducer = (state={userDetails},action) =>{
             email:action.payload.email,
             phone:action.payload.phone,
             password:action.payload.password
+        }
+    }else if(action.type === "ISLOGGEDIN"){
+        return{
+            ...state,
+            isLoggedIn:action.payload
         }
     }
 

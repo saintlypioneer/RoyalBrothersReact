@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 import SearchForm from "./SearchForm";
 
-function CTA(props){
-    return(
+function CTA(props) {
+    return (
         <Container>
             <SearchForm />
         </Container>

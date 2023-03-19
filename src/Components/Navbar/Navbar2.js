@@ -93,13 +93,20 @@ function Navbar(props) {
                 } bg={"#fed250"} colorScheme="#fed250" variant='outline' onClick={onModalOpen}>
                     Bangalore
                 </Button>
-                <Divider orientation="vertical" height={"40px"} ml="5px" mr="5px" colorScheme="gray" />
-                <Button colorScheme='teal' variant='outline'>
+
+                <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
+                <Link to='/login'>
+                <Button className="authButton" borderColor={"transparent"} color="gray.500" colorScheme='brand.500' variant='outline'>
                     LogIn
                 </Button>
-                <Button colorScheme='teal' variant='solid'>
+                </Link>
+                
+                <Link to='/signUp'>
+                <Button className="authButton" bg={"brand.500"} color="black" colorScheme='brand.500' variant='solid'>
+
                     SignUp
                 </Button>
+                </Link>
             </Right>
         </Container>
     );

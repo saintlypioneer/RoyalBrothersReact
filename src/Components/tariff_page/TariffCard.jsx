@@ -17,17 +17,17 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-function TariffCard({onOpen}) {
+function TariffCard({onOpen,data}) {
   return (
     <Card>
       <CardBody p={0}>
         <Stack alignItems={"center"} p={5}>
           <Heading fontSize={"sm"} fontWeight={700}  fontFamily={'Mulish'}>
-            Suzuki Access 125
+            {data.vehicle}
           </Heading>
           <Image
             w={"80%"}
-            src="https://d3vp2rl7047vsp.cloudfront.net/bike_models/images/000/000/001/medium/SUZUKI_ACCESS_125.png?1660719780"
+            src={data.image}
           ></Image>
         </Stack>
         <Box>
@@ -84,7 +84,7 @@ function TariffCard({onOpen}) {
 
                       <Text width={"50%"} fontSize={"12px"} fontWeight={400}>
                         ₹  <Text as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        19
+                        {data.hourly.btime}
                       </Text>
                       </Text>
                     </Flex>
@@ -94,12 +94,12 @@ function TariffCard({onOpen}) {
                       justifyContent={"space-between"}
                     >
                       <Text width={"50%"} fontSize={"12px"} fontWeight={400}>
-                        Booking Time (0- 24 hrs)
+                       {`Booking Time (>24 hrs)`}
                       </Text>
 
                       <Text width={"50%"} fontSize={"12px"} fontWeight={400}>
                         ₹  <Text as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        19
+                        {data.hourly.btimeabove}
                       </Text>/hr
                       </Text>
                     </Flex>
@@ -124,7 +124,7 @@ function TariffCard({onOpen}) {
 
                       <Text width={"50%"} fontSize={"12px"} fontWeight={400}>
                         ₹  <Text as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        19
+                        {data.hourly.btimeabove}
                       </Text>/hr
                       </Text>
                     </Flex>
@@ -145,7 +145,7 @@ function TariffCard({onOpen}) {
 
                       <Text width={"50%"} fontSize={"12px"} fontWeight={400}>
                       <Text as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        5.0
+                      {data.hourly.kmlimit}
                       </Text>/hr
                       </Text>
                     </Flex>
@@ -160,7 +160,7 @@ function TariffCard({onOpen}) {
 
                       <Text width={"50%"} fontSize={"12px"} fontWeight={400}>
                         ₹   <Text as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        4.0
+                        {data.hourly.excess}
                       </Text>
                       /km
                       </Text>
@@ -186,7 +186,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                         ₹  <Text fontFamily={'Mulish'} as={'span'} fontSize={"12px"} fontWeight={700}>
-                        1588
+                        {data.seven.rental}
                       </Text>
                       </Text>
                     </Flex>
@@ -210,7 +210,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                          <Text as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        540
+                         {data.seven.kmlimit}
                       </Text> Km
                       </Text>
                     </Flex>
@@ -231,7 +231,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                         ₹   <Text fontFamily={'Mulish'} as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        4.0
+                        {data.seven.excess}
                       </Text>
                       /km
                       </Text>
@@ -258,7 +258,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                         ₹  <Text fontFamily={'Mulish'} as={'span'} fontSize={"12px"} fontWeight={700}>
-                        2647
+                        {data.fifteen.rental}
                       </Text>
                       </Text>
                     </Flex>
@@ -282,7 +282,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                          <Text fontFamily={'Mulish'} as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        900
+                         {data.fifteen.kmlimit}
                       </Text> Km
                       </Text>
                     </Flex>
@@ -303,7 +303,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                         ₹   <Text fontFamily={'Mulish'} as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        4.0
+                        {data.fifteen.excess}
                       </Text>
                       /km
                       </Text>
@@ -330,7 +330,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                         ₹  <Text fontFamily={'Mulish'} as={'span'} fontSize={"12px"} fontWeight={700}>
-                        4412
+                        {data.thirty.rental}
                       </Text>
                       </Text>
                     </Flex>
@@ -354,7 +354,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                          <Text fontFamily={'Mulish'} as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        1500
+                         {data.thirty.kmlimit}
                       </Text> Km
                       </Text>
                     </Flex>
@@ -375,7 +375,7 @@ function TariffCard({onOpen}) {
 
                       <Text fontFamily={'Mulish'} width={"40%"} fontSize={"12px"} fontWeight={400}>
                         ₹   <Text fontFamily={'Mulish'} as={'span'} width={"50%"} fontSize={"12px"} fontWeight={700}>
-                        4.0
+                        {data.thirty.excess}
                       </Text>
                       /km
                       </Text>

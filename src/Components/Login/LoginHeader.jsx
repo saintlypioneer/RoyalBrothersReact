@@ -5,7 +5,7 @@ import SignUP from "./signup";
 import { useState } from "react";
 import './LoginHeader.css'
 function LoginHeader() {
-  
+
     return (
         <Center>
             <Box h='700px' w='350px' >
@@ -17,22 +17,24 @@ function LoginHeader() {
                                 <Flex>
                                     <Box >
                                         <Tabs variant='unstyled'>
-                                            <TabList  >
-                                                <Tab _selected={{ borderBottom: '4px solid #fed250' }}>
-                                                    <Box w='187px' h='36px'>
-                                                        <Center>
-                                                            <Heading as='button' size='sm'>LOGIN</Heading>
-                                                        </Center>
-                                                    </Box>
-                                                </Tab>
-                                                <Tab _selected={{ borderBottom: '4px solid #fed250' }}>
-                                                    <Box w='187px' h='36px'>
-                                                        <Center>
-                                                            <Heading as='button' size='sm'>SIGN UP</Heading>
-                                                        </Center>
-                                                    </Box>
-                                                </Tab>
-                                            </TabList>
+                                            <Center>
+                                                <TabList >
+                                                    <Tab _selected={{ borderBottom: '4px solid #fed250' }}>
+                                                        <Box w='187px' h='36px'>
+                                                            <Center>
+                                                                <Heading as='button' size='sm'>LOGIN</Heading>
+                                                            </Center>
+                                                        </Box>
+                                                    </Tab>
+                                                    <Tab _selected={{ borderBottom: '4px solid #fed250' }}>
+                                                        <Box w='187px' h='36px'>
+                                                            <Center>
+                                                                <Heading as='button' size='sm'>SIGN UP</Heading>
+                                                            </Center>
+                                                        </Box>
+                                                    </Tab>
+                                                </TabList>
+                                            </Center>
                                             <TabPanels>
                                                 <TabPanel>
                                                     <Login />

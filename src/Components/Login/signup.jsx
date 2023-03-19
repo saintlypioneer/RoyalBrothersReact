@@ -33,7 +33,8 @@ function SignUP() {
     }
 
     const Registered = () => {
-        if (name, email, phone, password) {
+        if (name.length >=3 && email.length >= 4 && 
+            phone.length == 10 && password.length >= 4) {
 
             return toast({
                 position: 'top',
@@ -43,6 +44,7 @@ function SignUP() {
                 duration: 2000,
                 isClosable: true,
             })
+               
         }else{
             return toast({
                 position: 'top',

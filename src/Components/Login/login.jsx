@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Box, Center, FormControl, FormLabel, Input, Flex,
     InputLeftAddon, InputGroup, VStack, InputRightElement,
@@ -8,6 +8,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function Login() {
 
@@ -15,10 +16,16 @@ function Login() {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
 
+    const [isLoggedIn,setIsLoggedIn] = useState(false);
+
+    useEffect(() =>{setIsLoggedIn(true)},[Login])
+
+
+    const dispatch = useDispatch();
+
     const toast = useToast()
 
     const storedData = useSelector((storeData) => { return storeData.LoginSignupRed })
-
     // it is for hide and show password
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
@@ -27,10 +34,17 @@ function Login() {
     function onChange(value) {
         // console.log("Captcha value:", value);
     }
+   
 
     const CheakUserDetails = () => {
         if (phone, password) {
             if (phone === storedData.phone && password === storedData.password) {
+               
+                console.log(storedData.isLoggedIn)
+                dispatch({
+                    type:"ISLOGGEDIN",
+                    payload:isLoggedIn
+                })
                 return toast({
                     position: 'top',
                     title: 'LoggedIn successfully.',
@@ -50,17 +64,8 @@ function Login() {
 
                 })
             }
-        } else if (phone.length == 10 && password >= 6) {
-            return toast({
-                position: 'top-right',
-                title: 'User LoggedIn',
-                // description: "Welcome to RoyalBrothers.com.",
-                status: 'success',
-                duration: 2000,
-                isClosable: true,
-
-            })
-        } else {
+        } 
+        else {
             return toast({
                 position: 'top-right',
                 title: 'Enter user details',
@@ -130,7 +135,8 @@ function Login() {
 
                         <Box mb='8px' as='button' h='50px' w='325px'
                             bg='#fed250' borderRadius='4px'
-                            onClick={CheakUserDetails}>
+                            onClick={CheakUserDetails }
+                            >
                             <Center h='50px'><Heading size='sm'>Login with Password</Heading></Center>
                         </Box>
 

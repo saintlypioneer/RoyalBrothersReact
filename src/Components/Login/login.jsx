@@ -78,7 +78,7 @@ function Login() {
 
             <Box w={'375px'} h={'515px'} boxShadow='2xl'>
 
-                <FormControl>
+                <FormControl isRequired>
 
                     <FormLabel>
                         <Box mt='20px' pl='25px' justify='right'>Phone</Box>

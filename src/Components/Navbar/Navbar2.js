@@ -10,9 +10,16 @@ import { Link } from "react-router-dom";
 import {
     Modal, ModalOverlay, ModalContent
 } from '@chakra-ui/react'
+import { useSelector } from "react-redux";
 
 
 function Navbar(props) {
+
+    const isUserLoggedIn = useSelector((storeData) =>{
+        return storeData.LoginSignupRed.isLoggedIn
+
+    })
+    console.log(isUserLoggedIn)
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();

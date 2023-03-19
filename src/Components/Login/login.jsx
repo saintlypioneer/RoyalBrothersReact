@@ -9,16 +9,22 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
     // states for collecting data 
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const nav = useNavigate()
 
     const [isLoggedIn,setIsLoggedIn] = useState(false);
 
-    useEffect(() =>{setIsLoggedIn(true)},[Login])
+    useEffect(() =>{
+        setIsLoggedIn(true)
+        
+    },[Login])
+
 
 
     const dispatch = useDispatch();
@@ -45,6 +51,7 @@ function Login() {
                     type:"ISLOGGEDIN",
                     payload:isLoggedIn
                 })
+                nav('/')
                 return toast({
                     position: 'top',
                     title: 'LoggedIn successfully.',
@@ -53,6 +60,7 @@ function Login() {
                     duration: 2000,
                     isClosable: true,
                 })
+
             } else {
                 return toast({
                     position: 'top-right',

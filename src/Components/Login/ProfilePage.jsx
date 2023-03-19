@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 
-function Profile_Page() {
+function ProfilePage() {
 
     const storedData = useSelector((storeData) => { return storeData.LoginSignupRed })
 
@@ -113,4 +113,4 @@ function Profile_Page() {
         </Center>
     )
 }
-export default Profile_Page;
+export default ProfilePage;

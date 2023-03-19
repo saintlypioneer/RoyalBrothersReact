@@ -15,8 +15,9 @@ import Payment from './Components/Pages/Payment'
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar2';
 import Checkout from "./Components/Checkout";
-import Profile_Page from "./Components/Login/ProfilePage";
+import ProfilePage from "./Components/Login/ProfilePage";
 import SignUP from "./Components/Login/signup";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 //clear everything before pushing and merging the codes on github
 
@@ -27,14 +28,14 @@ function App() {
        <Navbar /> 
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/payment' element={<Payment />} />
+        <Route path='/payment' element={<PrivateRoute><Payment /></PrivateRoute>} />
         {/* <Route path='/checkout' element={<Check />} /> */}
         <Route path='/blogs' element={<Blogs />} />
         <Route path='/search' element={<Search />} />
-        <Route path='/search/:id' element={<Check />}/>
+        <Route path='/search/:id' element={<PrivateRoute><Check /></PrivateRoute>}/>
         <Route path='/login' element={<LoginHeader/>}/>
         <Route path='/signUp' element={<LoginHeader/>}/>
-        <Route path='/profile' element={<Profile_Page/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
         <Route path='*' element={<>404</>} />
       </Routes>
 

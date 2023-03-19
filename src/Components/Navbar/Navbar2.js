@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 
 import { Link } from "react-router-dom";
-
+import CityModal from "../CityModal";
 
 
 import { useDispatch, useSelector } from "react-redux";
@@ -81,7 +81,7 @@ function Navbar(props) {
             </Drawer>
             {/* Modal */}
 
-            <Modal isOpen={isModalOpen} onClose={onModalClose}>
+            {/* <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalContainer>
@@ -94,8 +94,8 @@ function Navbar(props) {
                         <ModalBody>Body</ModalBody>
                     </ModalContainer>
                 </ModalContent>
-            </Modal>
-
+            </Modal> */}
+            <CityModal isOpen={isModalOpen} setIsOpen={onModalClose} />
             {/* <Modal isOpen={isModalOpen} onClose={onModalClose}>
                 Hello Modal
             </Modal> */}
@@ -120,9 +120,9 @@ function Navbar(props) {
                 </Button>
                 <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
                 <Box>
-                   {
-                    (isUserLoggedIn) ? <NavWithLogin/> : <NavWithoutLogin/>
-                   }
+                    {
+                        (isUserLoggedIn) ? <NavWithLogin /> : <NavWithoutLogin />
+                    }
                 </Box>
                 <IconButton
                     colorScheme={!isDark ? 'blackAlpha' : 'whiteAlpha'}

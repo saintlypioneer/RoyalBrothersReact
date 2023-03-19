@@ -14,12 +14,11 @@ export default function Relevance() {
   const duration = useSelector((store)=>store.searchReducer.rentalDetails)
   const filterData = useSelector((store)=>store.searchReducer.filterData)
   
-  
-  const dispatch = useDispatch();
-// console.log(duration);
-  useEffect(()=>{
-    dispatch(getData());
-  },[dispatch,duration,filterData])
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<< Updated codes begin>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>s
+
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<< Updated codes Ends>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>s
   return (
     <Stack>
       <Text textAlign={"center"} mb='1rem'>

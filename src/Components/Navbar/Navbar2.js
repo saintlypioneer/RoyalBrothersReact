@@ -42,7 +42,7 @@ function Navbar(props) {
     console.log(isUserLoggedIn)
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+    const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure({ defaultIsOpen: true });
 
     // useEffect(() => { onModalClose(true) }, [])
 

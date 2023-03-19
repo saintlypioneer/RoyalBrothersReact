@@ -13,6 +13,8 @@ import styled from "@emotion/styled";
 import { Link, Navigate } from "react-router-dom";
 
 function Checkout({ total }) {
+  localStorage.setItem('total', total);
+
   return (
     <Card
       m={["10px", "20px"]}

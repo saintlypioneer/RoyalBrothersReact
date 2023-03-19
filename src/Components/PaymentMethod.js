@@ -1,11 +1,14 @@
 import styled from "styled-components";
-import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
+import { Radio, RadioGroup, Stack, useToast } from '@chakra-ui/react'
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 import PaymentCardForm from "./PaymentCardForm";
 
 function PaymentMethod(props) {
     const [value, setValue] = useState('1');
+    const toast = useToast();
+    const navigate = useNavigate();
     return (
         <Container>
             <h3>Choose Payment Method</h3>
@@ -41,7 +44,21 @@ function PaymentMethod(props) {
                         </Stack>
                     </RadioGroup>
                     <PaymentCardForm />
-                    <Button>Make Payment</Button>
+                    <Button
+                        onClick={() => {
+                            toast({
+                                title: 'Payment Success!',
+                                description: "This vehicle has been successfully booked.",
+                                status: 'success',
+                                duration: 3000,
+                                isClosable: true,
+                            });
+                            setTimeout(() => {
+                                return navigate("/")
+
+                            }, 3000); // Redirect after 3 seconds
+                        }}
+                    >Make Payment</Button>
                 </Tab>
             </div>
         </Container>

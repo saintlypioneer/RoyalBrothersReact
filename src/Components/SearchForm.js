@@ -89,6 +89,12 @@ function SearchForm(props) {
     nav('/search')
   };
 
+  //<<<<<<< updated codes >>>>>>>>>>>>>>>>>>>>
+  useEffect(()=>{
+    dispatch(getData())
+  },[])
+
+  //>>>>>>>>>>>>>>>Updated ends>>>>>>>>>>>>>>>>>>>>>>>>>
 
   return (
     <Container isDark={isDark}>

@@ -13,7 +13,7 @@ import { findingDfferenceFunction } from "../Redux/search/action";
 import { useSelector } from "react-redux";
 
 function SearchForm(props) {
-  const isDark = useSelector(state=>state.themeReducer.dark);
+  const isDark = useSelector(state => state.themeReducer.dark);
   const [pickupDate, setPickupDate] = useState(null);
   const [dropoffDate, setDropoffDate] = useState(null);
   const [pickupTime, setPickupTime] = useState(null);
@@ -106,9 +106,12 @@ function SearchForm(props) {
               mx="auto"
               value={pickupDate}
               onChange={setPickupDate}
-              icon={<IconCalendar size="1.1rem" stroke={1.5} />}
+              icon={<IconCalendar size="1.1rem" stroke={1.5}
+              // color={isDark ? "white" : "#2C3333"}
+              // style={{ color: isDark ? "white" : "#2C3333" }}
+              />}
             />
-            <input
+            <input style={{ color: isDark ? "white" : "#2C3333", backgroundColor: isDark ? "#2C3333" : "white" }}
               value={pickupTime}
               onChange={(e) => {
                 setPickupTime(e.target.value);
@@ -132,7 +135,7 @@ function SearchForm(props) {
               onChange={setDropoffDate}
               icon={<IconCalendar size="1.1rem" stroke={1.5} />}
             />
-            <input
+            <input style={{ color: isDark ? "white" : "#2C3333", backgroundColor: isDark ? "#2C3333" : "white" }}
               value={dropoffTime}
               onChange={(e) => {
                 setDropoffTime(e.target.value);
@@ -160,13 +163,13 @@ function SearchForm(props) {
 }
 
 const Container = styled.div`
-  background-color: ${props=>props.isDark?'#2C3333':'white'};
+  background-color: ${props => props.isDark ? '#2C3333' : 'white'};
   width: fit-content;
   min-width: 400px;
   height: fit-content;
   padding: 20px;
   border-radius: 5px;
-  color: ${props=>props.isDark?"white":"#2C3333"};
+  color: ${props => props.isDark ? "white" : "#2C3333"};
 
   .timeSelector {
     width: 100%;

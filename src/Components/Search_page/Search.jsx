@@ -16,9 +16,9 @@ import Relevance from "./Relevance";
 
 export default function Search() {
   return (
-    <Flex pr={'30px'}>
+    <Flex pr={'30px'} >
       <Filter />
-      <Tabs w={"100%"} variant='unstyled'>
+      <Tabs w={"100%"} variant='unstyled' mt={'5px'}>
         <Flex alignItems={"center"}>
           <Text fontSize={"14px"} fontWeight='bold' fontFamily={'Mulish'}>Sort by</Text>
           <TabList>

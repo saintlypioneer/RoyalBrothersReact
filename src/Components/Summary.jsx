@@ -1,6 +1,7 @@
 import { Box, Flex, Image, Text, Select, Input, Button } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Stack, StackDivider } from '@chakra-ui/react';
 
+
 function Summary() {
     const options = ["1", "2"]
 
@@ -71,7 +72,7 @@ function Summary() {
 
                                     <Box my={4} display='flex' justifyContent='space-between' w='100%'>
                                         <Input type="text" mr={2} borderBottom={'1px'} placeholder={'Apply Coupon'} outline={'none'} focusBorderColor={'transparent'} />
-                                        <Button colorScheme="orange" color={'black'} w={200}>Apply</Button>
+                                        <Button bg="brand.500" colorScheme={"brand.500"} color={'black'} w={200}>Apply</Button>
                                     </Box>
 
                                 </Text>

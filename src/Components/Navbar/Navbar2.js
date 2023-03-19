@@ -1,8 +1,7 @@
 import React from "react";
-
 import { IconMenu2 } from "@tabler/icons-react";
 import styled from "styled-components";
-import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Text } from "@chakra-ui/react";
+import { Button, Box, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Input, DrawerFooter, Text, Divider } from "@chakra-ui/react";
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useDisclosure } from "@chakra-ui/react";
 import { useRef } from "react";
@@ -14,8 +13,13 @@ import {
 
 
 function Navbar(props) {
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
+    const btnRef = React.useRef()
+
     return (
-        
+
         <Container>
             <Drawer
                 isOpen={isOpen}

@@ -20,6 +20,15 @@ const Login_Singup_Reducer = (state={userDetails},action) =>{
             ...state,
             isLoggedIn:action.payload
         }
+    }else if(action.type === "LOGOUT"){
+        return{
+            ...state,
+            name:"",
+            email:"",
+            phone:"",
+            password:"",
+            isLoggedIn:action.payload
+        }
     }
 
 

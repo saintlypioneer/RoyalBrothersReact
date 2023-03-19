@@ -35,6 +35,12 @@ function App() {
           }
         />
         {/* <Route path='/checkout' element={<Check />} /> */}
+        <Route path='/search/:id' element={<PrivateRoute><Check /></PrivateRoute>}/>
+        <Route path='/login' element={<LoginHeader/>}/>
+        <Route path='/signUp' element={<LoginHeader/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/profilemenu' element={<ProfileMenu/>}/>
+        <Route path='*' element={<>404</>} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/search" element={<Search />} />
         <Route
@@ -45,10 +51,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/login" element={<LoginHeader />} />
-        <Route path="/signUp" element={<LoginHeader />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="*" element={<>404</>} />
       </Routes>
 
       <Footer />

@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 import { Navigate  } from 'react-router-dom';
 
 export default function PrivateRoute({children}) {
-  const islogin = useSelector((store)=>store.LoginSignupRed).userDetails.isLoggedIn;
+  const islogin = useSelector((store)=>store.LoginSignupRed.isLoggedIn);
+  console.log("inside private", islogin);
   // const location = useLocation()
   
 

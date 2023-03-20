@@ -9,7 +9,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 function Login() {
 
@@ -27,6 +27,8 @@ function Login() {
 
 
 
+
+
     const dispatch = useDispatch();
 
     const toast = useToast()
@@ -34,6 +36,14 @@ function Login() {
     const storedData = useSelector((storeData) => { return storeData.LoginSignupRed })
     // it is for hide and show password
     const [show, setShow] = React.useState(false)
+
+//<<<<<<<<< Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+const navigate = useNavigate();
+const location = useLocation();
+const fromPathname = location?.state?.from?.pathname || '/';
+
+    
+//<<<<<<<<< Ending Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     const handleClick = () => setShow(!show)
 
     // it is for captcha implementation
@@ -51,7 +61,7 @@ function Login() {
                     type:"ISLOGGEDIN",
                     payload:isLoggedIn
                 })
-                nav('/')
+                navigate(fromPathname, { replace: true });
                 return toast({
                     position: 'top',
                     title: 'LoggedIn successfully.',

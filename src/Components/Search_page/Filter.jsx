@@ -42,7 +42,7 @@ export default function Filter() {
   const bikeFilter = useSelector((store) => store.searchReducer.bikeTags);
   const rentalTime = useSelector((store) => store.searchReducer.rentalDetails);
   const dispatch = useDispatch();
-  const [locationFilterData, SetLocationFilterData] = useState([]);
+  //const [locationFilterData, SetLocationFilterData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [dateValue, setDateValue] = useState("");
   const [dropDate, setDropDate] = useState("");
@@ -130,7 +130,7 @@ export default function Filter() {
   };
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+  
   const filterlocation = () => {
     // console.log(locationTags);
     let filted = data.filter((ele) => {
@@ -141,8 +141,20 @@ export default function Filter() {
       }
       return false;
     });
-    SetLocationFilterData(filted);
+    return filted.length>0 ? filted : data;
   };
+
+  const filterByBikeModel = ()=>{
+    let bikeData = filterlocation().filter((ele)=>{
+      for(let i=0; i<bikeFilter.length; i++){
+        if(ele.model.includes(bikeFilter[i])){
+          return true;
+        }
+      }
+      return false
+    })
+    return bikeData.length>0 ? bikeData : filterlocation();
+  }
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleClick = () => {
     // dispatch({ type: FILTER_DATA, payload: locationFilterData });
@@ -152,10 +164,9 @@ export default function Filter() {
     // dispatch(filterbyBikeModel(bikeFilter))
 
     //<<<<<<<<<<<<<<<<<<<<<<<<<< Update begins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    console.log("inside click ", bikeFilter.length);
-    if (bikeFilter) {
-      dispatch(bikeFilterFunction(bikeFilter, dataArrayCity));
-    }
+   let locationFilterData = filterByBikeModel();
+   dispatch({ type: FILTER_DATA, payload: locationFilterData });
+  //  console.log("inside click bike filter data",)
 
     //<<<<<<<<<<<<<<<<<<<<<<<Update Ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -176,6 +187,10 @@ export default function Filter() {
     event.target.type = "time";
   };
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Trying to display selected date in boxes >>>>>>>>>>>>>>>>>>>>>>>>
+
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Trying to display selected date in boxes >>>>>>>>>>>>>>>>>>>>>>>>
   return (
     <Stack
       width={"450px"}

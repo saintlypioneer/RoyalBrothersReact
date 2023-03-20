@@ -23,6 +23,7 @@ import TariffPage from "./Components/tariff_page/TariffPage";
 //clear everything before pushing and merging the codes on github
 
 function App() {
+  
   return (
     <div className="App">
       <Banner title="Our delay policy has been changed" />

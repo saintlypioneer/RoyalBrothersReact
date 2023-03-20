@@ -37,5 +37,6 @@ const Container = styled.div`
     font-family: Mulish;
     font-size: 0.9rem;
     color: black;
+    font-size:12px;
   }
 `;

@@ -18,6 +18,7 @@ import ProfilePage from "./Components/Login/ProfilePage";
 import SignUP from "./Components/Login/signup";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Banner from "./Components/Banner/Banner";
+
 import ResetPassword from "./Components/Login/ResetPassword";
 
 //clear everything before pushing and merging the codes on github
@@ -38,6 +39,12 @@ function App() {
           }
         />
         {/* <Route path='/checkout' element={<Check />} /> */}
+        <Route path='/search/:id' element={<PrivateRoute><Check /></PrivateRoute>}/>
+        <Route path='/login' element={<LoginHeader/>}/>
+        <Route path='/signUp' element={<LoginHeader/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/profilemenu' element={<ProfileMenu/>}/>
+        <Route path='*' element={<>404</>} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/search" element={<Search />} />
         <Route
@@ -62,4 +69,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

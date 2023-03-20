@@ -131,7 +131,9 @@ function SignUP() {
     return (
         <Center>
             <Box w={'375px'} h={'520px'} boxShadow='2xl' >
-                <form >
+                <form onSubmit={(e)=>{
+                    e.preventDefault();
+                }>
                     <Flex direction='column' p='0px 25px 0px 25px'>
                         <Input mt='32px' variant='filled'
                             placeholder='Name as per Aadhaar/Passport'
@@ -196,7 +198,7 @@ function SignUP() {
                                 />
                             </Box>
                         </Center>
-                        <Box mb='8px' as='button' h='50px' w='325px'
+                        <Box mb='8px' type="submit" as='button' h='50px' w='325px'
                             onClick={() => { SaveUserDetails(); Registered() }} bg='#fed250' borderRadius='4px'>
                             <Center h='50px'><Heading size='sm'>Sign Up</Heading></Center>
                         </Box>

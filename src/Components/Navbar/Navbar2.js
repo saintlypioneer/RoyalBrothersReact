@@ -35,7 +35,7 @@ function Navbar(props) {
 
 
     const isUserLoggedIn = useSelector((storeData) => {
-        return storeData.LoginSignupRed.userDetails.isLoggedIn
+        return storeData.LoginSignupRed.isLoggedIn
 
     })
     
@@ -89,7 +89,7 @@ function Navbar(props) {
               <DrawerCard>Indian Bike Routes</DrawerCard>
               <DrawerCard>About Us</DrawerCard>
               <DrawerCard>Terms & Condition</DrawerCard>
-              <DrawerCard>Bike Tour</DrawerCard>
+              <DrawerCard><Link to='/biketour'>Bike Tour</Link></DrawerCard>
               <DrawerCard>Privacy Policy</DrawerCard>
               <DrawerCard>FAQ</DrawerCard>
               <DrawerCard>Reach Us</DrawerCard>
@@ -132,6 +132,7 @@ function Navbar(props) {
                     <Link to={"/tarrif"}>Tarrif</Link>
                 </CustomButton>
                 <CustomButton>What's New?</CustomButton>
+                <CustomButton><Link to='/offers'>Offers</Link></CustomButton>
                 <CustomButton>Partner with us</CustomButton>
             </Center>
             <Right isDark={isDark}>
@@ -145,7 +146,7 @@ function Navbar(props) {
                 <Box className="divider" borderLeft="1px solid rgba(0,0,0,0.2)" height="100%" />
                 <Box>
                    {
-                    (isUserLoggedIn) ? <ProfileMenu/> : <NavWithoutLogin/>
+                    isUserLoggedIn ? <ProfileMenu/> : <NavWithoutLogin/>
                    }
                 </Box>
                 {/* <IconButton

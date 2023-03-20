@@ -1,8 +1,10 @@
 import React from "react";
 import {
     Box, Center, FormLabel, Input, Flex,
+
     InputLeftAddon, InputGroup, VStack, InputRightElement,FormControl,
     Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useAccordion, Toast, useToast, FormHelperText, FormErrorMessage, Alert, AlertIcon, Text,
+
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import ReCAPTCHA from "react-google-recaptcha";
@@ -131,7 +133,9 @@ function SignUP() {
     return (
         <Center>
             <Box w={'375px'} h={'520px'} boxShadow='2xl' >
+
                 <FormControl>
+
                     <Flex direction='column' p='0px 25px 0px 25px'>
                         <Input mt='32px' variant='filled'
                             placeholder='Name as per Aadhaar/Passport'
@@ -191,14 +195,15 @@ function SignUP() {
                         <Center mb='28px'>
                             <Box h='75px' w='300px' borderRadius='3px' border='1px solid #DCDCDC'>
                                 <ReCAPTCHA
-                                    sitekey="6Le6tRYlAAAAAN4jAB45xuyPJVuvZzm_kBZNpYsZ"
+                                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                                     onChange={onChange}
                                 />
                             </Box>
                         </Center>
-                        <Box mb='8px' type="submit" as='button' h='50px' w='325px'
-                            onClick={() => { SaveUserDetails(); Registered() }} bg='#fed250' borderRadius='4px'>
-                            <Center h='50px'><Heading size='sm'>Sign Up</Heading></Center>
+                        <Box mb='8px' as='button' h='50px' w='325px'
+                             bg='#fed250' borderRadius='4px' onClick={() => { SaveUserDetails(); Registered()}}>
+                            <Center h='50px'><Heading size='sm' >Sign Up</Heading></Center>
+
                         </Box>
                     </Flex>
                 </FormControl>

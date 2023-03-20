@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Navigate  } from 'react-router-dom';
 
 export default function PrivateRoute({children}) {
-  const {isLoggedIn} = useSelector((store)=>store.LoginSignupRed.useDetails);
+  const islogin = useSelector((store)=>store.LoginSignupRed).userDetails.isLoggedIn;
   // const location = useLocation()
   
 
@@ -12,7 +12,7 @@ export default function PrivateRoute({children}) {
 
 //<<<<<<<<< Ending Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  if(!isLoggedIn) return <Navigate to='/' />
+  if(!islogin) return <Navigate to='/login'/>
   return children
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Tag, TagLabel, TagCloseButton } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { LOCATION_TAG_ADD,LOCATION_TAG_REMOVE } from "./redux/myride/actiontype";
+import { LOCATION_TAG_ADD,LOCATION_TAG_REMOVE } from "../../Redux/myrides/actiontype";
 
 export default function TagComp({tag}) {
 const dispatch = useDispatch();
@@ -9,7 +9,7 @@ const dispatch = useDispatch();
 
   return (
     <Tag
-      size={"md"}
+      size={"md"} 
       borderRadius="full"
       variant="solid"
       bg={"#f2f2f2"}

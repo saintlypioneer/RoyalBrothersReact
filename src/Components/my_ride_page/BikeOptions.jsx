@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack,Checkbox,Flex } from '@chakra-ui/react';
 import { useSelector,useDispatch } from 'react-redux';
-import { BIKE_TAG_ADD,BIKE_TAG_REMOVE } from './redux/myride/actiontype';
+import { BIKE_TAG_ADD,BIKE_TAG_REMOVE } from '../../Redux/myrides/actiontype';
 
 export default function BikeOptions() {
     const data = useSelector((store)=> store.myRideReducer.vehicles)

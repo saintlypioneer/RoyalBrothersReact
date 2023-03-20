@@ -54,15 +54,7 @@ function MyRides(props) {
 
   return (
     <Box m={5}>
-      <Button
-        m={5}
-        onClick={() => {
-          setData(dataArr);
-        }}
-        fontFamily={"Mulish"}
-      >
-        ADD DATA
-      </Button>
+     
       {dataArr.length > 0 ? (
         <Flex columnGap={5} flexDirection={['column','column','column','row','row']}>
           <Box w={["100%","100%","100%","40%","30%"]}>

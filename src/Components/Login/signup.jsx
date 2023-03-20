@@ -1,7 +1,7 @@
 import React from "react";
 import {
     Box, Center, FormLabel, Input, Flex,
-    InputLeftAddon, InputGroup, VStack, InputRightElement,
+    InputLeftAddon, InputGroup, VStack, InputRightElement,FormControl,
     Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useAccordion, Toast, useToast, FormHelperText, FormErrorMessage, Alert, AlertIcon, Text,
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
@@ -131,9 +131,7 @@ function SignUP() {
     return (
         <Center>
             <Box w={'375px'} h={'520px'} boxShadow='2xl' >
-                <form onSubmit={(e)=>{
-                    e.preventDefault();
-                }>
+                <FormControl>
                     <Flex direction='column' p='0px 25px 0px 25px'>
                         <Input mt='32px' variant='filled'
                             placeholder='Name as per Aadhaar/Passport'
@@ -203,7 +201,7 @@ function SignUP() {
                             <Center h='50px'><Heading size='sm'>Sign Up</Heading></Center>
                         </Box>
                     </Flex>
-                </form>
+                </FormControl>
             </Box>
         </Center>
     )

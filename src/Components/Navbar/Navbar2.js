@@ -82,14 +82,14 @@ function Navbar(props) {
               <DrawerCard>
               <Link to="/search">Search</Link>
               </DrawerCard>
-              <DrawerCard>Partner With You</DrawerCard>
               <DrawerCard>
                 <Link to="/blogs">Blog</Link>
               </DrawerCard>
+              <DrawerCard>Partner With You</DrawerCard>
+              <DrawerCard><Link to='/biketour'>Bike Tour</Link></DrawerCard>
               <DrawerCard>Indian Bike Routes</DrawerCard>
               <DrawerCard>About Us</DrawerCard>
               <DrawerCard>Terms & Condition</DrawerCard>
-              <DrawerCard><Link to='/biketour'>Bike Tour</Link></DrawerCard>
               <DrawerCard>Privacy Policy</DrawerCard>
               <DrawerCard>FAQ</DrawerCard>
               <DrawerCard>Reach Us</DrawerCard>

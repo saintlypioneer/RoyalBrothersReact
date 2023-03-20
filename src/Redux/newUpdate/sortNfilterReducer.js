@@ -1,24 +1,44 @@
-import React from 'react'
-import { HIGHT_TO_LOW, LOW_TO_HIGH } from './actionType';
+import React from "react";
+import {
+  HIGHT_TO_LOW,
+  LOW_TO_HIGH,
+  SORTED_HIGH_LOW_FILTER,
+  SORTED_LOW_HIGH_FILTER,
+} from "./actionType";
 
-let initialState ={
-    lowToHigh : [],
-    highToLow : []
-}
+let initialState = {
+  lowToHigh: [],
+  highToLow: [],
+  sortedLowToHigh: [],
+  sortedHighToLow: [],
+};
 
-export default function sortNfilterReducer(state=initialState,{type,payload}) {
-  switch(type){
+export default function sortNfilterReducer(
+  state = initialState,
+  { type, payload }
+) {
+  switch (type) {
     case LOW_TO_HIGH:
-    return{
+      return {
         ...state,
-        lowToHigh:payload
-    }
+        lowToHigh: payload,
+      };
     case HIGHT_TO_LOW:
-    return{
+      return {
         ...state,
-        highToLow:payload
-    }
+        highToLow: payload,
+      };
+    case SORTED_LOW_HIGH_FILTER:
+      return {
+        ...state,
+        sortedLowToHigh: payload,
+      };
+    case SORTED_HIGH_LOW_FILTER:
+      return {
+        ...state,
+        sortedHighToLow: payload,
+      };
     default:
-        return state;
+      return state;
   }
 }

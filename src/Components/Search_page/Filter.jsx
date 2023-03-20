@@ -25,8 +25,8 @@ import {
   findingDfferenceFunction,
   rentalDateAndTimeFunction,
 } from "../../Redux/search/action";
-import { BIKE_FILTER } from "../../Redux/newUpdate/actionType";
-import { bikeFilterFunction } from "../../Redux/newUpdate/action";
+import { BIKE_FILTER, SORTED_HIGH_LOW_FILTER, SORTED_LOW_HIGH_FILTER } from "../../Redux/newUpdate/actionType";
+import { bikeFilterFunction, sortHighToLow, sortLowToHigh } from "../../Redux/newUpdate/action";
 
 export default function Filter() {
   const locationTags = useSelector((store) => store.searchReducer.locationTags);
@@ -155,6 +155,7 @@ export default function Filter() {
     })
     return bikeData.length>0 ? bikeData : filterlocation();
   }
+  
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleClick = () => {
     // dispatch({ type: FILTER_DATA, payload: locationFilterData });
@@ -163,12 +164,18 @@ export default function Filter() {
     // });
     // dispatch(filterbyBikeModel(bikeFilter))
 
-    //<<<<<<<<<<<<<<<<<<<<<<<<<< Update begins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<<< Update begins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
    let locationFilterData = filterByBikeModel();
+   console.log("inside location store data",locationFilterData)
    dispatch({ type: FILTER_DATA, payload: locationFilterData });
-  //  console.log("inside click bike filter data",)
+  let sortedLowToHighData = [...locationFilterData].sort(sortLowToHigh)
+  // console.log("inside click bike filter data",sortedLowToHigh)
+  dispatch({type:SORTED_LOW_HIGH_FILTER,payload:sortedLowToHighData})
 
-    //<<<<<<<<<<<<<<<<<<<<<<<Update Ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  let sortedHighToLowData = [...locationFilterData].sort(sortHighToLow)
+  dispatch({type:SORTED_HIGH_LOW_FILTER,payload:sortedHighToLowData})
+
+  //<<<<<<<<<<<<<<<<<<<<<<<Update Ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     dispatch(
       rentalDateAndTimeFunction({

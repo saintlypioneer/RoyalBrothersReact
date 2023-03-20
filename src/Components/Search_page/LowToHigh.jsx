@@ -12,6 +12,9 @@ export default function LowToHigh() {
   const lowArray = useSelector((store) => store.sortNfilterReducer.lowToHigh);
   const loading = useSelector((store) => store.searchReducer.isLoading);
   const duration = useSelector((store) => store.searchReducer.rentalDetails);
+  // const filterData = useSelector((store)=>store.searchReducer.filterData)
+  // console.log(filterData);
+  const sortedNFilteredData = useSelector((store)=>store.sortNfilterReducer.sortedLowToHigh)
 
   useEffect(() => {
     dispatch(sortFunction("asc"));
@@ -37,7 +40,9 @@ export default function LowToHigh() {
         gap={6}
       >
         {loading && <SkeletonComp />}
-        {lowArray.map((ele, idx) => {
+        {sortedNFilteredData.length>0 ? sortedNFilteredData.map((ele,idx)=>{
+            return <CardComp {...ele} key={ele.id} {...duration} />
+        }) : lowArray.map((ele, idx) => {
           return <CardComp {...ele} key={ele.id} {...duration} />;
         })}
       </Grid>

@@ -208,7 +208,7 @@ export default function CardComp({
             <Link to={`/search/${id}`}>
               <Button
                 bg={"#fed250"}
-                width="150px"
+                width={['80px','100px',"150px"]}
                 _hover={{
                   background: "yellow.400",
                   boxShadow:

@@ -25,3 +25,12 @@ export const bikeFilterFunction = (bikeFilter, dataArrayCity) => (dispatch) => {
   });
   console.log(result);
 };
+
+//<<<<<<<<<<<<<<<<<<<< Sort Low to hight >>>>>>>>>>>>>>>>>>>>>>>>>>
+export function sortLowToHigh(a,b){
+  return a.price - b.price
+}
+
+export function sortHighToLow(a,b){
+  return b.price - a.price
+}

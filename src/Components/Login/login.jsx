@@ -22,12 +22,12 @@ function Login() {
 
     const nav = useNavigate()
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
-        setIsLoggedIn(true)
+    // useEffect(() => {
+    //     setIsLoggedIn(true)
 
-    }, [Login])
+    // }, [Login])
 
 
 
@@ -38,6 +38,8 @@ function Login() {
     const toast = useToast()
 
     const storedData = useSelector((storeData) => { return storeData.LoginSignupRed })
+    const login = useSelector((store)=> store.LoginSignupRed.userDetails.isLoggedIn)
+    console.log("checking login value",login)
     // it is for hide and show password
     const [show, setShow] = React.useState(false)
 
@@ -57,6 +59,7 @@ function Login() {
     }
     // it is for forget passowrd functioanality
     const FogetPassword = () => {
+        // nav('/forgetPage')
         if (phone.length == 10 && (!isCaptchCheckedIn)) {
             return toast({
                 position: 'top-right',
@@ -75,9 +78,8 @@ function Login() {
                 duration: 2000,
                 isClosable: true,
             })
-        } if (phone.length == 10 && isCaptchCheckedIn) {
-            // nav('/fogotpassword')
-
+        } if (phone.length == 10 && isCaptchCheckedIn) {   
+            
         }
     }
 
@@ -89,9 +91,9 @@ function Login() {
             // console.log(storedData.isLoggedIn)
             dispatch({
                 type: "ISLOGGEDIN",
-                payload: isLoggedIn
+                payload: !login
             })
-            // nav('/')
+            nav('/')
             return toast({
                 position: 'top',
                 title: 'LoggedIn successfully.',
@@ -110,7 +112,7 @@ function Login() {
                 duration: 2000,
                 isClosable: true,
             })
-        } else if (phone.length == 0 && password.length == 0(!isCaptchCheckedIn)) {
+        } else if (phone.length == 0 && password.length == 0 && (!isCaptchCheckedIn)) {
 
             return toast({
                 position: 'top-right',
@@ -166,7 +168,7 @@ function Login() {
 
             <Box w={'375px'} h={'515px'} boxShadow='2xl'>
 
-                <form>
+                <FormControl>
 
                     <FormLabel>
                         <Box mt='20px' pl='25px' justify='right'>Phone</Box>
@@ -177,7 +179,7 @@ function Login() {
                         <InputGroup>
                             <Flex>
                                 <InputLeftAddon children='+91' />
-                                <Input type="tle" width='263px'
+                                <Input type="tel" width='263px'
                                     value={phone} onChange={handlePhone}
                                 />
                             </Flex>
@@ -240,11 +242,23 @@ function Login() {
                     <Center>
                         <Link to='/loginwithotp'>
                             <Box bg='#E8E8E8' as='button' h='50px' w='325px' >
-                                <Center h='50px'><Heading size='sm' onClick={LoginWithOtp}>Login with OTP</Heading></Center>
+                                <Center h='50px'><Heading size='sm' onClick={() => {
+                            toast({
+                                title: 'an OTP has been sent to you phone!',
+                                description: "Chill man",
+                                status: 'success',
+                                duration: 3000,
+                                isClosable: true,
+                            });
+                            setTimeout(() => {
+                                return nav("/forgetpage")
+
+                            }, 3000); // Redirect after 3 seconds
+                        }}>Login with OTP</Heading></Center>
                             </Box>
                         </Link>
                     </Center>
-                </form>
+                </FormControl>
 
             </Box>
 

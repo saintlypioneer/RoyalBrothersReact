@@ -20,6 +20,8 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import ProfileMenu from "./Components/Login/ProfileMenu";
 import Banner from "./Components/Banner/Banner";
 import TariffPage from "./Components/tariff_page/TariffPage";
+import BikeTour from "./Components/Bike_tour_page/BikeTour";
+import OfferPage from './Components/offerpage/OfferPage'
 // import MyRides from "./Components/my_ride_page/MyRides";
 
 import ResetPassword from "./Components/Login/ResetPassword";
@@ -43,7 +45,7 @@ function App() {
           }
         />
         {/* <Route path='/checkout' element={<Check />} /> */}
-        <Route path='/search/:id' element={<PrivateRoute><Check /></PrivateRoute>}/>
+        <Route path='/search/id' element={<PrivateRoute><Check/></PrivateRoute>}/>
         <Route path='/login' element={<LoginHeader/>}/>
         <Route path='/signUp' element={<LoginHeader/>}/>
         <Route path='/profile' element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
@@ -52,6 +54,9 @@ function App() {
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/search" element={<Search />} />
         <Route path="/tarrif" element={<TariffPage />} />
+        <Route path="/biketour" element={<BikeTour/>}/>
+        <Route path="/offers" element={<OfferPage/>}/>
+        <Route path="/forgetPage" element={<ForgetPassword/>} />
         {/* <Route path="/rides" element={<MyRides />} /> */}
         <Route
           path="/search/:id"

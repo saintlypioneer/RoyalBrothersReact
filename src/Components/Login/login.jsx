@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import {
     Box, Center, FormControl, FormLabel, Input, Flex,
     InputLeftAddon, InputGroup, VStack, InputRightElement,
-    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useToast,
+    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useToast, Text,
 } from '@chakra-ui/react'
 import ReCAPTCHA from "react-google-recaptcha";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { useNavigate,useLocation } from "react-router-dom";
 
 function Login() {
@@ -16,14 +17,18 @@ function Login() {
     // states for collecting data 
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [phoneError, setPhoneError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [isCaptchCheckedIn, setIsCaptchaCheckedIn] = useState(false);
+
     const nav = useNavigate()
 
-    const [isLoggedIn,setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() =>{
+    useEffect(() => {
         setIsLoggedIn(true)
-        
-    },[Login])
+
+    }, [Login])
 
 
 
@@ -49,41 +54,65 @@ const fromPathname = location?.state?.from?.pathname || '/';
     // it is for captcha implementation
     function onChange(value) {
         // console.log("Captcha value:", value);
+        setIsCaptchaCheckedIn(true)
     }
-   
+    // it is for forget passowrd functioanality
+    const FogetPassword = () => {
+        if (phone.length == 10 && (!isCaptchCheckedIn)) {
+            return toast({
+                position: 'top-right',
+                title: 'Please verify capthca',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+        } if (phone.length == 0) {
+            return toast({
+                position: 'top-right',
+                title: 'Enter phone number',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+        } if (phone.length == 10 && isCaptchCheckedIn) {
+            // nav('/fogotpassword')
+
+        }
+    }
+
 
     const CheakUserDetails = () => {
-        if (phone, password) {
-            if (phone === storedData.phone && password === storedData.password) {
-               
-                // console.log(storedData.isLoggedIn)
-                dispatch({
-                    type:"ISLOGGEDIN",
-                    payload:isLoggedIn
-                })
-                navigate(fromPathname, { replace: true });
-                return toast({
-                    position: 'top',
-                    title: 'LoggedIn successfully.',
-                    // description: "Welcome to RoyalBrothers.com.",
-                    status: 'success',
-                    duration: 2000,
-                    isClosable: true,
-                })
+        if (phone === storedData.phone && password === storedData.password
+            && (isCaptchCheckedIn)) {
 
-            } else {
-                return toast({
-                    position: 'top-right',
-                    title: 'Invalid phone/password combination',
-                    // description: "Welcome to RoyalBrothers.com.",
-                    status: 'error',
-                    duration: 2000,
-                    isClosable: true,
+            // console.log(storedData.isLoggedIn)
+            dispatch({
+                type: "ISLOGGEDIN",
+                payload: isLoggedIn
+            })
+            nav('/')
+            return toast({
+                position: 'top',
+                title: 'LoggedIn successfully.',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+            })
 
-                })
-            }
-        } 
-        else {
+        } else if (phone.length == 10 && password.length < 6 && (!isCaptchCheckedIn)) {
+            return toast({
+                position: 'top-right',
+                title: 'Please verify capthca',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+        } else if (phone.length == 0 && password.length == 0(!isCaptchCheckedIn)) {
+
             return toast({
                 position: 'top-right',
                 title: 'Enter user details',
@@ -94,14 +123,51 @@ const fromPathname = location?.state?.from?.pathname || '/';
 
             })
         }
+        else {
+            return toast({
+                position: 'top-right',
+                title: 'Invalid phone/password combination',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+
+            })
+        }
+
+
     }
 
+    const handlePhone = (e) => {
+        let phone = e.target.value
+        if (phone.length == 10) {
+            setPhoneError(false)
+        } else {
+            setPhoneError(true)
+        }
+        setPhone(phone)
+    }
+
+    const handlePassword = (e) => {
+        let password = e.target.value
+        if (password.length < 6) {
+            setPasswordError(true)
+        } else {
+            setPasswordError(false)
+        }
+        setPassword(password);
+    }
+
+    // it is for login by using otp functionality
+    const LoginWithOtp = () => {
+
+    }
     return (
         <Center >
 
             <Box w={'375px'} h={'515px'} boxShadow='2xl'>
 
-                <FormControl isRequired>
+                <form>
 
                     <FormLabel>
                         <Box mt='20px' pl='25px' justify='right'>Phone</Box>
@@ -110,22 +176,28 @@ const fromPathname = location?.state?.from?.pathname || '/';
                     <Flex direction='column' p='0px 25px 0px 25px'>
 
                         <InputGroup>
-                            <Flex mb='30px'>
+                            <Flex>
                                 <InputLeftAddon children='+91' />
                                 <Input type="tle" width='263px'
-                                    value={phone} onChange={(e) => { setPhone(e.target.value) }}
+                                    value={phone} onChange={handlePhone}
                                 />
                             </Flex>
                         </InputGroup>
+                        {/* it is for showing phone number error */}
+                        <Box mb='30px'>
+                            {
+                                (phoneError) ? <Text fontSize='xs' color='red'>Phone number must have 10 digits</Text> : ""
+                            }
+                        </Box>
 
-                        <InputGroup size='md' mb='13px'>
+                        <InputGroup size='md'>
 
                             <Input
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
                                 variant='filled'
                                 placeholder='Enter password'
-                                value={password} onChange={(e) => { setPassword(e.target.value) }}
+                                value={password} onChange={handlePassword}
                             />
 
                             <InputRightElement width='4.5rem'>
@@ -135,17 +207,23 @@ const fromPathname = location?.state?.from?.pathname || '/';
                             </InputRightElement>
 
                         </InputGroup>
+                        {/* it is for showing password error */}
+                        <Box mb='13px'>
+                            {
+                                (passwordError) ? <Text fontSize='xs' color='red'>Password must be greater than 5 digits</Text> : ""
+                            }
+                        </Box>
 
                         <Flex mb='27px'>
                             <Box><Checkbox>Remember password?</Checkbox></Box>
                             <Spacer />
-                            <Box fontSize='sm' color='blue'>Forgot Password?</Box>
+                            <Link to='/fogotpassword'><Box as='button' onClick={FogetPassword} fontSize='sm' color='blue'>Forgot Password?</Box></Link>
                         </Flex>
 
                         <Center mb='28px'>
                             <Box h='75px' w='300px' borderRadius='3px' border='1px solid #DCDCDC'>
                                 <ReCAPTCHA
-                                    sitekey="6LcguwIlAAAAAD-l07fJdd2jip29l8WkXxskAhrc"
+                                    sitekey="6Le6tRYlAAAAAN4jAB45xuyPJVuvZzm_kBZNpYsZ"
                                     onChange={onChange}
                                 />
                             </Box>
@@ -153,19 +231,21 @@ const fromPathname = location?.state?.from?.pathname || '/';
 
                         <Box mb='8px' as='button' h='50px' w='325px'
                             bg='#fed250' borderRadius='4px'
-                            onClick={CheakUserDetails }
-                            >
+                            onClick={CheakUserDetails}
+                        >
                             <Center h='50px'><Heading size='sm'>Login with Password</Heading></Center>
                         </Box>
 
                     </Flex>
                     <Center mb='8px'>OR</Center>
                     <Center>
-                        <Box bg='#E8E8E8' as='button' h='50px' w='325px' >
-                            <Center h='50px'><Heading size='sm'>Login with OTP</Heading></Center>
-                        </Box>
+                        <Link to='/loginwithotp'>
+                            <Box bg='#E8E8E8' as='button' h='50px' w='325px' >
+                                <Center h='50px'><Heading size='sm' onClick={LoginWithOtp}>Login with OTP</Heading></Center>
+                            </Box>
+                        </Link>
                     </Center>
-                </FormControl>
+                </form>
 
             </Box>
 

@@ -114,3 +114,4 @@ function ProfilePage() {
     )
 }
 export default ProfilePage;
+// added navigation

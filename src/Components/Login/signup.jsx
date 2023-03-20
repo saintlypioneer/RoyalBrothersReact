@@ -1,8 +1,8 @@
 import React from "react";
 import {
-    Box, Center, FormControl, FormLabel, Input, Flex,
+    Box, Center, FormLabel, Input, Flex,
     InputLeftAddon, InputGroup, VStack, InputRightElement,
-    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useAccordion, Toast, useToast, FormHelperText, FormErrorMessage, Alert, AlertIcon,
+    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useAccordion, Toast, useToast, FormHelperText, FormErrorMessage, Alert, AlertIcon, Text,
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import ReCAPTCHA from "react-google-recaptcha";
@@ -14,10 +14,19 @@ function SignUP() {
 
     const toast = useToast()
     // states for collecting data 
-    const [name, setName] = useState("Vishwajeet");
-    const [email, setEmail] = useState("vishwajeet@gmail.com");
-    const [phone, setPhone] = useState("9876543210");
-    const [password, setPassword] = useState("royal");
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const [nameError, setNameError] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [isCaptchCheckedIn, setIsCaptchaCheckedIn] = useState(false);
+
+    const EmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
 
     const UserDetailsObj = { name, email, phone, password }
 
@@ -32,8 +41,8 @@ function SignUP() {
     }
 
     const Registered = () => {
-        if (name.length >=3 && email.length >= 4 && 
-            phone.length == 10 && password.length >= 4) {
+        if (name.length >= 3 && email.match(EmailRegex) &&
+            phone.length == 10 && password.length >= 6 && (isCaptchCheckedIn)) {
 
             return toast({
                 position: 'top',
@@ -43,13 +52,24 @@ function SignUP() {
                 duration: 2000,
                 isClosable: true,
             })
-               
-        }else{
+
+        } else if (name.length >= 3 && email.match(EmailRegex) &&
+            phone.length == 10 && password.length >= 6 && (!isCaptchCheckedIn)) {
+            return toast({
+                position: 'top-right',
+                title: 'Please verify capthca',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+        } else if (name.length == 0 || email.length == 0 ||
+            phone.length == 0 || password.length == 0 || (!isCaptchCheckedIn)) {
             return toast({
                 position: 'top',
-                title: 'Invalid Enteries',
+                title: 'Please fill all the details',
                 // description: "Welcome to RoyalBrothers.com.",
-                status: 'error',
+                status: 'warning',
                 duration: 2000,
                 isClosable: true,
             })
@@ -63,49 +83,115 @@ function SignUP() {
     // it is for capthca implementation
     function onChange(value) {
         // console.log("Captcha value:", value);
+        setIsCaptchaCheckedIn(true)
     }
+    // it is for validation
+    const handleName = (e) => {
+        let name = e.target.value;
+        if (name.length < 3) {
+            setNameError(true)
+        } else {
+            setNameError(false)
+        }
+        setName(name);
+    }
+
+    const handlePhone = (e) => {
+        let phone = e.target.value
+        if (phone.length == 10) {
+            setPhoneError(false)
+        } else {
+            setPhoneError(true)
+        }
+        setPhone(phone)
+    }
+
+    const handlePassword = (e) => {
+        let password = e.target.value
+        if (password.length < 5) {
+            setPasswordError(true)
+        } else {
+            setPasswordError(false)
+        }
+        setPassword(password)
+    }
+
+    const handleEmail = (e) => {
+        let email = e.target.value
+        if (!email.match(EmailRegex)) {
+            setEmailError(true)
+        } else {
+            setEmailError(false)
+        }
+        setEmail(email)
+    }
+
+
 
     return (
         <Center>
             <Box w={'375px'} h={'520px'} boxShadow='2xl' >
-
-                <FormControl >
+                <form >
                     <Flex direction='column' p='0px 25px 0px 25px'>
-                        <Input mt='32px' mb='32px' variant='filled'
+                        <Input mt='32px' variant='filled'
                             placeholder='Name as per Aadhaar/Passport'
-                            value={name} onChange={(e) => { setName(e.target.value) }}
-                           />
+                            value={name} onChange={handleName}
+                        />
+                        {/* it is for showing name error */}
+                        <Box mb='32px'>{
+                            (nameError) ? <Text fontSize='xs' color='red'>Name must be greater than 2 characters</Text> : ""
+                        }
+                        </Box>
 
-                        <Input mb='5px' variant='filled' placeholder='Email'
-                            value={email} onChange={(e) => { setEmail(e.target.value) }} />
+                        <Input variant='filled' placeholder='Email'
+                            value={email} onChange={handleEmail} />
+                        {/* it is for showing email error */}
+                        <Box mb='5px'>
+                            {
+                                (emailError) ? <Text fontSize='xs' color='red'>Invalid E-mail</Text> : ""
+                            }
+                        </Box>
                         <FormLabel>
                             <Box pl='5px' justify='right'>Mobile</Box>
                         </FormLabel>
                         <InputGroup>
-                            <Flex mb='32px'>
+                            <Flex >
                                 <InputLeftAddon children='+91' />
                                 <Input type="tle" placeholder='As per Aadhaar' width='263px'
-                                    value={phone} onChange={(e) => { setPhone(e.target.value) }} />
+                                    value={phone} onChange={handlePhone} />
                             </Flex>
                         </InputGroup>
-                        <InputGroup size='md' mb='32px'>
+                        {/* it is for showing phone error */}
+                        <Box mb='32px'>
+                            {
+                                (phoneError) ? <Text fontSize='xs' color='red'>Phone number must have 10 digits</Text> : ""
+                            }
+                        </Box>
+                        <InputGroup size='md'>
                             <Input
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
                                 variant='filled'
                                 placeholder='Enter password'
-                                value={password} onChange={(e) => { setPassword(e.target.value) }}
+                                value={password} onChange={handlePassword}
                             />
+
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='lg' onClick={handleClick}>
                                     {show ? <ViewOffIcon /> : <ViewIcon />}
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
+                        {/* it is for showing password error */}
+                        <Box mb='32px'>
+                            {
+                                (passwordError) ? <Text fontSize='xs' color='red'>Password must be greater than 5 digits</Text> : ""
+                            }
+                        </Box>
                         <Center mb='28px'>
                             <Box h='75px' w='300px' borderRadius='3px' border='1px solid #DCDCDC'>
                                 <ReCAPTCHA
-                                    sitekey="6LcguwIlAAAAAD-l07fJdd2jip29l8WkXxskAhrc"
+                                    sitekey="6Le6tRYlAAAAAN4jAB45xuyPJVuvZzm_kBZNpYsZ"
                                     onChange={onChange}
                                 />
                             </Box>
@@ -115,7 +201,7 @@ function SignUP() {
                             <Center h='50px'><Heading size='sm'>Sign Up</Heading></Center>
                         </Box>
                     </Flex>
-                </FormControl>
+                </form>
             </Box>
         </Center>
     )

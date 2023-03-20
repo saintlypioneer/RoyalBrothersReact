@@ -148,7 +148,6 @@ function Navbar(props) {
                    {
                     (isUserLoggedIn) ? <ProfileMenu/> : <NavWithoutLogin/>
                    }
-
                 </Box>
                 {/* <IconButton
                     colorScheme={!isDark ? 'blackAlpha' : 'whiteAlpha'}

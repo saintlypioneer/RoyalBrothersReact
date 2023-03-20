@@ -9,7 +9,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
 
@@ -44,6 +44,31 @@ function Login() {
     function onChange(value) {
         // console.log("Captcha value:", value);
         setIsCaptchaCheckedIn(true)
+    }
+    // it is for forget passowrd functioanality
+    const FogetPassword = () => {
+        if (phone.length == 10 && (!isCaptchCheckedIn)) {
+            return toast({
+                position: 'top-right',
+                title: 'Please verify capthca',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+        } if (phone.length == 0) {
+            return toast({
+                position: 'top-right',
+                title: 'Enter phone number',
+                // description: "Welcome to RoyalBrothers.com.",
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
+        } if (phone.length == 10 && isCaptchCheckedIn) {
+            // nav('/fogotpassword')
+
+        }
     }
 
 
@@ -121,6 +146,11 @@ function Login() {
         }
         setPassword(password);
     }
+
+    // it is for login by using otp functionality
+    const LoginWithOtp = () => {
+
+    }
     return (
         <Center >
 
@@ -176,13 +206,13 @@ function Login() {
                         <Flex mb='27px'>
                             <Box><Checkbox>Remember password?</Checkbox></Box>
                             <Spacer />
-                            <Box fontSize='sm' color='blue'>Forgot Password?</Box>
+                            <Link to='/fogotpassword'><Box as='button' onClick={FogetPassword} fontSize='sm' color='blue'>Forgot Password?</Box></Link>
                         </Flex>
 
                         <Center mb='28px'>
                             <Box h='75px' w='300px' borderRadius='3px' border='1px solid #DCDCDC'>
                                 <ReCAPTCHA
-                                    sitekey="6LcguwIlAAAAAD-l07fJdd2jip29l8WkXxskAhrc"
+                                    sitekey="6Le6tRYlAAAAAN4jAB45xuyPJVuvZzm_kBZNpYsZ"
                                     onChange={onChange}
                                 />
                             </Box>
@@ -198,9 +228,11 @@ function Login() {
                     </Flex>
                     <Center mb='8px'>OR</Center>
                     <Center>
-                        <Box bg='#E8E8E8' as='button' h='50px' w='325px' >
-                            <Center h='50px'><Heading size='sm'>Login with OTP</Heading></Center>
-                        </Box>
+                        <Link to='/loginwithotp'>
+                            <Box bg='#E8E8E8' as='button' h='50px' w='325px' >
+                                <Center h='50px'><Heading size='sm' onClick={LoginWithOtp}>Login with OTP</Heading></Center>
+                            </Box>
+                        </Link>
                     </Center>
                 </form>
 

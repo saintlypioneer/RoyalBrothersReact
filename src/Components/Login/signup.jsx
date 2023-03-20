@@ -190,7 +190,7 @@ function SignUP() {
                         <Center mb='28px'>
                             <Box h='75px' w='300px' borderRadius='3px' border='1px solid #DCDCDC'>
                                 <ReCAPTCHA
-                                    sitekey="6LcguwIlAAAAAD-l07fJdd2jip29l8WkXxskAhrc"
+                                    sitekey="6Le6tRYlAAAAAN4jAB45xuyPJVuvZzm_kBZNpYsZ"
                                     onChange={onChange}
                                 />
                             </Box>

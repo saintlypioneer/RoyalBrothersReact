@@ -29,7 +29,7 @@ function ProfileMenu() {
                     <MenuItem>
                         <Flex gap='15px'>
                             <BiCalendarPlus fontSize='20px' />
-                            <Text>My Rides</Text>
+                            <Text as='button' onClick={() =>{navigate('/myrides')}}>My Rides</Text>
                         </Flex>
                     </MenuItem>
                     <MenuItem>

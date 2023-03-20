@@ -12,7 +12,7 @@ export default function PrivateRoute({children,...rest}) {
 
 //<<<<<<<<< Ending Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  if(!isLoggedIn) return <Navigate to={{ pathname: '/login', state: { from: rest.location.pathname } }} replace />
+  if(!isLoggedIn) return <Navigate to='/' />
   return children
 }
 

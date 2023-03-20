@@ -1,8 +1,10 @@
 import React from "react";
 import {
     Box, Center, FormLabel, Input, Flex,
-    InputLeftAddon, InputGroup, VStack, InputRightElement,
-    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useAccordion, Toast, useToast, FormHelperText, FormErrorMessage, Alert, AlertIcon, Text, FormControl,
+
+    InputLeftAddon, InputGroup, VStack, InputRightElement,FormControl,
+    Button, Checkbox, Spacer, Image, Heading, Wrap, WrapItem, useAccordion, Toast, useToast, FormHelperText, FormErrorMessage, Alert, AlertIcon, Text,
+
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import ReCAPTCHA from "react-google-recaptcha";
@@ -131,7 +133,9 @@ function SignUP() {
     return (
         <Center>
             <Box w={'375px'} h={'520px'} boxShadow='2xl' >
-                <FormControl >
+
+                <FormControl>
+
                     <Flex direction='column' p='0px 25px 0px 25px'>
                         <Input mt='32px' variant='filled'
                             placeholder='Name as per Aadhaar/Passport'
@@ -199,6 +203,7 @@ function SignUP() {
                         <Box mb='8px' as='button' h='50px' w='325px'
                              bg='#fed250' borderRadius='4px' onClick={() => { SaveUserDetails(); Registered()}}>
                             <Center h='50px'><Heading size='sm' >Sign Up</Heading></Center>
+
                         </Box>
                     </Flex>
                 </FormControl>

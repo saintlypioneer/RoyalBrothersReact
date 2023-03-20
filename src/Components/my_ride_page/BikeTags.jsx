@@ -1,7 +1,7 @@
 import React from "react";
 import { Tag, TagLabel, TagCloseButton } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
-import { BIKE_TAG_REMOVE } from "./redux/myride/actiontype";
+import { BIKE_TAG_REMOVE } from "../../Redux/myrides/actiontype";
 
 export default function BikeTags({bikeTag}) {
     const dispatch = useDispatch();

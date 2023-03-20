@@ -27,9 +27,9 @@ import {
   STATUS_CANCEL,
   STATUS_COMPLETE,
   STATUS_PENDING,
-} from "./redux/myride/actiontype";
+} from "../../Redux/myrides/actiontype";
 import { useSearchParams } from "react-router-dom";
-import { getMyRide } from "./redux/myride/actionmyride";
+import { getMyRide } from "../../Redux/myrides/actionmyride";
 
 export default function MyRideFilter() {
   const locationTags = useSelector((store) => store.myRideReducer.locationTags);

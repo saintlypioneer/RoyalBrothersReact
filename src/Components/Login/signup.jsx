@@ -13,8 +13,8 @@ function SignUP() {
     const dispatch = useDispatch();
 
     const toast = useToast()
-
     // states for collecting data 
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -26,6 +26,7 @@ function SignUP() {
     const [isCaptchCheckedIn, setIsCaptchaCheckedIn] = useState(false);
 
     const EmailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
 
     const UserDetailsObj = { name, email, phone, password }
 

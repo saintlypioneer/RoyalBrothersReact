@@ -1,11 +1,18 @@
 import React, { Children } from 'react'
 import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom';
+import { Navigate,useLocation  } from 'react-router-dom';
 
-export default function PrivateRoute({children}) {
+export default function PrivateRoute({children,...rest}) {
   const {isLoggedIn} = useSelector((store)=>store.LoginSignupRed);
+  const location = useLocation()
+  
 
-  if(!isLoggedIn) return <Navigate to='/login' />
+  //<<<<<<<<< Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+//<<<<<<<<< Ending Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+  if(!isLoggedIn) return <Navigate to={{ pathname: '/login', state: { from: rest.location.pathname } }} replace />
   return children
 }
 

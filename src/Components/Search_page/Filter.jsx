@@ -25,11 +25,14 @@ import {
   findingDfferenceFunction,
   rentalDateAndTimeFunction,
 } from "../../Redux/search/action";
+import { BIKE_FILTER, SORTED_HIGH_LOW_FILTER, SORTED_LOW_HIGH_FILTER } from "../../Redux/newUpdate/actionType";
+import { bikeFilterFunction, sortHighToLow, sortLowToHigh } from "../../Redux/newUpdate/action";
 
 export default function Filter() {
   const locationTags = useSelector((store) => store.searchReducer.locationTags);
   const bikeTags = useSelector((store) => store.searchReducer.bikeTags);
   const data = useSelector((store) => store.searchReducer.cityData);
+  const dataArrayCity = useSelector((store) => store.searchReducer.cityData);
   const durationOfRent = useSelector(
     (store) => store.searchReducer.rentalDetails
   );
@@ -37,15 +40,17 @@ export default function Filter() {
     (store) => store.searchReducer.duration
   );
   const bikeFilter = useSelector((store) => store.searchReducer.bikeTags);
-  const rentalTime = useSelector((store)=>store.searchReducer.rentalDetails)
+  const rentalTime = useSelector((store) => store.searchReducer.rentalDetails);
   const dispatch = useDispatch();
-  const [locationFilterData, SetLocationFilterData] = useState([]);
+  //const [locationFilterData, SetLocationFilterData] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [dateValue, setDateValue] = useState(rentalTime.pickupDate);
-  const [dropDate, setDropDate] = useState(rentalTime.dropoffDate);
-  const [pickTime, setPickTime] = useState(rentalTime.pickupTime);
-  const [dropTime, setDropTime] = useState(rentalTime.dropoffTime);
+  const [dateValue, setDateValue] = useState("");
+  const [dropDate, setDropDate] = useState("");
+  const [pickTime, setPickTime] = useState("");
+  const [dropTime, setDropTime] = useState("");
   const [inputLocation, setInputLocation] = useState();
+
+  console.log("checking bike tags details", bikeFilter);
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Taking input search location data >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleSearchLocationInput = (event) => {
@@ -125,7 +130,7 @@ export default function Filter() {
   };
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Ends <<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+  
   const filterlocation = () => {
     // console.log(locationTags);
     let filted = data.filter((ele) => {
@@ -136,33 +141,52 @@ export default function Filter() {
       }
       return false;
     });
-    SetLocationFilterData(filted);
+    return filted.length>0 ? filted : data;
   };
+
+  const filterByBikeModel = ()=>{
+    let bikeData = filterlocation().filter((ele)=>{
+      for(let i=0; i<bikeFilter.length; i++){
+        if(ele.model.includes(bikeFilter[i])){
+          return true;
+        }
+      }
+      return false
+    })
+    return bikeData.length>0 ? bikeData : filterlocation();
+  }
+  
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleClick = () => {
-    dispatch({ type: FILTER_DATA, payload: locationFilterData });
+    // dispatch({ type: FILTER_DATA, payload: locationFilterData });
     // setSearchParams({
     //   location: locationTags,
     // });
     // dispatch(filterbyBikeModel(bikeFilter))
 
+  //<<<<<<<<<<<<<<<<<<<<<<<<<< Update begins >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+   let locationFilterData = filterByBikeModel();
+   console.log("inside location store data",locationFilterData)
+   dispatch({ type: FILTER_DATA, payload: locationFilterData });
+  let sortedLowToHighData = [...locationFilterData].sort(sortLowToHigh)
+  // console.log("inside click bike filter data",sortedLowToHigh)
+  dispatch({type:SORTED_LOW_HIGH_FILTER,payload:sortedLowToHighData})
+
+  let sortedHighToLowData = [...locationFilterData].sort(sortHighToLow)
+  dispatch({type:SORTED_HIGH_LOW_FILTER,payload:sortedHighToLowData})
+
+  //<<<<<<<<<<<<<<<<<<<<<<<Update Ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
     dispatch(
       rentalDateAndTimeFunction({
-        pickupDate: dateValue,
-        pickupTime: pickTime,
-        dropoffDate: dropDate,
-        dropoffTime: dropTime,
+        pickupDate: dateValue === "" ? rentalTime.pickupDate : dateValue,
+        pickupTime: pickTime === "" ? rentalTime.pickupTime : pickTime,
+        dropoffDate: dropDate === "" ? rentalTime.dropoffDate : dropDate,
+        dropoffTime: dropTime === "" ? rentalTime.dropoffTime : dropTime,
       })
     );
   };
 
-  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ButtonClick Function Ends>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  useEffect(() => {
-    filterlocation();
-    dispatch(findingDfferenceFunction(durationOfRent));
-  }, [locationTags, durationOfRent,rentalTime]);
-
-  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< To display symbol of date on clicking >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const handleFocusDate = (event) => {
     event.target.type = "date";
   };
@@ -170,6 +194,10 @@ export default function Filter() {
     event.target.type = "time";
   };
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Ends >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Trying to display selected date in boxes >>>>>>>>>>>>>>>>>>>>>>>>
+
+
+  //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Trying to display selected date in boxes >>>>>>>>>>>>>>>>>>>>>>>>
   return (
     <Stack
       width={"450px"}
@@ -207,7 +235,7 @@ export default function Filter() {
                 placeholder=""
                 min={min}
                 name="pickupDate"
-                value={dateValue}
+                // value={rentalTime.pickupDate}
                 borderBottom={"1px solid #c1c1c1"}
                 onFocus={handleFocusDate}
                 onChange={handleDateChange}
@@ -223,7 +251,7 @@ export default function Filter() {
                 type="text"
                 placeholder=""
                 onFocus={handleFocusTime}
-                value={pickTime}
+                // value={rentalTime.pickupTime}
                 //min={timeNow}
                 name="pickTime"
                 borderBottom={"1px solid #c1c1c1"}
@@ -243,7 +271,7 @@ export default function Filter() {
                 placeholder=""
                 min={min}
                 name="dropDate"
-                value={dropDate}
+                // value={rentalTime.dropoffDate}
                 onFocus={handleFocusDate}
                 onChange={handleDateChange}
                 borderBottom={"1px solid #c1c1c1"}
@@ -259,7 +287,7 @@ export default function Filter() {
                 type="text"
                 // min={timeNow}
                 name="dropTime"
-                value={dropTime}
+                // value={rentalTime.dropoffTime}
                 placeholder=""
                 onFocus={handleFocusTime}
                 borderBottom={"1px solid #c1c1c1"}

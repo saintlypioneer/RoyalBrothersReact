@@ -89,6 +89,12 @@ function SearchForm(props) {
     nav('/search')
   };
 
+  //<<<<<<< updated codes >>>>>>>>>>>>>>>>>>>>
+  useEffect(()=>{
+    dispatch(getData())
+  },[])
+
+  //>>>>>>>>>>>>>>>Updated ends>>>>>>>>>>>>>>>>>>>>>>>>>
 
   return (
     <Container isDark={isDark}>
@@ -191,8 +197,8 @@ const Container = styled.div`
   }
 
   .submit {
-    background-color: black;
-    color: white;
+    background-color: #fed250;
+    color: black;
     padding: 5px 10px;
     width: 100%;
     border-radius: 5px;

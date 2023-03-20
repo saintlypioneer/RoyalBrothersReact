@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 function Login() {
 
@@ -31,6 +32,8 @@ function Login() {
 
 
 
+
+
     const dispatch = useDispatch();
 
     const toast = useToast()
@@ -38,6 +41,14 @@ function Login() {
     const storedData = useSelector((storeData) => { return storeData.LoginSignupRed })
     // it is for hide and show password
     const [show, setShow] = React.useState(false)
+
+//<<<<<<<<< Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+const navigate = useNavigate();
+const location = useLocation();
+const fromPathname = location?.state?.from?.pathname || '/';
+
+    
+//<<<<<<<<< Ending Trying redirecting to last path >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     const handleClick = () => setShow(!show)
 
     // it is for captcha implementation
@@ -73,7 +84,6 @@ function Login() {
 
 
     const CheakUserDetails = () => {
-
         if (phone === storedData.phone && password === storedData.password
             && (isCaptchCheckedIn)) {
 
@@ -102,6 +112,7 @@ function Login() {
                 isClosable: true,
             })
         } else if (phone.length == 0 && password.length == 0(!isCaptchCheckedIn)) {
+
             return toast({
                 position: 'top-right',
                 title: 'Enter user details',

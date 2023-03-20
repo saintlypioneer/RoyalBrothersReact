@@ -27,7 +27,7 @@ export const getData = () => (dispatch) => {
 //put request to change pickup and drop off time
 
 export const rentalDateAndTimeFunction = (payload) => (dispatch) => {
-  console.log(payload);
+  console.log("Inside Rental Data",payload);
   dispatch({ type: RENTAL_DETAILS_REQUEST });
   axios
     .put(`${url}/rentalDetails`, payload)
@@ -67,6 +67,7 @@ export const findingDfferenceFunction = (payload) => (dispatch) => {
     hours,
     minutes
   }
+  console.log("inside finding difference",durationDetails)
   dispatch({type:SET_DURATION,payload:durationDetails})
 };
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Filter by Bike model >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

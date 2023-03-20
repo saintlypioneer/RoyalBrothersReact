@@ -1,3 +1,4 @@
+import { Flex } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -31,6 +32,7 @@ function Check() {
 
         <div className="App">
             <Container>
+                <Flex bg={"#fed250"}></Flex>
                 <Summary {...state} location={checkData.location} total={total} setTotal={setTotal} rentalData={rentalData} />
                 <Checkout total={total} />
             </Container>

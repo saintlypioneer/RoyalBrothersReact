@@ -17,16 +17,20 @@ import Checkout from "./Components/Checkout";
 import ProfilePage from "./Components/Login/ProfilePage";
 import SignUP from "./Components/Login/signup";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import ProfileMenu from "./Components/Login/ProfileMenu";
 import Banner from "./Components/Banner/Banner";
+import TariffPage from "./Components/tariff_page/TariffPage";
+// import MyRides from "./Components/my_ride_page/MyRides";
 
 import ResetPassword from "./Components/Login/ResetPassword";
 
 //clear everything before pushing and merging the codes on github
 
 function App() {
+  
   return (
     <div className="App">
-      <Banner />
+      <Banner title="Our delay policy has been changed" />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -42,11 +46,13 @@ function App() {
         <Route path='/search/:id' element={<PrivateRoute><Check /></PrivateRoute>}/>
         <Route path='/login' element={<LoginHeader/>}/>
         <Route path='/signUp' element={<LoginHeader/>}/>
-        <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/profile' element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
         <Route path='/profilemenu' element={<ProfileMenu/>}/>
         <Route path='*' element={<>404</>} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/tarrif" element={<TariffPage />} />
+        {/* <Route path="/rides" element={<MyRides />} /> */}
         <Route
           path="/search/:id"
           element={

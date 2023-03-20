@@ -34,12 +34,11 @@ function Navbar(props) {
     const [selectedCity, setSelectedCity] = useState("Bangalore")
 
 
-
     const isUserLoggedIn = useSelector((storeData) => {
-        return storeData.LoginSignupRed.isLoggedIn
+        return storeData.LoginSignupRed.userDetails.isLoggedIn
 
     })
-    console.log(isUserLoggedIn)
+    
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure({ defaultIsOpen: true });
@@ -52,14 +51,14 @@ function Navbar(props) {
     const dispatchTheme = useDispatch();
 
     function updateTheme() {
-        console.log(isDark)
+        // console.log(isDark)
         if (isDark) {
             dispatchTheme(setLightMode());
         } else {
             dispatchTheme(setDarkMode());
         }
     }
-  
+    console.log("Checking login auth",isUserLoggedIn)
 
   return (
     <Container isDark={isDark}>

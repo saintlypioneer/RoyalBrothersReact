@@ -15,6 +15,7 @@ import {
   Button,
   CardFooter,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import React from "react";
 
 function TariffCard({onOpen,data}) {
@@ -390,7 +391,11 @@ function TariffCard({onOpen,data}) {
         
       </CardBody>
       <CardFooter mt={16} p={0}>
-      <Button fontFamily={'Mulish'} colorScheme={'yellow'} bg={'#fed969'} width={'100%'} onClick={onOpen} >BOOK NOW</Button>
+      <Box  width={'100%'} >
+      <Link  to={`/search/${data.id}`}>
+      <Button fontFamily={'Mulish'} borderRadius={0} colorScheme={'yellow'} bg={'#fed969'} width={'100%'} onClick={onOpen} >BOOK NOW</Button>
+      </Link>
+      </Box>
       </CardFooter>
     </Card>
     

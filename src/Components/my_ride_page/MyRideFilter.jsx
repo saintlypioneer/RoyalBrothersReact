@@ -197,7 +197,6 @@ export default function MyRideFilter() {
             <Text
               fontSize={"14px"}
               fontWeight="bold"
-              mb={2}
               fontFamily={"Mulish"}
             >
               Search by Location
@@ -210,21 +209,7 @@ export default function MyRideFilter() {
                 return <TagComp key={idx} tag={ele} />;
               })}
           </Flex>
-          <InputGroup>
-            <Input
-              variant={"flushed"}
-              placeholder="Search Location"
-              size={"xs"}
-              fontSize={"14px"}
-              borderBottom={"1px solid #c1c1c1"}
-            />
-            <InputRightElement
-              pointerEvents="none"
-              children={<GrSearch />}
-              size={"xs"}
-              mt={-2}
-            />
-          </InputGroup>
+        
         </Box>
         <Box>
           <MyRideOverflow />
@@ -234,7 +219,7 @@ export default function MyRideFilter() {
             <Text
               fontSize={"14px"}
               fontWeight="bold"
-              mb={2}
+             
               fontFamily={"Mulish"}
             >
               Search by bike model
@@ -247,21 +232,7 @@ export default function MyRideFilter() {
                 return <BikeTags key={idx} bikeTag={ele} />;
               })}
           </Flex>
-          <InputGroup>
-            <Input
-              variant={"flushed"}
-              placeholder="Search Bike Model"
-              fontSize={"14px"}
-              size={"xs"}
-              borderBottom={"1px solid #c1c1c1"}
-            />
-            <InputRightElement
-              pointerEvents="none"
-              children={<GrSearch />}
-              size={"xs"}
-              mt={-2}
-            />
-          </InputGroup>
+
         </Box>
         <Box>
           <BikeOptions />

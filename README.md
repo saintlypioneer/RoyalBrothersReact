@@ -1,6 +1,7 @@
 # Royal Brothers Bike Rental Platform 🏍️✨🌏
 
-![Royal Brothers Banner](banner.png)
+https://symphonious-cupcake-6a58b9.netlify.app/
+
 
 Experience the thrill of Royal Brothers' ReactJS bike rental platform! Explore mobility solutions in 14 states, 43 cities, and 3 international hotspots. Rent scooters, motorcycles, and superbikes via web and mobile app!
 
@@ -14,7 +15,6 @@ Experience the thrill of Royal Brothers' ReactJS bike rental platform! Explore m
 
 ## Features 🚀
 
-![Features](features.png)
 
 - 🌍 Wide variety of locations: 14 states, 43 cities, and 3 international destinations.
 - 🏍️ Extensive vehicle selection: Scooters, motorcycles, and superbikes.
@@ -29,15 +29,13 @@ To get started with the project, follow these steps:
 1. Clone the repository:
 ```git clone https://github.com/yourusername/royal-brothers.git```
 2. Install dependencies:
-```cd royal-brothers
-npm install```
+```cd royal-brothers```
+```npm install```
 3. Start the development server:
 ```npm start```
 
 
 ## Usage 🎮
-
-![Usage](usage.png)
 
 1. Browse available vehicles by location.
 2. Select your desired rental period.
@@ -48,8 +46,8 @@ npm install```
 
 We welcome contributions to Royal Brothers! Here's how you can help:
 
-- Report bugs or request features by opening an [issue](https://github.com/yourusername/royal-brothers/issues).
-- Submit bug fixes or new features by creating a [pull request](https://github.com/yourusername/royal-brothers/pulls).
+- Report bugs or request features by opening an [issue](https://github.com/saintlypioneer/RoyalBrothersReact/issues).
+- Submit bug fixes or new features by creating a [pull request](https://github.com/saintlypioneer/RoyalBrothersReact/pulls).
 
 ## Support 🙌
 

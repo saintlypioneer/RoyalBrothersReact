@@ -218,13 +218,13 @@ function Login() {
                         <Flex mb='27px'>
                             <Box><Checkbox>Remember password?</Checkbox></Box>
                             <Spacer />
-                            <Link to='/fogotpassword'><Box as='button' onClick={FogetPassword} fontSize='sm' color='blue'>Forgot Password?</Box></Link>
+                            <Link to='/forgetpage'><Box as='button' onClick={FogetPassword} fontSize='sm' color='blue'>Forgot Password?</Box></Link>
                         </Flex>
 
                         <Center mb='28px'>
                             <Box h='75px' w='300px' borderRadius='3px' border='1px solid #DCDCDC'>
                                 <ReCAPTCHA
-                                    sitekey="6Le6tRYlAAAAAN4jAB45xuyPJVuvZzm_kBZNpYsZ"
+                                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                                     onChange={onChange}
                                 />
                             </Box>

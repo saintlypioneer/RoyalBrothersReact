@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import MyRideFilter from "./MyRideFilter";
 import RideCard from "./RideCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getMyRide } from "./redux/myride/actionmyride";
+import { getMyRide } from "../../Redux/myrides/actionmyride";
 import axios from "axios";
 import SkeletonComp from "./SkeletonComp";
 import { useLocation, useSearchParams } from "react-router-dom";

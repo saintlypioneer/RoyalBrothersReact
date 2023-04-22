@@ -1,7 +1,7 @@
 import { Stack, Flex, Checkbox, Box, Divider } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LOCATION_TAG_ADD,LOCATION_TAG_REMOVE } from "./redux/myride/actiontype";
+import { LOCATION_TAG_ADD,LOCATION_TAG_REMOVE } from "../../Redux/myrides/actiontype";
 
 export default function MyRideOverflow() {
 

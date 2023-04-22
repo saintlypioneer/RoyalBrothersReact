@@ -41,7 +41,7 @@ function Navbar(props) {
     
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure({ defaultIsOpen: true });
+    const { isOpen: isModalOpen, onOpen: onModalOpen, onClose: onModalClose } = useDisclosure();
 
     // useEffect(() => { onModalClose(true) }, [])
 

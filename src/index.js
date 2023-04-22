@@ -5,7 +5,8 @@ import App from "./App";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./Redux/store";
+import { persistedStore, store } from "./Redux/store";
+import { PersistGate } from 'redux-persist/integration/react'
 
 const theme = extendTheme({
   colors: {
@@ -24,7 +25,9 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <ChakraProvider theme={theme}>
+        <PersistGate loading={null} persistor={persistedStore}>
         <App />
+        </PersistGate>
       </ChakraProvider>
     </BrowserRouter>
   </Provider>
